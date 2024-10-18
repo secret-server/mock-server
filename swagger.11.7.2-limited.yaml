@@ -1,0 +1,5549 @@
+swagger: '2.0'
+info:
+  title: Secret Server Rest API
+  description: >-
+    REST API documentation for Secret Server. This document describes how to use
+    the REST API. All requests require an authentication token; please see the
+    <a href="../OAuth/">authentication document</a> for more information. The <a
+    href="swagger.json">Swagger specification</a> for this API is also
+    available.
+  termsOfService: https://delinea.com/eula
+  contact:
+    name: Support
+    url: https://delinea.com
+  version: 11.7.2
+basePath: /SecretServer
+schemes:
+  - http
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /oauth2/token:
+    post:
+      tags:
+        - Authentication
+      summary: Retrieve or Refresh Access Token
+      description: >-
+        Retrieve an access token for use with other API requests or refresh an
+        access token.
+      operationId: OAuth2Service_Authorize
+      consumes:
+        - application/x-www-form-urlencoded
+      parameters:
+        - name: grant_type
+          in: formData
+          description: >-
+            Authentication grant type.  Use 'password' when authenticating, and
+            'refresh_token' when refreshing a token.
+          required: true
+          type: string
+          enum:
+            - password
+            - refresh_token
+        - name: username
+          in: formData
+          description: >-
+            Secret Server authentication username.  Required when
+            authenticating.
+          required: false
+          type: string
+        - name: password
+          in: formData
+          description: >-
+            Secret Server authentication password.  Required when
+            authenticating.
+          required: false
+          type: string
+        - name: refresh_token
+          in: formData
+          description: The refresh token.  Required when refreshing a token.
+          required: false
+          type: string
+      responses:
+        '200':
+          description: Successful retrieval of an access token
+          schema:
+            $ref: '#/definitions/TokenResponse'
+        '400':
+          description: An error occurred
+          schema:
+            $ref: '#/definitions/TokenErrorResponse'
+  /api/v1/users/{id}:
+    get:
+      tags:
+        - Users
+      summary: Get User
+      description: Get a single user by ID
+      operationId: UsersService_Get
+      parameters:
+        - name: includeInactive
+          in: query
+          description: Whether to include inactive users in the results
+          required: false
+          type: boolean
+        - name: id
+          in: path
+          description: User ID
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: User object
+          schema:
+            $ref: '#/definitions/UserModel'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+    put:
+      tags:
+        - Users
+      summary: Update User
+      description: Update a single user by ID
+      operationId: UsersService_UpdateUser
+      parameters:
+        - name: args
+          in: body
+          description: User update options
+          required: false
+          schema:
+            $ref: '#/definitions/UserUpdateArgs'
+            description: User update options
+        - name: id
+          in: path
+          description: User ID
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: User object
+          schema:
+            $ref: '#/definitions/UserModel'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+    patch:
+      tags:
+        - Users
+      summary: Update included properties for user by Id
+      description: Update included properties for user by Id
+      operationId: UsersService_PatchUser
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+        - name: patchModel
+          in: body
+          description: patchModel
+          required: false
+          schema:
+            $ref: '#/definitions/PatchUserModel'
+            description: patchModel
+      responses:
+        '200':
+          description: User Configuration
+          schema:
+            $ref: '#/definitions/UserModel'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+  /api/v1/users/{id}/roles:
+    get:
+      tags:
+        - Users
+      summary: Gets roles for user
+      description: Gets roles for user
+      operationId: UsersService_GetRoles
+      parameters:
+        - name: skip
+          in: query
+          description: Number of records to skip before taking results
+          required: false
+          type: integer
+          format: int32
+        - name: sortBy[0].direction
+          in: query
+          description: Sort direction
+          required: false
+          type: string
+        - name: sortBy[0].name
+          in: query
+          description: Sort field name
+          required: false
+          type: string
+        - name: sortBy[0].priority
+          in: query
+          description: Priority index. Sorts with lower values are executed earlier
+          required: false
+          type: integer
+          format: int32
+        - name: take
+          in: query
+          description: Maximum number of records to include in results
+          required: false
+          type: integer
+          format: int32
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Success / Fail
+          schema:
+            $ref: '#/definitions/PagingOfRoleSummary'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+    put:
+      tags:
+        - Users
+      summary: Update all roles on user
+      description: Update all roles on user
+      operationId: UsersService_UpdateUserRoles
+      parameters:
+        - name: args
+          in: body
+          description: args
+          required: false
+          schema:
+            $ref: '#/definitions/RoleAssignments'
+            description: args
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Success / Fail
+          schema:
+            $ref: '#/definitions/RoleChangeStatusModel'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+    post:
+      tags:
+        - Users
+      summary: Add roles to existing user
+      description: Add roles to existing user
+      operationId: UsersService_CreateUserRoles
+      parameters:
+        - name: args
+          in: body
+          description: args
+          required: false
+          schema:
+            $ref: '#/definitions/RoleAssignments'
+            description: args
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Success / Fail
+          schema:
+            $ref: '#/definitions/RoleChangeStatusModel'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+  /api/v1/users/{userId}/roles-assigned:
+    get:
+      tags:
+        - Users
+      summary: Get User Roles
+      description: Get the roles for a user by ID
+      operationId: UsersService_GetUserRoles
+      parameters:
+        - name: skip
+          in: query
+          description: Number of records to skip before taking results
+          required: false
+          type: integer
+          format: int32
+        - name: sortBy[0].direction
+          in: query
+          description: Sort direction
+          required: false
+          type: string
+        - name: sortBy[0].name
+          in: query
+          description: Sort field name
+          required: false
+          type: string
+        - name: sortBy[0].priority
+          in: query
+          description: Priority index. Sorts with lower values are executed earlier
+          required: false
+          type: integer
+          format: int32
+        - name: take
+          in: query
+          description: Maximum number of records to include in results
+          required: false
+          type: integer
+          format: int32
+        - name: userId
+          in: path
+          description: User ID
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: User role summary
+          schema:
+            $ref: '#/definitions/PagingOfUserRoleSummary'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+  /api/v1/users/lookup:
+    get:
+      tags:
+        - Users
+      summary: Lookup Users
+      description: Search, filter, sort, and page users, returning only user ID and name
+      operationId: UsersService_Lookup
+      parameters:
+        - name: filter.domainId
+          in: query
+          description: If not null, filters users by Active Directory domain.
+          required: false
+          x-nullable: true
+          type: integer
+          format: int32
+        - name: filter.excludeInboxRuleIdSubscribers
+          in: query
+          description: >-
+            When set all subscribers not subscribed directly to this inbox
+            notification rule will be excluded.
+          required: false
+          x-nullable: true
+          type: integer
+          format: int32
+        - name: filter.includeInactive
+          in: query
+          description: Whether to include inactive users in the results.
+          required: false
+          type: boolean
+        - name: filter.searchFields
+          in: query
+          description: User fields to search.
+          required: false
+          collectionFormat: multi
+          items:
+            type: string
+          type: array
+        - name: filter.searchText
+          in: query
+          description: The text to match in the username, display name, or email address.
+          required: false
+          type: string
+        - name: filter.userIds
+          in: query
+          description: User Ids to search.
+          required: false
+          collectionFormat: multi
+          items:
+            type: integer
+          type: array
+        - name: skip
+          in: query
+          description: Number of records to skip before taking results
+          required: false
+          type: integer
+          format: int32
+        - name: sortBy[0].direction
+          in: query
+          description: Sort direction
+          required: false
+          type: string
+        - name: sortBy[0].name
+          in: query
+          description: Sort field name
+          required: false
+          type: string
+        - name: sortBy[0].priority
+          in: query
+          description: Priority index. Sorts with lower values are executed earlier
+          required: false
+          type: integer
+          format: int32
+        - name: take
+          in: query
+          description: Maximum number of records to include in results
+          required: false
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: User search result object
+          schema:
+            $ref: '#/definitions/PagingOfUserLookup'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+  /api/v1/roles/{id}:
+    get:
+      tags:
+        - Roles
+      summary: Get Role
+      description: Get Role by Role ID
+      operationId: RolesService_Get
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Role model result object
+          schema:
+            $ref: '#/definitions/RoleModel'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+    patch:
+      tags:
+        - Roles
+      summary: Update Role
+      description: Update a single Role by ID
+      operationId: RolesService_Update
+      parameters:
+        - name: args
+          in: body
+          description: Role update options
+          required: false
+          schema:
+            $ref: '#/definitions/RolePatchArgs'
+            description: Role update options
+        - name: id
+          in: path
+          description: Role ID
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Role object
+          schema:
+            $ref: '#/definitions/RoleModel'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+  /api/v1/roles:
+    get:
+      tags:
+        - Roles
+      summary: Search Roles
+      description: Search, filter, sort, and page Roles
+      operationId: RolesService_GetAll
+      parameters:
+        - name: filter.groupId
+          in: query
+          description: >-
+            Only return roles assigned to this group id.  Will be ignored if
+            UserId is set
+          required: false
+          x-nullable: true
+          type: integer
+          format: int32
+        - name: filter.includeInactive
+          in: query
+          description: Whether to include inactive Roles in the results
+          required: false
+          type: boolean
+        - name: filter.userId
+          in: query
+          description: >-
+            Only return roles assigned to this user id.  Will supercede GroupId
+            if set
+          required: false
+          x-nullable: true
+          type: integer
+          format: int32
+        - name: skip
+          in: query
+          description: Number of records to skip before taking results
+          required: false
+          type: integer
+          format: int32
+        - name: sortBy[0].direction
+          in: query
+          description: Sort direction
+          required: false
+          type: string
+        - name: sortBy[0].name
+          in: query
+          description: Sort field name
+          required: false
+          type: string
+        - name: sortBy[0].priority
+          in: query
+          description: Priority index. Sorts with lower values are executed earlier
+          required: false
+          type: integer
+          format: int32
+        - name: take
+          in: query
+          description: Maximum number of records to include in results
+          required: false
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Role search result object
+          schema:
+            $ref: '#/definitions/PagingOfRoleModel'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+    post:
+      tags:
+        - Roles
+      summary: Create Role
+      description: Create a new Role
+      operationId: RolesService_Create
+      parameters:
+        - name: args
+          in: body
+          description: args
+          required: false
+          schema:
+            $ref: '#/definitions/RoleCreateArgs'
+            description: args
+      responses:
+        '200':
+          description: Role object
+          schema:
+            $ref: '#/definitions/RoleModel'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+  /api/v1/roles/{id}/groups:
+    get:
+      tags:
+        - Roles
+      summary: Get Role Groups
+      description: Get assigned Groups by RoleId
+      operationId: RolesService_GetRoleGroups
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+        - name: filter.includeInactiveUsersForGroup
+          in: query
+          description: Whether to include inactive users in the results
+          required: false
+          type: boolean
+        - name: filter.userDomainId
+          in: query
+          description: Filter only users in a specific domain
+          required: false
+          x-nullable: true
+          type: integer
+          format: int32
+        - name: skip
+          in: query
+          description: Number of records to skip before taking results
+          required: false
+          type: integer
+          format: int32
+        - name: sortBy[0].direction
+          in: query
+          description: Sort direction
+          required: false
+          type: string
+        - name: sortBy[0].name
+          in: query
+          description: Sort field name
+          required: false
+          type: string
+        - name: sortBy[0].priority
+          in: query
+          description: Priority index. Sorts with lower values are executed earlier
+          required: false
+          type: integer
+          format: int32
+        - name: take
+          in: query
+          description: Maximum number of records to include in results
+          required: false
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Role Group summary result object
+          schema:
+            $ref: '#/definitions/PagingOfRoleGroupSummaryAndGroupMembershipFilter'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+  /api/v1/roles/{id}/permissions:
+    get:
+      tags:
+        - Roles
+      summary: Get Assigned Role Permissions
+      description: Get Permissions assigned to a single Role by Role ID
+      operationId: RolesService_GetRolePermissions
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+        - name: skip
+          in: query
+          description: Number of records to skip before taking results
+          required: false
+          type: integer
+          format: int32
+        - name: sortBy[0].direction
+          in: query
+          description: Sort direction
+          required: false
+          type: string
+        - name: sortBy[0].name
+          in: query
+          description: Sort field name
+          required: false
+          type: string
+        - name: sortBy[0].priority
+          in: query
+          description: Priority index. Sorts with lower values are executed earlier
+          required: false
+          type: integer
+          format: int32
+        - name: take
+          in: query
+          description: Maximum number of records to include in results
+          required: false
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Role Permission model result object
+          schema:
+            $ref: '#/definitions/PagingOfRolePermissionModel'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+    put:
+      tags:
+        - Roles
+      summary: Update Role Permission Assignments
+      description: Update all Permissions assigned to Role
+      operationId: RolesService_UpdatePermissions
+      parameters:
+        - name: args
+          in: body
+          description: args
+          required: false
+          schema:
+            $ref: '#/definitions/RolePermissionsAssignmentRequest'
+            description: args
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Success / Fail
+          schema:
+            $ref: '#/definitions/RolePermissionsAssignmentResponse'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+  /api/v1/roles/{id}/permissions/unassigned:
+    get:
+      tags:
+        - Roles
+      summary: Get Unassigned Role Permissions
+      description: >-
+        Get unassigned Role Permissions matching the type of a specific Role by
+        Role ID
+      operationId: RolesService_GetAllRolePermissionsByType
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+        - name: skip
+          in: query
+          description: Number of records to skip before taking results
+          required: false
+          type: integer
+          format: int32
+        - name: sortBy[0].direction
+          in: query
+          description: Sort direction
+          required: false
+          type: string
+        - name: sortBy[0].name
+          in: query
+          description: Sort field name
+          required: false
+          type: string
+        - name: sortBy[0].priority
+          in: query
+          description: Priority index. Sorts with lower values are executed earlier
+          required: false
+          type: integer
+          format: int32
+        - name: take
+          in: query
+          description: Maximum number of records to include in results
+          required: false
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Role model result object
+          schema:
+            $ref: '#/definitions/PagingOfRolePermissionModel'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+  /api/v1/roles/stub:
+    get:
+      tags:
+        - Roles
+      summary: Get Role Stub
+      description: Return the default values for a new Role
+      operationId: RolesService_Stub
+      parameters: []
+      responses:
+        '200':
+          description: Role object
+          schema:
+            $ref: '#/definitions/RoleModel'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+  /api/v1/roles/{roleId}/groups:
+    patch:
+      tags:
+        - Roles
+      summary: Patch Role Group Assignments
+      description: >-
+        Update Groups assigned to a Role by sending list(s) of Group IDs to
+        add/remove
+      operationId: RolesService_PatchGroups
+      parameters:
+        - name: args
+          in: body
+          description: Role Groups update options
+          required: false
+          schema:
+            $ref: '#/definitions/RoleGroupsPatchArgs'
+        - name: roleId
+          in: path
+          description: Role ID
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Role object
+          schema:
+            $ref: '#/definitions/RoleGroupsPatchResult'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+  /api/v1/secrets/{id}:
+    put:
+      tags:
+        - Secrets
+      summary: Update Secret
+      description: Update a single secret by ID
+      operationId: SecretsService_UpdateSecret
+      parameters:
+        - name: args
+          in: body
+          description: Secret update options
+          required: false
+          schema:
+            $ref: '#/definitions/SecretUpdateArgs'
+            description: Secret update options
+        - name: autoCheckIn
+          in: query
+          description: Automatically check in a secret after finding or updating.
+          required: false
+          type: boolean
+        - name: autoCheckout
+          in: query
+          description: Automatically check out secret before finding or updating.
+          required: false
+          type: boolean
+        - name: autoComment
+          in: query
+          description: Leave a comment when checking in or out.
+          required: false
+          type: string
+        - name: forceCheckIn
+          in: query
+          description: If secret is checked out, then force a check in.
+          required: false
+          type: boolean
+        - name: id
+          in: path
+          description: Secret ID
+          required: true
+          type: integer
+          format: int32
+        - name: secretPath
+          in: query
+          description: >-
+            A full path including folder and secret name can be passed as a
+            query string parameter when the secret ID is set to 0.  This will
+            lookup the secret ID by path.
+          required: false
+          type: string
+      responses:
+        '200':
+          description: Secret object
+          schema:
+            $ref: '#/definitions/SecretModel'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+    delete:
+      tags:
+        - Secrets
+      summary: Deactivate a Secret
+      description: >-
+        A deactivated secret is hidden from users who do not have a role
+        containing the View Inactive Secrets permission. Secret Server uses
+        these "soft deletes" to maintain the audit history for all data.
+        However, deactivated secrets are still accessible by administrators
+        (like a permanent Recycle Bin) to ensure that audit history is
+        maintained and to support recovery. A user must have the "View Inactive
+        Secrets" permission in addition to Owner permission on a secret to
+        access the secret View page for a deleted secret. To permanently remove
+        all information on a secret, use the "Erase Secret" function.
+      operationId: SecretsService_Delete
+      parameters:
+        - name: autoCheckIn
+          in: query
+          description: Automatically check in a secret after finding or updating.
+          required: false
+          type: boolean
+        - name: autoCheckout
+          in: query
+          description: Automatically check out secret before finding or updating.
+          required: false
+          type: boolean
+        - name: autoComment
+          in: query
+          description: Leave a comment when checking in or out.
+          required: false
+          type: string
+        - name: forceCheckIn
+          in: query
+          description: If secret is checked out, then force a check in.
+          required: false
+          type: boolean
+        - name: id
+          in: path
+          description: Secret ID
+          required: true
+          type: integer
+          format: int32
+        - name: secretPath
+          in: query
+          description: >-
+            A full path including folder and secret name can be passed as a
+            query string parameter when the secret ID is set to 0.  This will
+            lookup the secret ID by path.
+          required: false
+          type: string
+      responses:
+        '200':
+          description: Object deletion result
+          schema:
+            $ref: '#/definitions/DeletedModel'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+  /api/v1/secrets/{id}/fields/{slug}/listdetails:
+    get:
+      tags:
+        - Secrets
+      summary: Get Secret List Field List Data
+      description: Get the lists associated to a secret list data field
+      operationId: SecretsService_GetListFieldListDefinitions
+      parameters:
+        - name: autoCheckIn
+          in: query
+          description: Automatically check in a secret after finding or updating.
+          required: false
+          type: boolean
+        - name: autoCheckout
+          in: query
+          description: Automatically check out secret before finding or updating.
+          required: false
+          type: boolean
+        - name: autoComment
+          in: query
+          description: Leave a comment when checking in or out.
+          required: false
+          type: string
+        - name: forceCheckIn
+          in: query
+          description: If secret is checked out, then force a check in.
+          required: false
+          type: boolean
+        - name: id
+          in: path
+          description: Secret ID
+          required: true
+          type: integer
+          format: int32
+        - name: skip
+          in: query
+          description: Number of records to skip before taking results
+          required: false
+          type: integer
+          format: int32
+        - name: sortBy[0].direction
+          in: query
+          description: Sort direction
+          required: false
+          type: string
+        - name: sortBy[0].name
+          in: query
+          description: Sort field name
+          required: false
+          type: string
+        - name: sortBy[0].priority
+          in: query
+          description: Priority index. Sorts with lower values are executed earlier
+          required: false
+          type: integer
+          format: int32
+        - name: take
+          in: query
+          description: Maximum number of records to include in results
+          required: false
+          type: integer
+          format: int32
+        - name: slug
+          in: path
+          description: >-
+            The field slug name of the list field. This is the fieldSlugName
+            property of the SecretField object. By default, it is the lower-case
+            field name with all spaces replaced with dashes (-).
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Combined summary of all lists assigned to the secret field.
+          schema:
+            $ref: '#/definitions/PagingOfCategorizedListSummary'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+    put:
+      tags:
+        - Secrets
+      summary: Update Secret List Field List Data
+      description: Updates the lists associated to a secret list data field
+      operationId: SecretsService_UpdateListFieldListDefinitions
+      parameters:
+        - name: args
+          in: body
+          description: Secret options
+          required: false
+          schema:
+            $ref: '#/definitions/SecretListFieldListArgs'
+            description: Secret options
+        - name: autoCheckIn
+          in: query
+          description: Automatically check in a secret after finding or updating.
+          required: false
+          type: boolean
+        - name: autoCheckout
+          in: query
+          description: Automatically check out secret before finding or updating.
+          required: false
+          type: boolean
+        - name: autoComment
+          in: query
+          description: Leave a comment when checking in or out.
+          required: false
+          type: string
+        - name: forceCheckIn
+          in: query
+          description: If secret is checked out, then force a check in.
+          required: false
+          type: boolean
+        - name: id
+          in: path
+          description: Secret ID
+          required: true
+          type: integer
+          format: int32
+        - name: slug
+          in: path
+          description: Secret field name
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Combined summary of all lists assigned to the secret field.
+          schema:
+            $ref: '#/definitions/PagingOfCategorizedListSummary'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+    delete:
+      tags:
+        - Secrets
+      summary: Delete Secret List Field List Data
+      description: Deletes the lists associated to a secret list data field
+      operationId: SecretsService_DeleteListFieldListDefinitions
+      parameters:
+        - name: autoCheckIn
+          in: query
+          description: Automatically check in a secret after finding or updating.
+          required: false
+          type: boolean
+        - name: autoCheckout
+          in: query
+          description: Automatically check out secret before finding or updating.
+          required: false
+          type: boolean
+        - name: autoComment
+          in: query
+          description: Leave a comment when checking in or out.
+          required: false
+          type: string
+        - name: forceCheckIn
+          in: query
+          description: If secret is checked out, then force a check in.
+          required: false
+          type: boolean
+        - name: id
+          in: path
+          description: Secret ID
+          required: true
+          type: integer
+          format: int32
+        - name: listGuid
+          in: query
+          description: Secret options
+          required: false
+          type: string
+          format: uuid
+        - name: slug
+          in: path
+          description: Secret field name
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Combined summary of all lists assigned to the secret field.
+          schema:
+            $ref: '#/definitions/PagingOfCategorizedListSummary'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+  /api/v2/secrets:
+    get:
+      tags:
+        - Secrets
+      summary: Search Secrets
+      description: Search, filter, sort, and page secrets
+      operationId: SecretsService_SearchV2
+      parameters:
+        - name: filter.allowDoubleLocks
+          in: query
+          description: Whether to allow DoubleLocks as part of the search. True by default.
+          required: false
+          x-nullable: true
+          type: boolean
+        - name: filter.doNotCalculateTotal
+          in: query
+          description: >-
+            Whether to return the total number of secrets matching the filters.
+            False by default. If false, the total can be retrieved separately by
+            calling /v1/secrets/search-total with the same arguments used in the
+            search.
+          required: false
+          x-nullable: true
+          type: boolean
+        - name: filter.doubleLockId
+          in: query
+          description: >-
+            Only include Secrets with this DoubleLock ID assigned in the search
+            results.
+          required: false
+          x-nullable: true
+          type: integer
+          format: int32
+        - name: filter.extendedFields
+          in: query
+          description: >-
+            An array of names of Secret Template fields to return.  Only exposed
+            fields can be returned.  This parameter will be ignored if
+            ExtFieldsCombined is sent.
+          required: false
+          collectionFormat: multi
+          items:
+            type: string
+          type: array
+        - name: filter.extendedTypeId
+          in: query
+          description: >-
+            If not null, return only secrets matching the specified extended
+            mapping type as defined on the secret’s template.
+          required: false
+          x-nullable: true
+          type: integer
+          format: int32
+        - name: filter.extFieldsCombined
+          in: query
+          description: >-
+            A comma delimited list of all extended fields to return.  All fields
+            must be marked as exposed for display.  When populated this value
+            will be used instead of ExtendedFields[].  Combining the fields
+            decreases the size of the GET URL to avoid the 2048 character length
+            restriction in IIS.
+          required: false
+          type: string
+        - name: filter.folderId
+          in: query
+          description: If not null, returns only secrets within the specified folder.
+          required: false
+          x-nullable: true
+          type: integer
+          format: int32
+        - name: filter.hasLauncher
+          in: query
+          description: >-
+            Whether to only return secrets with or without launchers. If null,
+            returns secrets regardless of whether they have launchers.
+          required: false
+          x-nullable: true
+          type: boolean
+        - name: filter.heartbeatStatus
+          in: query
+          description: If not null, returns only secrets with a certain heartbeat status.
+          required: false
+          x-nullable: true
+          type: string
+        - name: filter.includeActive
+          in: query
+          description: >-
+            Whether to include active secrets in results (when excluded equals
+            true).
+          required: false
+          x-nullable: true
+          type: boolean
+        - name: filter.includeInactive
+          in: query
+          description: Whether to include inactive secrets in results.
+          required: false
+          type: boolean
+        - name: filter.includeRestricted
+          in: query
+          description: >-
+            Whether to include restricted secrets in results. Restricted secrets
+            are secrets that are DoubleLocked, require approval, or require a
+            comment to view.
+          required: false
+          type: boolean
+        - name: filter.includeSubFolders
+          in: query
+          description: Whether to include secrets in subfolders of the specified folder.
+          required: false
+          type: boolean
+        - name: filter.isExactMatch
+          in: query
+          description: >-
+            Whether to do an exact match of the search text or a partial match.
+            If an exact match, the entire secret name, field value, or list
+            option in a list field must match the search text.
+          required: false
+          x-nullable: true
+          type: boolean
+        - name: filter.onlyCheckedOutSecrets
+          in: query
+          description: >-
+            Whether to only return secrets that are or are not checked out. If
+            null, returns secrets regardless of whether they are checked out.
+          required: false
+          x-nullable: true
+          type: boolean
+        - name: filter.onlyRPCEnabled
+          in: query
+          description: >-
+            Whether to only include secrets whose template has Remote Password
+            Changing enabled.
+          required: false
+          x-nullable: true
+          type: boolean
+        - name: filter.onlySecretsCheckedOutByUser
+          in: query
+          description: >-
+            Whether to only return secrets that are or are not checked out by
+            the querying user. If null, returns secrets regardless of whether
+            they are checked out.
+          required: false
+          x-nullable: true
+          type: boolean
+        - name: filter.onlySharedWithMe
+          in: query
+          description: >-
+            When true only Secrets where you are not the owner and the Secret
+            was shared explicitly with your user id will be returned.
+          required: false
+          x-nullable: true
+          type: boolean
+        - name: filter.passwordTypeIds
+          in: query
+          description: >-
+            If not null, returns only secrets matching the specified password
+            types.
+          required: false
+          collectionFormat: multi
+          items:
+            type: integer
+          type: array
+        - name: filter.permissionRequired
+          in: query
+          description: >-
+            Specify whether to filter by List, View, Edit, or Owner permission.
+            Default is List.
+          required: false
+          x-nullable: true
+          type: string
+        - name: filter.scope
+          in: query
+          description: Specify whether to search All, Recent, or Favorites
+          required: false
+          x-nullable: true
+          type: string
+        - name: filter.searchField
+          in: query
+          description: >-
+            If set, restricts the search to only match secrets where the value
+            of the field specified by name contains the search text.
+          required: false
+          type: string
+        - name: filter.searchFieldSlug
+          in: query
+          description: >-
+            If set, restricts the search to only match secrets where the value
+            of the field specified by the slug name contains the search text.
+            This will override SearchField.
+          required: false
+          type: string
+        - name: filter.searchText
+          in: query
+          description: >-
+            The text to match in the secret name, field value, or list field
+            contents.
+          required: false
+          type: string
+        - name: filter.secretIds
+          in: query
+          description: >-
+            If not null or empty, returns only secrets matching the specified
+            secret ids.
+          required: false
+          collectionFormat: multi
+          items:
+            type: integer
+          type: array
+        - name: filter.secretTemplateIds
+          in: query
+          description: >-
+            If not null or empty, returns only secrets matching the specified
+            templates.
+          required: false
+          collectionFormat: multi
+          items:
+            type: integer
+          type: array
+        - name: filter.secretTemplateIdsCombined
+          in: query
+          description: >-
+            A comma delimited list of all secret template IDs.  When populated
+            this value will be used instead of SecretTemplateIds[].  Combining
+            the fields decreases the size of the GET URL to avoid the 2048
+            character length restriction in IIS.
+          required: false
+          type: string
+        - name: filter.siteId
+          in: query
+          description: If not null, returns only secrets within a the specified site.
+          required: false
+          x-nullable: true
+          type: integer
+          format: int32
+        - name: skip
+          in: query
+          description: Number of records to skip before taking results
+          required: false
+          type: integer
+          format: int32
+        - name: sortBy[0].direction
+          in: query
+          description: Sort direction
+          required: false
+          type: string
+        - name: sortBy[0].name
+          in: query
+          description: Sort field name
+          required: false
+          type: string
+        - name: sortBy[0].priority
+          in: query
+          description: Priority index. Sorts with lower values are executed earlier
+          required: false
+          type: integer
+          format: int32
+        - name: take
+          in: query
+          description: Maximum number of records to include in results
+          required: false
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Secret search result object
+          schema:
+            $ref: '#/definitions/PagingOfSecretSummary'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+  /api/v1/secrets/lookup:
+    get:
+      tags:
+        - Secrets
+      summary: Lookup Secrets with Search
+      description: >-
+        Search, filter, sort, and page secrets, returning only secret ID and
+        name
+      operationId: SecretsService_SearchSecretLookup
+      parameters:
+        - name: filter.allowDoubleLocks
+          in: query
+          description: Whether to allow DoubleLocks as part of the search. True by default.
+          required: false
+          x-nullable: true
+          type: boolean
+        - name: filter.doNotCalculateTotal
+          in: query
+          description: >-
+            Whether to return the total number of secrets matching the filters.
+            False by default. If false, the total can be retrieved separately by
+            calling /v1/secrets/search-total with the same arguments used in the
+            search.
+          required: false
+          x-nullable: true
+          type: boolean
+        - name: filter.doubleLockId
+          in: query
+          description: >-
+            Only include Secrets with this DoubleLock ID assigned in the search
+            results.
+          required: false
+          x-nullable: true
+          type: integer
+          format: int32
+        - name: filter.extendedFields
+          in: query
+          description: >-
+            An array of names of Secret Template fields to return.  Only exposed
+            fields can be returned.
+          required: false
+          collectionFormat: multi
+          items:
+            type: string
+          type: array
+        - name: filter.extendedTypeId
+          in: query
+          description: >-
+            If not null, return only secrets matching the specified extended
+            mapping type as defined on the secret’s template.
+          required: false
+          x-nullable: true
+          type: integer
+          format: int32
+        - name: filter.folderId
+          in: query
+          description: If not null, returns only secrets within the specified folder.
+          required: false
+          x-nullable: true
+          type: integer
+          format: int32
+        - name: filter.heartbeatStatus
+          in: query
+          description: If not null, returns only secrets with a certain heartbeat status.
+          required: false
+          x-nullable: true
+          type: string
+        - name: filter.includeActive
+          in: query
+          description: >-
+            Whether to include active secrets in results (when excluded equals
+            true).
+          required: false
+          x-nullable: true
+          type: boolean
+        - name: filter.includeInactive
+          in: query
+          description: Whether to include inactive secrets in results.
+          required: false
+          type: boolean
+        - name: filter.includeRestricted
+          in: query
+          description: >-
+            Whether to include restricted secrets in results. Restricted secrets
+            are secrets that are DoubleLocked, require approval, or require a
+            comment to view.
+          required: false
+          type: boolean
+        - name: filter.includeSubFolders
+          in: query
+          description: Whether to include secrets in subfolders of the specified folder.
+          required: false
+          type: boolean
+        - name: filter.isExactMatch
+          in: query
+          description: >-
+            Whether to do an exact match of the search text or a partial match.
+            If an exact match, the entire secret name, field value, or list
+            option in a list field must match the search text.
+          required: false
+          x-nullable: true
+          type: boolean
+        - name: filter.onlyRPCEnabled
+          in: query
+          description: >-
+            Whether to only include secrets whose template has Remote Password
+            Changing enabled.
+          required: false
+          x-nullable: true
+          type: boolean
+        - name: filter.onlySecretsCheckedOutByUser
+          in: query
+          description: >-
+            Whether to only return secrets that are or are not checked out by
+            the querying user. If null, returns secrets regardless of whether
+            they are checked out.
+          required: false
+          x-nullable: true
+          type: boolean
+        - name: filter.onlySharedWithMe
+          in: query
+          description: >-
+            When true only Secrets where you are not the owner and the Secret
+            was shared explicitly with your user id will be returned.
+          required: false
+          x-nullable: true
+          type: boolean
+        - name: filter.passwordTypeIds
+          in: query
+          description: >-
+            If not null, returns only secrets matching the specified password
+            types.
+          required: false
+          collectionFormat: multi
+          items:
+            type: integer
+          type: array
+        - name: filter.permissionRequired
+          in: query
+          description: >-
+            Specify whether to filter by List, View, Edit, or Owner permission.
+            Default is List.
+          required: false
+          x-nullable: true
+          type: string
+        - name: filter.scope
+          in: query
+          description: Specify whether to search All, Recent, or Favorites
+          required: false
+          x-nullable: true
+          type: string
+        - name: filter.searchField
+          in: query
+          description: >-
+            If set, restricts the search to only match secrets where the value
+            of the field specified by name contains the search text.
+          required: false
+          type: string
+        - name: filter.searchFieldSlug
+          in: query
+          description: >-
+            If set, restricts the search to only match secrets where the value
+            of the field specified by the slug name contains the search text.
+            This will override SearchField.
+          required: false
+          type: string
+        - name: filter.searchText
+          in: query
+          description: >-
+            The text to match in the secret name, field value, or list field
+            contents.
+          required: false
+          type: string
+        - name: filter.secretTemplateId
+          in: query
+          description: If not null, returns only secrets matching the specified template.
+          required: false
+          x-nullable: true
+          type: integer
+          format: int32
+        - name: filter.siteId
+          in: query
+          description: If not null, returns only secrets within a the specified site.
+          required: false
+          x-nullable: true
+          type: integer
+          format: int32
+        - name: skip
+          in: query
+          description: Number of records to skip before taking results
+          required: false
+          type: integer
+          format: int32
+        - name: sortBy[0].direction
+          in: query
+          description: Sort direction
+          required: false
+          type: string
+        - name: sortBy[0].name
+          in: query
+          description: Sort field name
+          required: false
+          type: string
+        - name: sortBy[0].priority
+          in: query
+          description: Priority index. Sorts with lower values are executed earlier
+          required: false
+          type: integer
+          format: int32
+        - name: take
+          in: query
+          description: Maximum number of records to include in results
+          required: false
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Secret search result object
+          schema:
+            $ref: '#/definitions/PagingOfSecretLookup'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+  /api/v1/secrets/lookup/{id}:
+    get:
+      tags:
+        - Secrets
+      summary: Lookup Secret
+      description: Look up secret by ID and return secret name and ID
+      operationId: SecretsService_GetLookup
+      parameters:
+        - name: id
+          in: path
+          description: Secret ID
+          required: true
+          type: integer
+          format: int32
+        - name: secretPath
+          in: query
+          description: >-
+            A full path including folder and secret name can be passed as a
+            query string parameter when the secret ID is set to 0.  This will
+            lookup the secret ID by path.
+          required: false
+          type: string
+      responses:
+        '200':
+          description: Secret lookup result object
+          schema:
+            $ref: '#/definitions/SecretLookup'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+  /api/v2/secrets/{id}:
+    get:
+      tags:
+        - Secrets
+      summary: Get Secret
+      description: Get a single secret by ID
+      operationId: SecretsService_GetSecretV2
+      parameters:
+        - name: includeInactive
+          in: query
+          description: Whether to include inactive secrets in the results
+          required: false
+          type: boolean
+        - name: noAutoCheckout
+          in: query
+          description: Don't check out the secret if needed
+          required: false
+          type: boolean
+        - name: autoCheckIn
+          in: query
+          description: Automatically check in a secret after finding or updating.
+          required: false
+          type: boolean
+        - name: autoCheckout
+          in: query
+          description: Automatically check out secret before finding or updating.
+          required: false
+          type: boolean
+        - name: autoComment
+          in: query
+          description: Leave a comment when checking in or out.
+          required: false
+          type: string
+        - name: forceCheckIn
+          in: query
+          description: If secret is checked out, then force a check in.
+          required: false
+          type: boolean
+        - name: id
+          in: path
+          description: Secret ID
+          required: true
+          type: integer
+          format: int32
+        - name: secretPath
+          in: query
+          description: >-
+            A full path including folder and secret name can be passed as a
+            query string parameter when the secret ID is set to 0.  This will
+            lookup the secret ID by path.
+          required: false
+          type: string
+      responses:
+        '200':
+          description: Secret object
+          schema:
+            $ref: '#/definitions/SecretModelV2'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+  /api/v1/secrets/{id}/fields/{slug}:
+    get:
+      tags:
+        - Secrets
+      summary: Get Secret Field
+      description: Get a secret data field
+      operationId: SecretsService_GetField
+      produces:
+        - application/json
+        - application/octet-stream
+      parameters:
+        - name: includeInactive
+          in: query
+          description: Whether to include inactive secrets in the results
+          required: false
+          type: boolean
+        - name: noAutoCheckout
+          in: query
+          description: Don't check out the secret if needed
+          required: false
+          type: boolean
+        - name: autoCheckIn
+          in: query
+          description: Automatically check in a secret after finding or updating.
+          required: false
+          type: boolean
+        - name: autoCheckout
+          in: query
+          description: Automatically check out secret before finding or updating.
+          required: false
+          type: boolean
+        - name: autoComment
+          in: query
+          description: Leave a comment when checking in or out.
+          required: false
+          type: string
+        - name: forceCheckIn
+          in: query
+          description: If secret is checked out, then force a check in.
+          required: false
+          type: boolean
+        - name: id
+          in: path
+          description: Secret ID
+          required: true
+          type: integer
+          format: int32
+        - name: secretPath
+          in: query
+          description: >-
+            A full path including folder and secret name can be passed as a
+            query string parameter when the secret ID is set to 0.  This will
+            lookup the secret ID by path.
+          required: false
+          type: string
+        - name: slug
+          in: path
+          description: Secret field name
+          required: true
+          type: string
+      responses:
+        '200':
+          description: >-
+            Secret field value. If the field is a file attachment, the content
+            type will be `application/octet-stream` and the response body will
+            be the file contents.
+          schema:
+            description: String
+            type: string
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+    put:
+      tags:
+        - Secrets
+      summary: Update Secret Field
+      description: Update a secret data field
+      operationId: SecretsService_PutField
+      consumes:
+        - application/json
+        - multipart/form-data
+      parameters:
+        - name: args
+          in: body
+          description: Secret options
+          required: false
+          schema:
+            $ref: '#/definitions/SecretItemUpdateArgs'
+            description: Secret options
+        - name: autoCheckIn
+          in: query
+          description: Automatically check in a secret after finding or updating.
+          required: false
+          type: boolean
+        - name: autoCheckout
+          in: query
+          description: Automatically check out secret before finding or updating.
+          required: false
+          type: boolean
+        - name: autoComment
+          in: query
+          description: Leave a comment when checking in or out.
+          required: false
+          type: string
+        - name: forceCheckIn
+          in: query
+          description: If secret is checked out, then force a check in.
+          required: false
+          type: boolean
+        - name: id
+          in: path
+          description: Secret ID
+          required: true
+          type: integer
+          format: int32
+        - name: secretPath
+          in: query
+          description: >-
+            A full path including folder and secret name can be passed as a
+            query string parameter when the secret ID is set to 0.  This will
+            lookup the secret ID by path.
+          required: false
+          type: string
+        - name: slug
+          in: path
+          description: Secret field name
+          required: true
+          type: string
+      responses:
+        '200':
+          description: The updated value, or 'true' if the field is a file attachment
+          schema:
+            description: String
+            type: string
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+  /api/v1/secrets/{id}/fields/{slug}/list:
+    get:
+      tags:
+        - Secrets
+      summary: Get Secret List Field
+      description: Get the items associated to a secret list data field
+      operationId: SecretsService_GetListField
+      parameters:
+        - name: autoCheckIn
+          in: query
+          description: Automatically check in a secret after finding or updating.
+          required: false
+          type: boolean
+        - name: autoCheckout
+          in: query
+          description: Automatically check out secret before finding or updating.
+          required: false
+          type: boolean
+        - name: autoComment
+          in: query
+          description: Leave a comment when checking in or out.
+          required: false
+          type: string
+        - name: forceCheckIn
+          in: query
+          description: If secret is checked out, then force a check in.
+          required: false
+          type: boolean
+        - name: id
+          in: path
+          description: Secret ID
+          required: true
+          type: integer
+          format: int32
+        - name: slug
+          in: path
+          description: Secret field name
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Combined contents of all lists assigned to the secret field.
+          schema:
+            $ref: '#/definitions/CategorizedListItemValueResult'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+  /api/v1/secrets/{id}/state:
+    get:
+      tags:
+        - Secrets
+      summary: Get Secret State
+      description: >-
+        Retrieve state about a Secret such as whether it requires approval,
+        doublelock, checkout, or other restricted actions to be performed before
+        calling the get the secret.
+      operationId: SecretsService_GetSecretState
+      parameters:
+        - name: autoCheckIn
+          in: query
+          description: Automatically check in a secret after finding or updating.
+          required: false
+          type: boolean
+        - name: autoCheckout
+          in: query
+          description: Automatically check out secret before finding or updating.
+          required: false
+          type: boolean
+        - name: autoComment
+          in: query
+          description: Leave a comment when checking in or out.
+          required: false
+          type: string
+        - name: forceCheckIn
+          in: query
+          description: If secret is checked out, then force a check in.
+          required: false
+          type: boolean
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+        - name: secretPath
+          in: query
+          description: >-
+            A full path including folder and secret name can be passed as a
+            query string parameter when the secret ID is set to 0.  This will
+            lookup the secret ID by path.
+          required: false
+          type: string
+      responses:
+        '200':
+          description: Secret Detail State View Model
+          schema:
+            $ref: '#/definitions/SecretDetailStateViewModel'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+  /api/v1/secrets/secret-detail/{id}/general:
+    get:
+      tags:
+        - Secrets
+      summary: Get Secret Detail General
+      description: Retrieve details about a secret.
+      operationId: SecretsService_GetGeneral
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+        - name: secretPath
+          in: query
+          description: >-
+            A full path including folder and secret name can be passed as a
+            query string parameter when the secret ID is set to 0.  This will
+            lookup the secret ID by path.
+          required: false
+          type: string
+      responses:
+        '200':
+          description: Secret Detail State View Model
+          schema:
+            $ref: '#/definitions/SecretDetailGeneralModel'
+            description: Secret Detail State View Model
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+  /api/v1/secrets/extended-search-details:
+    post:
+      tags:
+        - Secrets
+      summary: Secret Search Extended Details
+      description: >-
+        Pass an array of secret IDs, presumably the results of a secret search
+        and get extended details such as has launchers or is favorite.
+      operationId: SecretsService_GetSecretExtendedSearchDetails
+      parameters:
+        - name: args
+          in: body
+          description: args
+          required: false
+          schema:
+            $ref: '#/definitions/SecretSearchExtendedArgs'
+            description: args
+      responses:
+        '200':
+          description: Secret search extended details
+          schema:
+            description: Secret search extended details
+            items:
+              $ref: '#/definitions/SecretSearchExtendedSummary'
+            type: array
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+  /api/v1/secrets/{id}/restricted:
+    post:
+      tags:
+        - Secrets
+      summary: Get Restricted Secret
+      description: Get a restricted secret
+      operationId: SecretsService_GetRestricted
+      parameters:
+        - name: args
+          in: body
+          description: Secret options
+          required: false
+          schema:
+            $ref: '#/definitions/SecretRestrictedArgs'
+            description: Secret options
+        - name: autoCheckIn
+          in: query
+          description: Automatically check in a secret after finding or updating.
+          required: false
+          type: boolean
+        - name: autoCheckout
+          in: query
+          description: Automatically check out secret before finding or updating.
+          required: false
+          type: boolean
+        - name: autoComment
+          in: query
+          description: Leave a comment when checking in or out.
+          required: false
+          type: string
+        - name: forceCheckIn
+          in: query
+          description: If secret is checked out, then force a check in.
+          required: false
+          type: boolean
+        - name: id
+          in: path
+          description: Secret ID
+          required: true
+          type: integer
+          format: int32
+        - name: secretPath
+          in: query
+          description: >-
+            A full path including folder and secret name can be passed as a
+            query string parameter when the secret ID is set to 0.  This will
+            lookup the secret ID by path.
+          required: false
+          type: string
+      responses:
+        '200':
+          description: Secret object
+          schema:
+            $ref: '#/definitions/SecretModel'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+  /api/v1/secrets:
+    get:
+      tags:
+        - Secrets
+      summary: Search Secrets
+      description: Search, filter, sort, and page secrets (removed from 11.3.3, but exposed for completeness)
+      operationId: SecretsService_Search
+      parameters:
+        - name: filter.allowDoubleLocks
+          in: query
+          description: Whether to allow DoubleLocks as part of the search. True by default.
+          required: false
+          type: boolean
+        - name: filter.doNotCalculateTotal
+          in: query
+          description: >-
+            Whether to return the total number of secrets matching the filters.
+            False by default. If false, the total can be retrieved separately by
+            calling   /api/v1/secrets/search-total with the same arguments used in the
+            search.
+          required: false
+          type: boolean
+        - name: filter.doubleLockId
+          in: query
+          description: >-
+            Only include Secrets with this DoubleLock ID assigned in the search
+            results.
+          required: false
+          type: integer
+          format: int32
+        - name: filter.extendedFields
+          in: query
+          description: >-
+            An array of names of Secret Template fields to return.  Only exposed
+            fields can be returned.
+          required: false
+          collectionFormat: multi
+          items:
+            type: string
+          type: array
+        - name: filter.extendedTypeId
+          in: query
+          description: >-
+            If not null, return only secrets matching the specified extended
+            mapping type as defined on the secret’s template.
+          required: false
+          type: integer
+          format: int32
+        - name: filter.folderId
+          in: query
+          description: If not null, returns only secrets within the specified folder.
+          required: false
+          type: integer
+          format: int32
+        - name: filter.heartbeatStatus
+          in: query
+          description: If not null, returns only secrets with a certain heartbeat status.
+          required: false
+          type: string
+        - name: filter.includeActive
+          in: query
+          description: >-
+            Whether to include active secrets in results (when excluded equals
+            true).
+          required: false
+          type: boolean
+        - name: filter.includeInactive
+          in: query
+          description: Whether to include inactive secrets in results.
+          required: false
+          type: boolean
+        - name: filter.includeRestricted
+          in: query
+          description: >-
+            Whether to include restricted secrets in results. Restricted secrets
+            are secrets that are DoubleLocked, require approval, or require a
+            comment to view.
+          required: false
+          type: boolean
+        - name: filter.includeSubFolders
+          in: query
+          description: Whether to include secrets in subfolders of the specified folder.
+          required: false
+          type: boolean
+        - name: filter.isExactMatch
+          in: query
+          description: >-
+            Whether to do an exact match of the search text or a partial match.
+            If an exact match, the entire secret name, field value, or list
+            option in a list field must match the search text.
+          required: false
+          type: boolean
+        - name: filter.onlyRPCEnabled
+          in: query
+          description: >-
+            Whether to only include secrets whose template has Remote Password
+            Changing enabled.
+          required: false
+          type: boolean
+        - name: filter.onlySharedWithMe
+          in: query
+          description: >-
+            When true only Secrets where you are not the owner and the Secret
+            was shared explicitly with your user id will be returned.
+          required: false
+          type: boolean
+        - name: filter.passwordTypeIds
+          in: query
+          description: >-
+            If not null, returns only secrets matching the specified password
+            types.
+          required: false
+          collectionFormat: multi
+          items:
+            type: integer
+          type: array
+        - name: filter.permissionRequired
+          in: query
+          description: >-
+            Specify whether to filter by List, View, Edit, or Owner permission.
+            Default is List.
+          required: false
+          type: string
+        - name: filter.scope
+          in: query
+          description: Specify whether to search All, Recent, or Favorites
+          required: false
+          type: string
+        - name: filter.searchField
+          in: query
+          description: >-
+            If set, restricts the search to only match secrets where the value
+            of the field specified by name contains the search text.
+          required: false
+          type: string
+        - name: filter.searchFieldSlug
+          in: query
+          description: >-
+            If set, restricts the search to only match secrets where the value
+            of the field specified by the slug name contains the search text.
+            This will override SearchField.
+          required: false
+          type: string
+        - name: filter.searchText
+          in: query
+          description: >-
+            The text to match in the secret name, field value, or list field
+            contents.
+          required: false
+          type: string
+        - name: filter.secretTemplateId
+          in: query
+          description: If not null, returns only secrets matching the specified template.
+          required: false
+          type: integer
+          format: int32
+        - name: filter.siteId
+          in: query
+          description: If not null, returns only secrets within a the specified site.
+          required: false
+          type: integer
+          format: int32
+        - name: skip
+          in: query
+          description: Number of records to skip before taking results
+          required: false
+          type: integer
+          format: int32
+        - name: sortBy[0].direction
+          in: query
+          description: Sort direction
+          required: false
+          type: string
+        - name: sortBy[0].name
+          in: query
+          description: Sort field name
+          required: false
+          type: string
+        - name: sortBy[0].priority
+          in: query
+          description: Priority index. Sorts with lower values are executed earlier
+          required: false
+          type: integer
+          format: int32
+        - name: take
+          in: query
+          description: Maximum number of records to include in results
+          required: false
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Secret search result object
+          schema:
+            $ref: '#/definitions/PagingOfSecretSummary'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+    post:
+      tags:
+        - Secrets
+      summary: Create Secret
+      description: Create a new secret
+      operationId: SecretsService_CreateSecret
+      parameters:
+        - name: secretCreateArgs
+          in: body
+          description: Secret creation options
+          required: false
+          schema:
+            $ref: '#/definitions/SecretCreateArgs'
+            description: Secret creation options
+      responses:
+        '200':
+          description: Secret object
+          schema:
+            $ref: '#/definitions/SecretModel'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+  /api/v1/secrets/{id}/heartbeat:
+    post:
+      tags:
+        - Secrets
+      summary: Run Secret Heartbeat
+      description: Check if secret is still valid
+      operationId: SecretsService_RunHeartBeat
+      parameters:
+        - name: autoCheckIn
+          in: query
+          description: Automatically check in a secret after finding or updating.
+          required: false
+          type: boolean
+        - name: autoCheckout
+          in: query
+          description: Automatically check out secret before finding or updating.
+          required: false
+          type: boolean
+        - name: autoComment
+          in: query
+          description: Leave a comment when checking in or out.
+          required: false
+          type: string
+        - name: forceCheckIn
+          in: query
+          description: If secret is checked out, then force a check in.
+          required: false
+          type: boolean
+        - name: id
+          in: path
+          description: Secret ID
+          required: true
+          type: integer
+          format: int32
+        - name: secretPath
+          in: query
+          description: >-
+            A full path including folder and secret name can be passed as a
+            query string parameter when the secret ID is set to 0.  This will
+            lookup the secret ID by path.
+          required: false
+          type: string
+      responses:
+        '200':
+          description: Secret summary object
+          schema:
+            $ref: '#/definitions/SecretSummary'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+  /api/v1/secrets/{id}/expire:
+    post:
+      tags:
+        - Secrets
+      summary: Expire Secret
+      description: Expire a secret
+      operationId: SecretsService_Expire
+      parameters:
+        - name: autoCheckIn
+          in: query
+          description: Automatically check in a secret after finding or updating.
+          required: false
+          type: boolean
+        - name: autoCheckout
+          in: query
+          description: Automatically check out secret before finding or updating.
+          required: false
+          type: boolean
+        - name: autoComment
+          in: query
+          description: Leave a comment when checking in or out.
+          required: false
+          type: string
+        - name: forceCheckIn
+          in: query
+          description: If secret is checked out, then force a check in.
+          required: false
+          type: boolean
+        - name: id
+          in: path
+          description: Secret ID
+          required: true
+          type: integer
+          format: int32
+        - name: restrictedArgs
+          in: body
+          description: Secret options
+          required: false
+          schema:
+            $ref: '#/definitions/SecretRestrictedArgs'
+            description: Secret options
+        - name: secretPath
+          in: query
+          description: >-
+            A full path including folder and secret name can be passed as a
+            query string parameter when the secret ID is set to 0.  This will
+            lookup the secret ID by path.
+          required: false
+          type: string
+      responses:
+        '200':
+          description: Secret summary object
+          schema:
+            $ref: '#/definitions/SecretSummary'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+  /api/v1/secrets/{id}/activate:
+    put:
+      tags:
+        - Secrets
+      summary: Undelete a Secret
+      description: Undelete a Secret
+      operationId: SecretsService_UndeleteSecret
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+        - name: secretPath
+          in: query
+          description: >-
+            A full path including folder and secret name can be passed as a
+            query string parameter when the secret ID is set to 0.  This will
+            lookup the secret ID by path.
+          required: false
+          type: string
+      responses:
+        '200':
+          description: Secret
+          schema:
+            $ref: '#/definitions/SecretDetailGeneralModel'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+  /api/v2/secrets/{id}/activate:
+    put:
+      tags:
+        - Secrets
+      summary: Undelete a Secret
+      description: Undelete a Secret
+      operationId: SecretsService_UndeleteSecretV2
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+        - name: secretPath
+          in: query
+          description: >-
+            A full path including folder and secret name can be passed as a
+            query string parameter when the secret ID is set to 0.  This will
+            lookup the secret ID by path.
+          required: false
+          type: string
+      responses:
+        '200':
+          description: Secret
+          schema:
+            $ref: '#/definitions/SecretDetailGeneralModel'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+  /api/v1/secrets/{id}/expiration:
+    put:
+      tags:
+        - Secrets
+      summary: Update a Secret expiration
+      description: Update a Secret expiration
+      operationId: SecretsService_UpdateExpiration
+      parameters:
+        - name: args
+          in: body
+          description: args
+          required: false
+          schema:
+            $ref: '#/definitions/SecretDetailUpdateExpirationArgs'
+            description: args
+        - name: autoCheckIn
+          in: query
+          description: Automatically check in a secret after finding or updating.
+          required: false
+          type: boolean
+        - name: autoCheckout
+          in: query
+          description: Automatically check out secret before finding or updating.
+          required: false
+          type: boolean
+        - name: autoComment
+          in: query
+          description: Leave a comment when checking in or out.
+          required: false
+          type: string
+        - name: forceCheckIn
+          in: query
+          description: If secret is checked out, then force a check in.
+          required: false
+          type: boolean
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+        - name: secretPath
+          in: query
+          description: >-
+            A full path including folder and secret name can be passed as a
+            query string parameter when the secret ID is set to 0.  This will
+            lookup the secret ID by path.
+          required: false
+          type: string
+      responses:
+        '200':
+          description: Updated secret settings
+          schema:
+            $ref: '#/definitions/SecretDetailSettingsModel'
+            description: Updated secret settings
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '403':
+          description: Authentication failed
+          schema:
+            $ref: '#/definitions/AuthenticationFailedResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      deprecated: false
+definitions:
+  TokenResponse:
+    description: API access token response
+    required:
+      - access_token
+      - token_type
+      - expires_in
+    properties:
+      access_token:
+        description: Authentication token
+        type: string
+      token_type:
+        description: Authentication token type
+        type: string
+        enum:
+          - bearer
+      expires_in:
+        description: Authentication token expiration time, in seconds
+        type: string
+      refresh_token:
+        description: >-
+          Refresh token.  This is only provided when the server is set to allow
+          refresh tokens for web services and when the session timeout duration
+          is not set to Unlimited.
+        type: string
+    type: object
+  TokenErrorResponse:
+    description: API access token error response
+    required:
+      - message
+    properties:
+      message:
+        description: Authentication token
+        type: string
+    type: object
+  AuthenticationFailedResponse:
+        description: Response object for authentication failures
+        required:
+          - message
+        properties:
+          message:
+            description: Error message
+            type: string
+        type: object
+  BadRequestResponse:
+        description: Response object for invalid requests
+        required:
+          - message
+        properties:
+          message:
+            description: Error message
+            type: string
+          messageDetail:
+            description: Error message detail
+            type: string
+          errorCode:
+            description: Error message code
+            type: string
+          modelState:
+            description: An object describing validation errors
+            type: object
+        type: object
+  DeletedModel:
+    description: Information about an object that was deleted
+    properties:
+      id:
+        description: ID of the deleted object
+        type: integer
+        format: int32
+      objectType:
+        description: Type of the deleted object
+        type: string
+      responseCodes:
+        description: List of response codes from the delete operation
+        items:
+          type: string
+        type: array
+    type: object
+  InternalServerErrorResponse:
+        description: Response object for internal server errors
+        required:
+          - message
+          - exceptionMessage
+          - exceptionType
+          - stackTrace
+        properties:
+          message:
+            description: Error message
+            type: string
+          exceptionMessage:
+            description: Error message from exception
+            type: string
+          exceptionType:
+            description: Exception type
+            type: string
+          stackTrace:
+            description: Exception stack trace
+            type: string
+        type: object
+  SecretModel:
+    description: Secret
+    properties:
+      accessRequestWorkflowMapId:
+        description: AccessRequestWorkflowMapId
+        x-nullable: true
+        type: integer
+        format: int32
+      active:
+        description: Whether the secret is active
+        type: boolean
+      allowOwnersUnrestrictedSshCommands:
+        description: AllowOwnersUnrestrictedSshCommands
+        type: boolean
+      autoChangeEnabled:
+        description: AutoChangeEnabled
+        type: boolean
+      autoChangeNextPassword:
+        description: AutoChangeNextPassword
+        type: string
+      checkedOut:
+        description: Whether the secret is currently checked out
+        type: boolean
+      checkOutChangePasswordEnabled:
+        description: CheckOutChangePasswordEnabled
+        type: boolean
+      checkOutEnabled:
+        description: Whether secret checkout is enabled
+        type: boolean
+      checkOutIntervalMinutes:
+        description: Checkout interval, in minutes
+        type: integer
+        format: int32
+      checkOutMinutesRemaining:
+        description: Minutes remaining in current checkout interval
+        type: integer
+        format: int32
+      checkOutUserDisplayName:
+        description: Name of user who has checked out the secret
+        type: string
+      checkOutUserId:
+        description: ID of user who has checked out the secret
+        type: integer
+        format: int32
+      doubleLockId:
+        description: DoubleLockId
+        type: integer
+        format: int32
+      enableInheritPermissions:
+        description: EnableInheritPermissions
+        type: boolean
+      enableInheritSecretPolicy:
+        description: Whether the secret policy is inherited from the containing folder
+        type: boolean
+      failedPasswordChangeAttempts:
+        description: Number of failed password change attempts
+        type: integer
+        format: int32
+      folderId:
+        description: Containing folder ID
+        type: integer
+        format: int32
+      id:
+        description: Secret ID
+        type: integer
+        format: int32
+      isDoubleLock:
+        description: Whether double lock is enabled
+        type: boolean
+      isOutOfSync:
+        description: >-
+          Out of sync indicates that a Password is setup for autochange and has
+          failed its last password change attempt or has exceeded the maximum
+          RPC attempts
+        type: boolean
+      isRestricted:
+        description: Whether the secret is restricted
+        type: boolean
+      items:
+        description: Secret data fields
+        items:
+          $ref: '#/definitions/RestSecretItem'
+        type: array
+      jumpboxRouteId:
+        description: JumpboxRouteId
+        x-nullable: true
+        type: string
+        format: uuid
+      lastHeartBeatCheck:
+        description: Time of last heartbeat check
+        type: string
+        format: date-time
+      lastHeartBeatStatus:
+        $ref: '#/definitions/HeartbeatStatus'
+        description: Current status of heartbeat
+      lastPasswordChangeAttempt:
+        description: Time of most recent password change attempt
+        type: string
+        format: date-time
+      launcherConnectAsSecretId:
+        description: LauncherConnectAsSecretId
+        x-nullable: true
+        type: integer
+        format: int32
+      name:
+        description: Secret name
+        type: string
+      outOfSyncReason:
+        description: Reason message if the secret is out of sync
+        type: string
+      passwordTypeWebScriptId:
+        description: PasswordTypeWebScriptId
+        type: integer
+        format: int32
+      proxyEnabled:
+        description: ProxyEnabled
+        type: boolean
+      requiresApprovalForAccess:
+        description: RequiresApprovalForAccess
+        type: boolean
+      requiresComment:
+        description: RequiresComment
+        type: boolean
+      responseCodes:
+        description: ResponseCodes
+        items:
+          type: string
+        type: array
+      restrictSshCommands:
+        description: RestrictSshCommands
+        type: boolean
+      secretPolicyId:
+        description: SecretPolicyId
+        type: integer
+        format: int32
+      secretTemplateId:
+        description: Secret template ID
+        type: integer
+        format: int32
+      secretTemplateName:
+        description: Name of secret template
+        type: string
+      sessionRecordingEnabled:
+        description: Whether session recording is enabled
+        type: boolean
+      siteId:
+        description: SiteId
+        type: integer
+        format: int32
+      webLauncherRequiresIncognitoMode:
+        description: WebLauncherRequiresIncognitoMode
+        type: boolean
+    type: object    
+  SecretSummary:
+        description: Secret summary
+        properties:
+          active:
+            description: Whether the secret is active
+            type: boolean
+          autoChangeEnabled:
+            description: Indicates whether or not this Secret an auto changing password
+            x-nullable: true
+            type: boolean
+          checkedOut:
+            description: Whether the secret is currently checked out
+            type: boolean
+          checkOutEnabled:
+            description: Indicates whether or not checkout is enabled for the Secret
+            x-nullable: true
+            type: boolean
+          checkOutUserId:
+            description: Id of the User that has the secret checked out if it is checked out
+            type: integer
+            format: int32
+          checkOutUserName:
+            description: >-
+              The name of the User that has the secret checked out if it is checked
+              out
+            type: string
+          createDate:
+            description: When the Secret was created
+            x-nullable: true
+            type: string
+            format: date-time
+          daysUntilExpiration:
+            description: How many days until this Secret expires
+            x-nullable: true
+            type: integer
+            format: int32
+          doubleLockEnabled:
+            description: Indicates whether or not DoubleLock is enabled for this password
+            x-nullable: true
+            type: boolean
+          extendedFields:
+            description: Any requested extended fields from a lookup request
+            items:
+              $ref: '#/definitions/ISecretSummaryExtendedField'
+            type: array
+          folderId:
+            description: Containing folder ID
+            type: integer
+            format: int32
+          folderPath:
+            description: Containing folder path
+            type: string
+          hasLauncher:
+            description: Indicates if this Secret has any launchers
+            type: boolean
+          hidePassword:
+            description: Indicates if the launcher password is set to be hidden
+            x-nullable: true
+            type: boolean
+          id:
+            description: Secret ID
+            type: integer
+            format: int32
+          inheritsPermissions:
+            description: Indicates if this Secret inherits permissions from its folder
+            x-nullable: true
+            type: boolean
+          isOutOfSync:
+            description: >-
+              Indicates that Heartbeat has failed or a Password is set up for
+              autochange and has failed its last password change attempt or has
+              exceeded the maximum RPC attempts
+            type: boolean
+          isRestricted:
+            description: Whether the secret is restricted
+            type: boolean
+          lastAccessed:
+            description: When the Secret was last viewed by the current User
+            x-nullable: true
+            type: string
+            format: date-time
+          lastHeartBeatStatus:
+            $ref: '#/definitions/HeartbeatStatus'
+            description: Current status of heartbeat
+          lastPasswordChangeAttempt:
+            description: Time of most recent password change attempt
+            x-nullable: true
+            type: string
+            format: date-time
+          name:
+            description: Secret name
+            type: string
+          outOfSyncReason:
+            description: Reason message if the secret is out of sync
+            type: string
+          requiresApproval:
+            description: Indicates if this Secret requires approval
+            x-nullable: true
+            type: boolean
+          requiresComment:
+            description: Indicates if this Secret requires comment
+            x-nullable: true
+            type: boolean
+          responseCodes:
+            description: ResponseCodes
+            items:
+              type: string
+            type: array
+          secretTemplateId:
+            description: Secret template ID
+            type: integer
+            format: int32
+          secretTemplateName:
+            description: Name of secret template
+            type: string
+          siteId:
+            description: SiteId
+            type: integer
+            format: int32
+        type: object
+  ISecretSummaryExtendedField:
+    description: Any requested extended fields from a lookup request
+    properties:
+      name:
+        description: Name
+        type: string
+      value:
+        description: Value
+        type: string
+    type: object
+  SecretUpdateArgs:
+    description: Secret update options
+    required:
+      - id
+      - name
+      - items
+    properties:
+      accessRequestWorkflowMapId:
+        description: >-
+          The id of the mapping entity that associates this secret to a specific
+          access request workflow.
+        x-nullable: true
+        type: integer
+        format: int32
+      active:
+        description: Whether the secret is in an active or deleted state.
+        type: boolean
+      autoChangeEnabled:
+        description: Whether the secret’s password is automatically rotated on a schedule.
+        type: boolean
+      autoChangeNextPassword:
+        description: Whether the secret should be flagged for immediate password change.
+        type: string
+      checkOutChangePasswordEnabled:
+        description: >-
+          Whether the secret’s password is automatically changed when a secret
+          is checked in. This is a security feature that prevents a use of the
+          password retrieved from check-out after the secret is checked in.
+        type: boolean
+      checkOutEnabled:
+        description: >-
+          Whether the user must check-out the secret to view it. Checking out
+          gives the user exclusive access to the secret for a specified period
+          or until the secret is checked in.
+        type: boolean
+      checkOutIntervalMinutes:
+        description: The number of minutes that a secret will remain checked out.
+        x-nullable: true
+        type: integer
+        format: int32
+      comment:
+        description: >-
+          If the secret requires a comment to view or requires approval to view,
+          a reason for accessing the secret must be provided.
+        type: string
+      doubleLockPassword:
+        description: >-
+          If the secret is DoubleLocked, this is the DoubleLock password needed
+          to access the secret.
+        type: string
+      enableInheritPermissions:
+        description: Whether the secret inherits permissions from the containing folder.
+        x-nullable: true
+        type: boolean
+      enableInheritSecretPolicy:
+        description: Whether the secret policy is inherited from the containing folder.
+        type: boolean
+      folderId:
+        description: >-
+          If the secret is contained in a folder, the id of the containing
+          folder. Set to null or -1 for secrets that are in the root folder.
+        x-nullable: true
+        type: integer
+        format: int32
+      forceCheckIn:
+        description: >-
+          Force the secret to be checked in, even if checked out by someone
+          else. The user must have the "Force Check In" permission.
+        type: boolean
+      id:
+        description: The id of the Secret to update. Must match the {id} in the path.
+        type: integer
+        format: int32
+        minimum: 1
+      includeInactive:
+        description: >-
+          If the secret is deactivated, this must be set to true in order to
+          access the secret. The user must also have the "View Inactive Secrets"
+          permission.
+        type: boolean
+      items:
+        description: A list of secret item field values.
+        items:
+          $ref: '#/definitions/RestSecretItem'
+        type: array
+      launcherConnectAsSecretId:
+        description: >-
+          When an SSH secret is proxied, you can choose to connect as another
+          user and then do an su to the current secret’s user. This is a common
+          practice for connecting with a lower privileged account and then
+          switching to the root user.
+        x-nullable: true
+        type: integer
+        format: int32
+      name:
+        description: The name to display for the secret.
+        type: string
+      newPassword:
+        description: New secret password.
+        type: string
+      noAutoCheckout:
+        description: Don't check out the secret automatically.
+        type: boolean
+      passwordTypeWebScriptId:
+        description: >-
+          The id of the password change script to use on applicable web password
+          secrets.
+        x-nullable: true
+        type: integer
+        format: int32
+      proxyEnabled:
+        description: >-
+          Whether sessions launched on this secret use Secret Server’s proxying
+          or connect directly.
+        type: boolean
+      requiresComment:
+        description: Whether the user must enter a comment to view the secret.
+        type: boolean
+      secretPolicyId:
+        description: >-
+          The id of the secret policy that controls the security and other
+          settings of the secret. Set to null to not assign a secret policy.
+        x-nullable: true
+        type: integer
+        format: int32
+      sessionRecordingEnabled:
+        description: Whether session recording is enabled.
+        type: boolean
+      siteId:
+        description: >-
+          The id of the distributed engine site that is used by this secret for
+          operations such as password changing.
+        type: integer
+        format: int32
+        minimum: 1
+      sshKeyArgs:
+        $ref: '#/definitions/SshKeyArgs'
+        description: SSH key options
+      ticketNumber:
+        description: >-
+          If the secret requires a comment to view or requires approval and a
+          user must provide a help desk a ticket number, this is the ticket
+          number to the help desk request.
+        type: string
+      ticketSystemId:
+        description: >-
+          If the secret requires a comment to view or requires approval and a
+          user must provide a help desk a ticket number, this is the id of the
+          help desk system configured in Secret Server that should be used to
+          validate the ticket number.
+        x-nullable: true
+        type: integer
+        format: int32
+      webLauncherRequiresIncognitoMode:
+        description: >-
+          Whether the web launcher will require the browser to run in incognito
+          mode.
+        x-nullable: true
+        type: boolean
+    type: object
+  RestSecretItem:
+    description: Secret data field item
+    properties:
+      fieldDescription:
+        description: Longer description of the secret field.
+        type: string
+      fieldId:
+        description: The id of the field definition from the secret template.
+        x-nullable: true
+        type: integer
+        format: int32
+      fieldName:
+        description: The display name of the secret field.
+        type: string
+      fileAttachmentId:
+        description: >-
+          If the field is a file attachment field, the id of the file
+          attachment.
+        x-nullable: true
+        type: integer
+        format: int32
+      filename:
+        description: >-
+          If the field is a file attachment field, the name of the attached
+          file.
+        type: string
+      isFile:
+        description: Whether the field is a file attachment.
+        type: boolean
+      isList:
+        description: Whether or not the secret field is a list.
+        type: boolean
+      isNotes:
+        description: >-
+          Whether the field is represented as a multi-line text box. Used for
+          long-form text fields.
+        type: boolean
+      isPassword:
+        description: >-
+          Whether the field is a password. Password fields are hidden by default
+          in the UI and their value is not returned in GET calls that return
+          secrets. To retrieve a password field value, make a GET call to
+          /api/secrets/{secretId}/fields/{slug}.
+        type: boolean
+      itemId:
+        description: >-
+          The id of the secret field item. Leave empty when creating a new
+          secret.
+        x-nullable: true
+        type: integer
+        format: int32
+      itemValue:
+        description: >-
+          The value of the secret field item. For list fields, this is a
+          comma-delimited list of the list id guids that are assigned to this
+          field.
+        type: string
+      listType:
+        $ref: '#/definitions/SecretFieldListType'
+        description: The type of list. Valid values are “None”, “Generic”, and “URL”.
+      slug:
+        description: >-
+          A unique name for the secret field on the template. Slugs cannot
+          contain spaces and are used in many places to easily refer to a secret
+          field without having to know the field id.
+        type: string
+    type: object
+  HeartbeatStatus:
+    description: Current status of heartbeat
+    properties: {}
+    type: string
+    enum:
+      - Failed
+      - Success
+      - Pending
+      - Disabled
+      - UnableToConnect
+      - UnknownError
+      - IncompatibleHost
+      - AccountLockedOut
+      - DnsMismatch
+      - UnableToValidateServerPublicKey
+      - Processing
+      - ArgumentError
+      - AccessDenied
+  SecretDetailActionType:
+    description: Secret Detail Action Type
+    properties: {}
+    type: string
+    enum:
+      - ChangePasswordNow
+      - ConvertTemplate
+      - Copy
+      - Delete
+      - Edit
+      - EditExpiration
+      - EditRpc
+      - EditSecurity
+      - Expire
+      - Heartbeat
+      - EditShare
+      - ShowSshProxyCredentials
+      - StopChangePasswordNow
+      - ViewAudit
+      - ViewDependencies
+      - ViewLaunchers
+      - ViewExpiration
+      - ViewHooks
+      - ViewRpc
+      - ViewSecurity
+      - ViewSettings
+      - Undelete
+      - ForceCheckin
+      - ViewShare
+      - EditHooks
+      - EditDependencies
+      - ViewGeneralDetails
+      - ViewHeartbeatStatus
+      - Checkin
+      - Checkout
+      - GenerateOneTimePassword
+      - ShowSshTerminalDetails
+      - ShowRdpProxyCredentials
+      - ViewMetadata
+      - ViewSecretExposure
+      - ViewCheckOut
+      - ViewApproval
+      - ViewListFields
+      - Erase
+      - ViewMfa
+  SecretAccessRequired:
+    description: Secret Access Required
+    properties: {}
+    type: string
+    enum:
+      - None
+      - RequiresApproval
+      - RequiresCheckout
+      - RequiresComment
+      - RequiresDoubleLockPassword
+      - CreateDoubleLockPassword
+      - DoubleLockNoAccess
+      - CannotView
+      - RequiresUndelete
+      - RequiresCheckoutPendingRPC
+      - RequiresCheckoutAndComment
+      - RequiresMfaChallenge         
+      
+  SecretFieldListType:
+    description: The type of list. Valid values are “None”, “Generic”, and “URL”.
+    properties: {}
+    type: string
+    enum:
+      - Generic
+      - URL
+      - None
+  SshKeyArgs:
+    description: SSH key options
+    properties:
+      generatePassphrase:
+        description: >-
+          Whether to generate an SSH private key passphrase.  Only applicable
+          when the Secret template has a password changer with the Private Key
+          Passphrase field mapped.  If it is not mapped, this setting is
+          ignored.
+        type: boolean
+      generateSshKeys:
+        description: Whether to generate an SSH private key
+        type: boolean
+    type: object
+  PagingOfCategorizedListSummary:
+    description: >-
+      Specify paging and sorting options for querying records and returning
+      results
+    properties:
+      batchCount:
+        description: Number of result batches available with current query options
+        type: integer
+        format: int32
+      currentPage:
+        description: Index of current result page
+        type: integer
+        format: int32
+      hasNext:
+        description: Whether there are any results in additional pages
+        type: boolean
+      hasPrev:
+        description: Whether there are any results in previous pages
+        type: boolean
+      nextSkip:
+        description: Correct value of 'skip' for the next page of results
+        type: integer
+        format: int32
+      pageCount:
+        description: Number of result pages available with current query options
+        type: integer
+        format: int32
+      prevSkip:
+        description: Correct value of 'skip' for the previous page of results
+        type: integer
+        format: int32
+      records:
+        description: Query results
+        items:
+          $ref: '#/definitions/CategorizedListSummary'
+        type: array
+      severity:
+        $ref: '#/definitions/Severity'
+        description: Severity of any errors
+      skip:
+        description: Number of records to skip before taking results
+        type: integer
+        format: int32
+      sortBy:
+        description: List of sort properties
+        items:
+          $ref: '#/definitions/Sort'
+        type: array
+      success:
+        description: Whether the query executed successfully
+        type: boolean
+      take:
+        description: Maximum number of records to include in results
+        type: integer
+        format: int32
+      total:
+        description: Total number of results available
+        type: integer
+        format: int32
+    type: object
+  CategorizedListSummary:
+    description: Query results
+    properties:
+      active:
+        description: Whether or not the list is active
+        type: boolean
+      categorizedListId:
+        description: List Id
+        type: string
+      description:
+        description: Description of the list
+        type: string
+      name:
+        description: Name of the list
+        type: string
+      numOptions:
+        description: The number of options in the list
+        type: integer
+        format: int32
+    type: object
+  Severity:
+    description: Error severity level
+    properties: {}
+    type: string
+    enum:
+      - None
+      - Retry
+      - Warn
+      - Critical
+      - Fatal
+  Sort:
+    description: Sort options. Multiple sort options can be provided in the query string.
+    required:
+      - name
+      - direction
+    properties:
+      direction:
+        $ref: '#/definitions/SortDirection'
+        description: Sort direction
+      name:
+        description: Sort field name
+        type: string
+      priority:
+        description: Priority index. Sorts with lower values are executed earlier
+        type: integer
+        format: int32
+    type: object
+  SortDirection:
+    description: Sort direction
+    properties: {}
+    type: string
+    enum:
+      - None
+      - Asc
+      - Desc
+  SecretListFieldListArgs:
+    description: Secret List Field List Args
+    properties:
+      listGuids:
+        description: Array of List GUIDs
+        items:
+          type: string
+          format: uuid
+        type: array
+    type: object
+  PagingOfSecretSummary:
+    description: >-
+      Specify paging and sorting options for querying records and returning
+      results
+    properties:
+      batchCount:
+        description: Number of result batches available with current query options
+        type: integer
+        format: int32
+      currentPage:
+        description: Index of current result page
+        type: integer
+        format: int32
+      hasNext:
+        description: Whether there are any results in additional pages
+        type: boolean
+      hasPrev:
+        description: Whether there are any results in previous pages
+        type: boolean
+      nextSkip:
+        description: Correct value of 'skip' for the next page of results
+        type: integer
+        format: int32
+      pageCount:
+        description: Number of result pages available with current query options
+        type: integer
+        format: int32
+      prevSkip:
+        description: Correct value of 'skip' for the previous page of results
+        type: integer
+        format: int32
+      records:
+        description: Query results
+        items:
+          $ref: '#/definitions/SecretSummary'
+        type: array
+      severity:
+        $ref: '#/definitions/Severity'
+        description: Severity of any errors
+      skip:
+        description: Number of records to skip before taking results
+        type: integer
+        format: int32
+      sortBy:
+        description: List of sort properties
+        items:
+          $ref: '#/definitions/Sort'
+        type: array
+      success:
+        description: Whether the query executed successfully
+        type: boolean
+      take:
+        description: Maximum number of records to include in results
+        type: integer
+        format: int32
+      total:
+        description: Total number of results available
+        type: integer
+        format: int32
+    type: object
+  PagingOfSecretLookup:
+    description: >-
+      Specify paging and sorting options for querying records and returning
+      results
+    properties:
+      batchCount:
+        description: Number of result batches available with current query options
+        type: integer
+        format: int32
+      currentPage:
+        description: Index of current result page
+        type: integer
+        format: int32
+      hasNext:
+        description: Whether there are any results in additional pages
+        type: boolean
+      hasPrev:
+        description: Whether there are any results in previous pages
+        type: boolean
+      nextSkip:
+        description: Correct value of 'skip' for the next page of results
+        type: integer
+        format: int32
+      pageCount:
+        description: Number of result pages available with current query options
+        type: integer
+        format: int32
+      prevSkip:
+        description: Correct value of 'skip' for the previous page of results
+        type: integer
+        format: int32
+      records:
+        description: Query results
+        items:
+          $ref: '#/definitions/SecretLookup'
+        type: array
+      severity:
+        $ref: '#/definitions/Severity'
+        description: Severity of any errors
+      skip:
+        description: Number of records to skip before taking results
+        type: integer
+        format: int32
+      sortBy:
+        description: List of sort properties
+        items:
+          $ref: '#/definitions/Sort'
+        type: array
+      success:
+        description: Whether the query executed successfully
+        type: boolean
+      take:
+        description: Maximum number of records to include in results
+        type: integer
+        format: int32
+      total:
+        description: Total number of results available
+        type: integer
+        format: int32
+    type: object
+  SecretLookup:
+    description: Simple secret representation
+    properties:
+      id:
+        description: Secret ID
+        type: integer
+        format: int32
+      value:
+        description: Secret name
+        type: string
+    type: object
+  SecretModelV2:
+    description: Secret V2
+    properties:
+      accessRequestWorkflowMapId:
+        description: Access Request Workflow Map Id
+        x-nullable: true
+        type: integer
+        format: int32
+      active:
+        description: Whether the secret is active
+        type: boolean
+      allowOwnersUnrestrictedSshCommands:
+        description: Allow Owners Unrestricted SSH Commands
+        type: boolean
+      autoChangeEnabled:
+        description: Auto Change Enabled
+        type: boolean
+      autoChangeNextPassword:
+        description: Auto Change Next Password
+        type: string
+      checkedOut:
+        description: Whether the secret is currently checked out
+        type: boolean
+      checkOutChangePasswordEnabled:
+        description: Check Out Change Password Enabled
+        type: boolean
+      checkOutEnabled:
+        description: Whether secret checkout is enabled
+        type: boolean
+      checkOutIntervalMinutes:
+        description: Checkout interval, in minutes
+        type: integer
+        format: int32
+      checkOutMinutesRemaining:
+        description: Minutes remaining in current checkout interval
+        type: integer
+        format: int32
+      checkOutUserDisplayName:
+        description: Name of user who has checked out the secret
+        type: string
+      checkOutUserId:
+        description: ID of user who has checked out the secret
+        type: integer
+        format: int32
+      doubleLockId:
+        description: DoubleLock Id
+        type: integer
+        format: int32
+      enableInheritPermissions:
+        description: Enable Inherit Permissions
+        type: boolean
+      enableInheritSecretPolicy:
+        description: Whether the secret policy is inherited from the containing folder
+        type: boolean
+      failedPasswordChangeAttempts:
+        description: Number of failed password change attempts
+        type: integer
+        format: int32
+      folderId:
+        description: Containing folder ID
+        type: integer
+        format: int32
+      id:
+        description: Secret ID
+        type: integer
+        format: int32
+      isDoubleLock:
+        description: Whether double lock is enabled
+        type: boolean
+      isOutOfSync:
+        description: >-
+          Out of sync indicates that a Password is setup for autochange and has
+          failed its last password change attempt or has exceeded the maximum
+          RPC attempts
+        type: boolean
+      isRestricted:
+        description: Whether the secret is restricted
+        type: boolean
+      items:
+        description: Secret data fields
+        items:
+          $ref: '#/definitions/RestSecretItem'
+        type: array
+      jumpboxRouteId:
+        description: Jumpbox Route Id
+        x-nullable: true
+        type: string
+        format: uuid
+      lastHeartBeatCheck:
+        description: Time of last heartbeat check
+        x-nullable: true
+        type: string
+        format: date-time
+      lastHeartBeatStatus:
+        $ref: '#/definitions/HeartbeatStatus'
+        description: Current status of heartbeat
+      lastPasswordChangeAttempt:
+        description: Time of most recent password change attempt
+        x-nullable: true
+        type: string
+        format: date-time
+      launcherConnectAsSecretId:
+        description: LauncherConnectAsSecretId
+        x-nullable: true
+        type: integer
+        format: int32
+      name:
+        description: Secret name
+        type: string
+      outOfSyncReason:
+        description: Reason message if the secret is out of sync
+        type: string
+      passwordTypeWebScriptId:
+        description: Password Type Web Script Id
+        type: integer
+        format: int32
+      proxyEnabled:
+        description: Proxy Enabled
+        type: boolean
+      requiresApprovalForAccess:
+        description: Requires Approval For Access
+        type: boolean
+      requiresComment:
+        description: Requires Comment
+        type: boolean
+      responseCodes:
+        description: Response Codes
+        items:
+          type: string
+        type: array
+      restrictSshCommands:
+        description: Restrict SSH Commands
+        type: boolean
+      secretPolicyId:
+        description: Secret Policy Id
+        type: integer
+        format: int32
+      secretTemplateId:
+        description: Secret template ID
+        type: integer
+        format: int32
+      secretTemplateName:
+        description: Name of secret template
+        type: string
+      sessionRecordingEnabled:
+        description: Whether session recording is enabled
+        type: boolean
+      siteId:
+        description: Site Id
+        type: integer
+        format: int32
+      webLauncherRequiresIncognitoMode:
+        description: Web Launcher Requires Incognito Mode
+        type: boolean
+    type: object
+  SecretItemUpdateArgs:
+    description: Secret field update options
+    properties:
+      comment:
+        description: >-
+          If the secret requires a comment to view or requires approval to view,
+          a reason for accessing the secret must be provided.
+        type: string
+      doubleLockPassword:
+        description: >-
+          If the secret is DoubleLocked, this is the DoubleLock password needed
+          to access the secret.
+        type: string
+      file:
+        description: >-
+          Uploaded file (used for file attachment fields with "Content-Type:
+          multipart/form-data")
+        type: string
+      fileAttachment:
+        description: >-
+          Binary file data (used for file attachment fields with "Content-Type:
+          application/json")
+        type: string
+        format: binary
+      fileName:
+        description: >-
+          File name (used for file attachment fields with "Content-Type:
+          application/json"))
+        type: string
+      forceCheckIn:
+        description: >-
+          Force the secret to be checked in, even if checked out by someone
+          else. The user must have the "Force Check In" permission.
+        type: boolean
+      includeInactive:
+        description: >-
+          If the secret is deactivated, this must be set to true in order to
+          access the secret. The user must also have the "View Inactive Secrets"
+          permission.
+        type: boolean
+      newPassword:
+        description: New secret password.
+        type: string
+      noAutoCheckout:
+        description: Don't check out the secret automatically.
+        type: boolean
+      ticketNumber:
+        description: >-
+          If the secret requires a comment to view or requires approval and a
+          user must provide a help desk a ticket number, this is the ticket
+          number to the help desk request.
+        type: string
+      ticketSystemId:
+        description: >-
+          If the secret requires a comment to view or requires approval and a
+          user must provide a help desk a ticket number, this is the id of the
+          help desk system configured in Secret Server that should be used to
+          validate the ticket number.
+        x-nullable: true
+        type: integer
+        format: int32
+      value:
+        description: New value to assign to the secret field.
+        type: string
+    type: object
+  SecretCreateArgs:
+    description: Secret create options
+    required:
+      - name
+      - secretTemplateId
+      - items
+    properties:
+      autoChangeEnabled:
+        description: Whether the secret’s password is automatically rotated on a schedule.
+        type: boolean
+      changePasswordNow:
+        description: >-
+          Whether the Secret should be immediately queued for Remote Password
+          Change upon successful import.
+        type: boolean
+      checkOutChangePasswordEnabled:
+        description: >-
+          Whether the secret’s password is automatically changed when a secret
+          is checked in. This is a security feature that prevents a use of the
+          password retrieved from check-out after the secret is checked in.
+        type: boolean
+      checkOutEnabled:
+        description: >-
+          Whether the user must check-out the secret to view it. Checking out
+          gives the user exclusive access to the secret for a specified period
+          or until the secret is checked in.
+        type: boolean
+      checkOutIntervalMinutes:
+        description: The number of minutes that a secret will remain checked out.
+        x-nullable: true
+        type: integer
+        format: int32
+      delayIndexing:
+        description: >-
+          Whether the search indexing should be delayed to the background
+          process. This can speed up bulk secret creation scripts by offloading
+          the task of indexing the new secrets to the background task at the
+          trade-off of not having search indexes immediately available.
+        x-nullable: true
+        type: boolean
+      enableInheritPermissions:
+        description: Whether the secret inherits permissions from the containing folder.
+        x-nullable: true
+        type: boolean
+      enableInheritSecretPolicy:
+        description: Whether the secret policy is inherited from the containing folder.
+        type: boolean
+      folderId:
+        description: >-
+          If the secret is contained in a folder, the id of the containing
+          folder. Set to null or -1 for secrets that are in the root folder.
+        x-nullable: true
+        type: integer
+        format: int32
+      items:
+        description: >-
+          An array of values for the secret fields defined in the secret
+          template.
+        items:
+          $ref: '#/definitions/RestSecretItem'
+        type: array
+      launcherConnectAsSecretId:
+        description: >-
+          When an SSH secret is proxied, you can choose to connect as another
+          user and then do an su to the current secret’s user. This is a common
+          practice for connecting with a lower privileged account and then
+          switching to the root user.
+        x-nullable: true
+        type: integer
+        format: int32
+      name:
+        description: The name to display for the secret.
+        type: string
+      passwordTypeWebScriptId:
+        description: >-
+          The id of the password change script to use on applicable web password
+          secrets.
+        x-nullable: true
+        type: integer
+        format: int32
+      proxyEnabled:
+        description: >-
+          Whether sessions launched on this secret use Secret Server’s proxying
+          or connect directly.
+        type: boolean
+      requiresComment:
+        description: Whether the user must enter a comment to view the secret.
+        type: boolean
+      secretPolicyId:
+        description: >-
+          The id of the secret policy that controls the security and other
+          settings of the secret. Set to null to not assign a secret policy.
+        x-nullable: true
+        type: integer
+        format: int32
+      secretTemplateId:
+        description: >-
+          The id of the secret template that defines the fields and properties
+          of the secret.
+        type: integer
+        format: int32
+        minimum: 1
+      sessionRecordingEnabled:
+        description: Whether session recording is enabled.
+        type: boolean
+      siteId:
+        description: >-
+          The id of the distributed engine site that is used by this secret for
+          operations such as password changing.
+        type: integer
+        format: int32
+        minimum: 1
+      sshKeyArgs:
+        $ref: '#/definitions/SshKeyArgs'
+        description: SSH key options.
+      webLauncherRequiresIncognitoMode:
+        description: >-
+          Whether the web launcher will require the browser to run in incognito
+          mode.
+        type: boolean
+    type: object
+  SecretRestrictedArgs:
+    description: Restricted secret update options
+    properties:
+      comment:
+        description: >-
+          If the secret requires a comment to view or requires approval to view,
+          a reason for accessing the secret must be provided.
+        type: string
+      doubleLockPassword:
+        description: >-
+          If the secret is DoubleLocked, this is the DoubleLock password needed
+          to access the secret.
+        type: string
+      forceCheckIn:
+        description: >-
+          Force the secret to be checked in, even if checked out by someone
+          else. The user must have the "Force Check In" permission.
+        type: boolean
+      includeInactive:
+        description: >-
+          If the secret is deactivated, this must be set to true in order to
+          access the secret. The user must also have the "View Inactive Secrets"
+          permission.
+        type: boolean
+      newPassword:
+        description: New secret password.
+        type: string
+      noAutoCheckout:
+        description: Don't check out the secret automatically.
+        type: boolean
+      ticketNumber:
+        description: >-
+          If the secret requires a comment to view or requires approval and a
+          user must provide a help desk a ticket number, this is the ticket
+          number to the help desk request.
+        type: string
+      ticketSystemId:
+        description: >-
+          If the secret requires a comment to view or requires approval and a
+          user must provide a help desk a ticket number, this is the id of the
+          help desk system configured in Secret Server that should be used to
+          validate the ticket number.
+        x-nullable: true
+        type: integer
+        format: int32
+    type: object
+  CategorizedListItemValueResult:
+    description: CategorizedListItemValueResult
+    properties:
+      value:
+        description: Value
+        items:
+          $ref: '#/definitions/ICategorizedListItemValue'
+        type: array
+    type: object
+  ICategorizedListItemValue:
+    description: The restricted hosts.
+    properties:
+      category:
+        description: Category
+        type: string
+      value:
+        description: Value
+        type: string
+    type: object
+  SecretDetailLauncher:
+    description: Launchers
+    properties:
+      hasProxyCredentials:
+        description: HasProxyCredentials
+        type: boolean
+      imagePath:
+        description: ImagePath
+        type: string
+      isRecorded:
+        description: IsRecorded
+        type: boolean
+      name:
+        description: Name
+        type: string
+      showLauncher:
+        description: ShowLauncher
+        type: boolean
+      typeId:
+        description: TypeId
+        type: integer
+        format: int32
+    type: object
+  SecretDetailGeneralModel:
+    description: Secret Detail General
+    properties:
+      active:
+        description: Whether the secret is active
+        type: boolean
+      autoChangePassword:
+        description: Whether the password should automatically change upon expiration.
+        type: boolean
+      canGenerateSshKey:
+        description: Can Generate SSH Key
+        type: boolean
+      enableInheritSecretPolicy:
+        description: Whether the secret policy is inherited from the containing folder
+        type: boolean
+      expiration:
+        description: Expiration
+        type: string
+      fields:
+        description: Secret Fields
+        items:
+          type: string
+        type: array
+      folder:
+        description: Containing folder ID
+        x-nullable: true
+        type: integer
+        format: int32
+      heartbeatEnabled:
+        description: Heartbeat Enabled
+        type: boolean
+      id:
+        description: Secret Detail General Id
+        type: integer
+        format: int32
+      isFavorite:
+        description: Is Favorite
+        type: boolean
+      isOutOfSync:
+        description: Whether the secret is out of sync
+        type: boolean
+      isTotpEnabled:
+        description: Is One Time Password Enabled
+        type: boolean
+      lastHeartBeatCheck:
+        description: Time of last heartbeat check
+        x-nullable: true
+        type: string
+        format: date-time
+      lastHeartBeatStatus:
+        $ref: '#/definitions/SecretDetailHeartbeatStatus'
+        description: Current status of heartbeat
+      launchers:
+        description: Launchers
+        items:
+          $ref: '#/definitions/SecretDetailLauncher'
+        type: array
+      name:
+        description: Secret Detail General Name
+        type: string
+      outOfSyncReason:
+        description: Reason message if the secret is out of sync
+        type: string
+      secretPolicy:
+        description: Secret Policy
+        x-nullable: true
+        type: integer
+        format: int32
+      site:
+        description: Site
+        x-nullable: true
+        type: integer
+        format: int32
+      slugPrivateKey:
+        description: Private Key Field Slug
+        type: string
+      slugPublicKey:
+        description: Public Key Field Slug
+        type: string
+      template:
+        description: Secret template
+        x-nullable: true
+        type: integer
+        format: int32
+      totpPasswordSlug:
+        description: One Time Password Field Slug
+        type: string
+    type: object
+  SecretDetailHeartbeatStatus:
+    description: Current status of heartbeat
+    properties: {}
+    type: string
+    enum:
+      - Failed
+      - Success
+      - Pending
+      - Disabled
+      - UnableToConnect
+      - UnknownError
+      - IncompatibleHost
+      - AccountLockedOut
+      - DnsMismatch
+      - UnableToValidateServerPublicKey
+      - Processing
+  SecretDetailStateViewModel:
+    description: Secret Detail State View Model
+    properties:
+      actions:
+        description: Allowed action for current user
+        items:
+          $ref: '#/definitions/SecretDetailActionType'
+        type: array
+      approvalEnd:
+        description: >-
+          Date when the current approval expires, or null if there is no open
+          approval
+        x-nullable: true
+        type: string
+        format: date-time
+      availableActions:
+        $ref: '#/definitions/SecretDetailStateActionsModel'
+        description: Secret Detail State Actions
+      checkedOutUserDisplayName:
+        description: Display Name of User that has the secret checked out
+        type: string
+      checkedOutUserId:
+        description: User Secret is checked out to
+        x-nullable: true
+        type: integer
+        format: int32
+      checkOutIntervalMinutes:
+        description: 'Number of minutes before checkout '
+        x-nullable: true
+        type: integer
+        format: int32
+      checkOutMinutesRemaining:
+        description: Minutes remaining in check out
+        x-nullable: true
+        type: integer
+        format: int32
+      folderId:
+        description: Folder Id
+        x-nullable: true
+        type: integer
+        format: int32
+      folderName:
+        description: Folder Name
+        type: string
+      id:
+        description: Secret Id
+        x-nullable: true
+        type: integer
+        format: int32
+      inheritPermissions:
+        description: Is this secret inheriting permissions from its folder
+        type: boolean
+      isActive:
+        description: Active indicator
+        x-nullable: true
+        type: boolean
+      isCheckedOut:
+        description: Is the Secret checked out
+        x-nullable: true
+        type: boolean
+      isCheckedOutByCurrentUser:
+        description: Indicates whether the Secret is checked out by the current user
+        x-nullable: true
+        type: boolean
+      passwordChangeFailed:
+        description: The last password change failed when true
+        x-nullable: true
+        type: boolean
+      passwordChangePending:
+        description: Pending Password change on secret indicator
+        x-nullable: true
+        type: boolean
+      remainingTimeWarningMinuteMarker:
+        description: Minute mark to show check out warning
+        x-nullable: true
+        type: integer
+        format: int32
+      role:
+        description: Role that current user has on Secret
+        x-nullable: true
+        type: string
+      secretName:
+        description: Secret Name
+        type: string
+      secretState:
+        $ref: '#/definitions/SecretAccessRequired'
+        description: Current State of the Secret
+      warningMinutesRemaining:
+        description: Minutes remaining before showing check in warning
+        x-nullable: true
+        type: integer
+        format: int32
+    type: object
+  SecretDetailStateActionsModel:
+    description: Available Secret Detail State Actions
+    properties:
+      extendCheckOut:
+        description: The user may extend the remaining check out time of the secret.
+        type: boolean
+  RolePatchArgs:
+    description: RolePatchArgs
+    properties:
+      data:
+        $ref: '#/definitions/RolePatchModel'
+        description: Data
+    type: object
+  RolePatchModel:
+    description: Patch Role
+    properties:
+      enabled:
+        $ref: '#/definitions/UpdateFieldValueOfBoolean'
+        description: Is Role Enabled
+      name:
+        $ref: '#/definitions/UpdateFieldValueOfString'
+        description: Name of Role
+    type: object
+  PagingOfRoleModel:
+    description: >-
+      Specify paging and sorting options for querying records and returning
+      results
+    properties:
+      batchCount:
+        description: Number of result batches available with current query options
+        type: integer
+        format: int32
+      currentPage:
+        description: Index of current result page
+        type: integer
+        format: int32
+      hasNext:
+        description: Whether there are any results in additional pages
+        type: boolean
+      hasPrev:
+        description: Whether there are any results in previous pages
+        type: boolean
+      nextSkip:
+        description: Correct value of 'skip' for the next page of results
+        type: integer
+        format: int32
+      pageCount:
+        description: Number of result pages available with current query options
+        type: integer
+        format: int32
+      prevSkip:
+        description: Correct value of 'skip' for the previous page of results
+        type: integer
+        format: int32
+      records:
+        description: Query results
+        items:
+          $ref: '#/definitions/RoleModel'
+        type: array
+      severity:
+        $ref: '#/definitions/Severity'
+        description: Severity of any errors
+      skip:
+        description: Number of records to skip before taking results
+        type: integer
+        format: int32
+      sortBy:
+        description: List of sort properties
+        items:
+          $ref: '#/definitions/Sort'
+        type: array
+      success:
+        description: Whether the query executed successfully
+        type: boolean
+      take:
+        description: Maximum number of records to include in results
+        type: integer
+        format: int32
+      total:
+        description: Total number of results available
+        type: integer
+        format: int32
+    type: object
+  RoleCreateArgs:
+    description: Role create options
+    required:
+      - name
+      - enabled
+    properties:
+      enabled:
+        description: Whether the Role is active
+        type: boolean
+      name:
+        description: Role name
+        type: string
+    type: object
+  PagingOfRoleGroupSummaryAndGroupMembershipFilter:
+    description: >-
+      Specify filtering, paging, sorting options for querying records and
+      returning results
+    properties:
+      batchCount:
+        description: Number of result batches available with current query options
+        type: integer
+        format: int32
+      currentPage:
+        description: Index of current result page
+        type: integer
+        format: int32
+      filter:
+        $ref: '#/definitions/GroupMembershipFilter'
+        description: Additional query options
+      hasNext:
+        description: Whether there are any results in additional pages
+        type: boolean
+      hasPrev:
+        description: Whether there are any results in previous pages
+        type: boolean
+      nextSkip:
+        description: Correct value of 'skip' for the next page of results
+        type: integer
+        format: int32
+      pageCount:
+        description: Number of result pages available with current query options
+        type: integer
+        format: int32
+      prevSkip:
+        description: Correct value of 'skip' for the previous page of results
+        type: integer
+        format: int32
+      records:
+        description: Query results
+        items:
+          $ref: '#/definitions/RoleGroupSummary'
+        type: array
+      severity:
+        $ref: '#/definitions/Severity'
+        description: Severity of any errors
+      skip:
+        description: Number of records to skip before taking results
+        type: integer
+        format: int32
+      sortBy:
+        description: List of sort properties
+        items:
+          $ref: '#/definitions/Sort'
+        type: array
+      success:
+        description: Whether the query executed successfully
+        type: boolean
+      take:
+        description: Maximum number of records to include in results
+        type: integer
+        format: int32
+      total:
+        description: Total number of results available
+        type: integer
+        format: int32
+    type: object
+  GroupMembershipFilter:
+    description: Group membership filter
+    properties:
+      includeInactiveUsersForGroup:
+        description: Whether to include inactive users in the results
+        type: boolean
+      userDomainId:
+        description: Filter only users in a specific domain
+        x-nullable: true
+        type: integer
+        format: int32
+    type: object
+  RoleGroupSummary:
+    description: Group
+    properties:
+      created:
+        description: Created Date
+        type: string
+        format: date-time
+      displayName:
+        description: Group display name
+        type: string
+      domainName:
+        description: Active Directory domain name
+        type: string
+      enabled:
+        description: Whether the group is active
+        type: boolean
+      groupId:
+        description: Group ID
+        type: integer
+        format: int32
+      name:
+        description: Group name
+        type: string
+      personal:
+        description: Whether the group is for a single user
+        type: boolean
+    type: object
+  PagingOfRolePermissionModel:
+    description: >-
+      Specify paging and sorting options for querying records and returning
+      results
+    properties:
+      batchCount:
+        description: Number of result batches available with current query options
+        type: integer
+        format: int32
+      currentPage:
+        description: Index of current result page
+        type: integer
+        format: int32
+      hasNext:
+        description: Whether there are any results in additional pages
+        type: boolean
+      hasPrev:
+        description: Whether there are any results in previous pages
+        type: boolean
+      nextSkip:
+        description: Correct value of 'skip' for the next page of results
+        type: integer
+        format: int32
+      pageCount:
+        description: Number of result pages available with current query options
+        type: integer
+        format: int32
+      prevSkip:
+        description: Correct value of 'skip' for the previous page of results
+        type: integer
+        format: int32
+      records:
+        description: Query results
+        items:
+          $ref: '#/definitions/RolePermissionModel'
+        type: array
+      severity:
+        $ref: '#/definitions/Severity'
+        description: Severity of any errors
+      skip:
+        description: Number of records to skip before taking results
+        type: integer
+        format: int32
+      sortBy:
+        description: List of sort properties
+        items:
+          $ref: '#/definitions/Sort'
+        type: array
+      success:
+        description: Whether the query executed successfully
+        type: boolean
+      take:
+        description: Maximum number of records to include in results
+        type: integer
+        format: int32
+      total:
+        description: Total number of results available
+        type: integer
+        format: int32
+    type: object
+  RolePermissionModel:
+    description: Role Permission
+    properties:
+      name:
+        description: Role Name
+        type: string
+      rolePermissionId:
+        description: Role Permission ID
+        type: integer
+        format: int32
+      roleType:
+        $ref: '#/definitions/RoleTypes'
+        description: Role Type
+    type: object
+  RoleTypes:
+    description: Role Type
+    properties: {}
+    type: string
+    enum:
+      - GlobalRoleType
+      - FolderRoleType
+      - SecretRoleType
+      - SecretTemplateRoleType
+      - ReportRoleType
+      - ReportCategoryRoleType
+  RolePermissionsAssignmentRequest:
+    description: RolePermissionsAssignmentRequest
+    properties:
+      rolePermissionIds:
+        description: This list will be the exact RolePermissions for the Role
+        items:
+          type: integer
+          format: int32
+        type: array
+    type: object
+  RolePermissionsAssignmentResponse:
+    description: The status of the Role Permissions change action.
+    properties:
+      success:
+        description: The success or failure of the Role Permissions action.
+        type: boolean
+    type: object
+  RoleGroupsPatchArgs:
+    description: RoleGroupsPatchArgs
+    properties:
+      data:
+        $ref: '#/definitions/RoleGroupsPatchModel'
+        description: Data
+    type: object
+  RoleGroupsPatchModel:
+    description: Data
+    properties:
+      groupIdsToAdd:
+        $ref: '#/definitions/UpdateFieldValueOfInt32'
+        description: IDs of Groups to add to Role
+      groupIdsToRemove:
+        $ref: '#/definitions/UpdateFieldValueOfInt32'
+        description: IDs of Groups to remove from Role
+    type: object
+  RoleGroupsPatchResult:
+    description: RoleGroupsPatchResult
+    properties:
+      success:
+        description: Success
+        type: boolean
+    type: object
+  UpdateFieldValueOfBoolean:
+    description: Active
+    properties:
+      dirty:
+        description: Dirty
+        type: boolean
+      value:
+        description: Value
+        type: boolean
+    type: object
+  RoleModel:
+    description: Role
+    properties:
+      created:
+        description: Created
+        type: string
+        format: date-time
+      enabled:
+        description: Enabled
+        type: boolean
+      id:
+        description: Role Id
+        type: integer
+        format: int32
+      isSystem:
+        description: Is System Role
+        type: boolean
+      name:
+        description: Name
+        type: string
+    type: object
+  UpdateFieldValueOfString:
+    description: Description
+    properties:
+      dirty:
+        description: Dirty
+        type: boolean
+      value:
+        description: Value
+        type: string
+    type: object
+  UpdateFieldValueOfInt32:
+    description: FolderIds
+    properties:
+      dirty:
+        description: Dirty
+        type: boolean
+      value:
+        description: Value
+        items:
+          type: integer
+          format: int32
+        type: array
+    type: object
+  SecretSearchExtendedSummary:
+    description: SecretSearchExtendedSummary[]
+    properties:
+      hasLaunchers:
+        description: Does this Secret have launchers the current user can use
+        type: boolean
+      isFavorite:
+        description: Is this a favorite secret for the current user
+        type: boolean
+      lastAccessed:
+        description: Does this Secret have launchers the current user can use
+        x-nullable: true
+        type: string
+        format: date-time
+      secretId:
+        description: Secret ID
+        type: integer
+        format: int32
+      secretName:
+        description: Secret Name
+        type: string
+      totalSecretViews:
+        description: Does this Secret have launchers the current user can use
+        type: integer
+        format: int32
+    type: object
+  SecretSearchExtendedArgs:
+    description: SecretSearchExtendedArgs
+    properties:
+      data:
+        $ref: '#/definitions/SecretSearchExtendedData'
+        description: Data
+    type: object
+  SecretSearchExtendedData:
+    description: Data
+    properties:
+      secretIds:
+        description: >-
+          Pass an array of secret IDs to get back settings on these secrets for
+          the current user
+        items:
+          type: integer
+          format: int32
+        type: array
+    type: object
+  UserModel:
+    description: User
+    properties:
+      adAccountExpires:
+        description: Active Directory account expiration time
+        type: string
+        format: date-time
+      adGuid:
+        description: Active Directory unique identifier
+        type: string
+      created:
+        description: User creation time
+        type: string
+        format: date-time
+      dateOptionId:
+        description: DateOptionId
+        type: integer
+        format: int32
+      displayName:
+        description: Display name
+        type: string
+      domainId:
+        description: Active Directory domain ID
+        type: integer
+        format: int32
+      duoTwoFactor:
+        description: Whether Duo two-factor authentication is enabled
+        type: boolean
+      emailAddress:
+        description: Email address
+        type: string
+      enabled:
+        description: Whether the user account is enabled
+        type: boolean
+      fido2TwoFactor:
+        description: Whether FIDO2 two-factor authentication is enabled
+        type: boolean
+      id:
+        description: User ID
+        type: integer
+        format: int32
+      ipAddressRestrictions:
+        description: Array of IP Address Restrictions for the user.
+        items:
+          $ref: '#/definitions/UserIpAddressRestrictionModel'
+        type: array
+      isApplicationAccount:
+        description: IsApplicationAccount
+        type: boolean
+      isEmailCopiedFromAD:
+        description: Whether the email address is derived from the Active Directory account
+        type: boolean
+      isEmailVerified:
+        description: Whether the email address has been verified
+        type: boolean
+      isLockedOut:
+        description: Whether the user is locked out
+        type: boolean
+      lastLogin:
+        description: Time of last login
+        type: string
+        format: date-time
+      lastSessionActivity:
+        description: Time of last session activity
+        x-nullable: true
+        type: string
+        format: date-time
+      lockOutReason:
+        description: The reason for the lock out
+        x-nullable: true
+        type: string
+      lockOutReasonDescription:
+        description: An optional description of the reason for the lock out
+        type: string
+      loginFailures:
+        description: Number of login failures
+        type: integer
+        format: int32
+      mustVerifyEmail:
+        description: Whether the user must verify their email address
+        type: boolean
+      oathTwoFactor:
+        description: Whether OATH two-factor authentication is enabled
+        type: boolean
+      oathVerified:
+        description: Whether OATH has been verified
+        type: boolean
+      passwordLastChanged:
+        description: Time when the password was last changed
+        type: string
+        format: date-time
+      personalGroupId:
+        description: >-
+          The personal group ID for this user.  Each user has a personal group
+          that is a group that only contains that user.
+        type: integer
+        format: int32
+      radiusTwoFactor:
+        description: Whether RADIUS two-factor authentication is enabled
+        type: boolean
+      radiusUserName:
+        description: RADIUS username
+        type: string
+      resetSessionStarted:
+        description: ResetSessionStarted
+        type: string
+        format: date-time
+      slackId:
+        description: Slack ID of the user
+        type: string
+      timeOptionId:
+        description: TimeOptionId
+        type: integer
+        format: int32
+      twoFactor:
+        description: Whether two-factor authentication is enabled
+        type: boolean
+      userLcid:
+        description: UserLcid
+        type: integer
+        format: int32
+      userName:
+        description: User name
+        type: string
+      verifyEmailSentDate:
+        description: Time when the verification email was sent
+        type: string
+        format: date-time
+    type: object
+  UserUpdateArgs:
+    description: User update options
+    properties:
+      dateOptionId:
+        description: >-
+          The id of the date format to use when displaying dates to this user.
+          These options are defined in Admin > Configuration.
+        type: integer
+        format: int32
+      displayName:
+        description: The user’s name as displayed in the user interface.
+        type: string
+      duoTwoFactor:
+        description: Whether Duo two-factor authentication is enabled.
+        type: boolean
+      emailAddress:
+        description: >-
+          The user's email address. Used by the system to send reports, access
+          requests, and other notifications.
+        type: string
+      enabled:
+        description: >-
+          Whether the user account is enabled. Disabled users are unable to log
+          in and do not consume a user license.
+        type: boolean
+      fido2TwoFactor:
+        description: Whether FIDO2 two-factor authentication is enabled.
+        type: boolean
+      groupOwners:
+        description: >-
+          A list of group ids for the groups that can manage this user. If not
+          set, the user is managed by all users with the ‘Administer Users’ role
+          permission.
+        items:
+          type: integer
+          format: int32
+        type: array
+      id:
+        description: User ID. Must match ID in path.
+        type: integer
+        format: int32
+        minimum: 1
+      isApplicationAccount:
+        description: >-
+          Whether this is an application account. Application accounts are used
+          for automation, cannot log in using the UI, and do not consume a user
+          license.
+        type: boolean
+      isGroupOwnerUpdate:
+        description: >-
+          Whether the user is managed by the groups specified in GroupOwners or
+          is managed by all users with the ‘Administer Users’ role permission.
+        type: boolean
+      isLockedOut:
+        description: Whether the user is locked out. A locked out user cannot log in.
+        type: boolean
+      loginFailures:
+        description: >-
+          Number of login failures to allow before the account is locked out.
+          Set to 0 for unlimited login attempts.
+        type: integer
+        format: int32
+        minimum: 0
+      oathTwoFactor:
+        description: Whether OATH two-factor authentication is enabled.
+        type: boolean
+      password:
+        description: The password used by local accounts to log in.
+        type: string
+      radiusTwoFactor:
+        description: Whether RADIUS two-factor authentication is enabled.
+        type: boolean
+      radiusUserName:
+        description: >-
+          When a user account uses RADIUS two-factor authentication, this
+          property is the user name of the RADIUS account used to authenticate
+          this user.
+        type: string
+      timeOptionId:
+        description: >-
+          The id of the time format to use when displaying times to this user.
+          These options are defined in Admin > Configuration.
+        type: integer
+        format: int32
+      twoFactor:
+        description: Whether two-factor authentication is enabled.
+        type: boolean
+    type: object
+  PatchUserModel:
+    description: PatchUserModel
+    properties:
+      dateOptionId:
+        $ref: '#/definitions/UpdateFieldValueOfInt32'
+        description: DateOptionId
+      displayName:
+        $ref: '#/definitions/UpdateFieldValueOfString'
+        description: Display name
+      duoTwoFactor:
+        $ref: '#/definitions/UpdateFieldValueOfBoolean'
+        description: Whether Duo two-factor authentication is enabled
+      emailAddress:
+        $ref: '#/definitions/UpdateFieldValueOfString'
+        description: Email address
+      enabled:
+        $ref: '#/definitions/UpdateFieldValueOfBoolean'
+        description: Whether the user account is enabled
+      fido2TwoFactor:
+        $ref: '#/definitions/UpdateFieldValueOfBoolean'
+        description: Whether FIDO2 two-factor authentication is enabled
+      groupOwners:
+        description: GroupOwners
+        items:
+          type: integer
+          format: int32
+        type: array
+      id:
+        description: User ID. Must match ID in path
+        type: integer
+        format: int32
+      ipAddressRestrictionIds:
+        $ref: '#/definitions/UpdateFieldValueOfInt32'
+        description: >-
+          List of IP Address Restriction Ids for the user. This will completely
+          replace whatever restrictions existed previously.
+      isApplicationAccount:
+        $ref: '#/definitions/UpdateFieldValueOfBoolean'
+        description: IsApplicationAccount
+      isGroupOwnerUpdate:
+        description: IsGroupOwnerUpdate
+        type: boolean
+      isLockedOut:
+        $ref: '#/definitions/UpdateFieldValueOfBoolean'
+        description: Whether the user is locked out
+      loginFailures:
+        $ref: '#/definitions/UpdateFieldValueOfInt32'
+        description: Number of login failures
+      oathTwoFactor:
+        $ref: '#/definitions/UpdateFieldValueOfBoolean'
+        description: Whether OATH two-factor authentication is enabled
+      password:
+        $ref: '#/definitions/UpdateFieldValueOfString'
+        description: Password
+      radiusTwoFactor:
+        $ref: '#/definitions/UpdateFieldValueOfBoolean'
+        description: Whether RADIUS two-factor authentication is enabled
+      radiusUserName:
+        $ref: '#/definitions/UpdateFieldValueOfString'
+        description: RADIUS username
+      slackId:
+        $ref: '#/definitions/UpdateFieldValueOfString'
+        description: Slack ID
+      timeOptionId:
+        $ref: '#/definitions/UpdateFieldValueOfInt32'
+        description: TimeOptionId
+      twoFactor:
+        $ref: '#/definitions/UpdateFieldValueOfBoolean'
+        description: Whether two-factor authentication is enabled
+    type: object
+  PagingOfRoleSummary:
+    description: >-
+      Specify paging and sorting options for querying records and returning
+      results
+    properties:
+      batchCount:
+        description: Number of result batches available with current query options
+        type: integer
+        format: int32
+      currentPage:
+        description: Index of current result page
+        type: integer
+        format: int32
+      hasNext:
+        description: Whether there are any results in additional pages
+        type: boolean
+      hasPrev:
+        description: Whether there are any results in previous pages
+        type: boolean
+      nextSkip:
+        description: Correct value of 'skip' for the next page of results
+        type: integer
+        format: int32
+      pageCount:
+        description: Number of result pages available with current query options
+        type: integer
+        format: int32
+      prevSkip:
+        description: Correct value of 'skip' for the previous page of results
+        type: integer
+        format: int32
+      records:
+        description: Query results
+        items:
+          $ref: '#/definitions/RoleSummary'
+        type: array
+      severity:
+        $ref: '#/definitions/Severity'
+        description: Severity of any errors
+      skip:
+        description: Number of records to skip before taking results
+        type: integer
+        format: int32
+      sortBy:
+        description: List of sort properties
+        items:
+          $ref: '#/definitions/Sort'
+        type: array
+      success:
+        description: Whether the query executed successfully
+        type: boolean
+      take:
+        description: Maximum number of records to include in results
+        type: integer
+        format: int32
+      total:
+        description: Total number of results available
+        type: integer
+        format: int32
+    type: object
+  RoleAssignments:
+    description: Roles to be assigned
+    properties:
+      roleIds:
+        description: Role IDs
+        items:
+          type: integer
+          format: int32
+        type: array
+    type: object
+  RoleChangeStatusModel:
+    description: The status of the Role change action.
+    properties:
+      success:
+        description: The success or failure of the user or group role action.
+        type: boolean
+    type: object
+  PagingOfUserRoleSummary:
+    description: >-
+      Specify paging and sorting options for querying records and returning
+      results
+    properties:
+      batchCount:
+        description: Number of result batches available with current query options
+        type: integer
+        format: int32
+      currentPage:
+        description: Index of current result page
+        type: integer
+        format: int32
+      hasNext:
+        description: Whether there are any results in additional pages
+        type: boolean
+      hasPrev:
+        description: Whether there are any results in previous pages
+        type: boolean
+      nextSkip:
+        description: Correct value of 'skip' for the next page of results
+        type: integer
+        format: int32
+      pageCount:
+        description: Number of result pages available with current query options
+        type: integer
+        format: int32
+      prevSkip:
+        description: Correct value of 'skip' for the previous page of results
+        type: integer
+        format: int32
+      records:
+        description: Query results
+        items:
+          $ref: '#/definitions/UserRoleSummary'
+        type: array
+      severity:
+        $ref: '#/definitions/Severity'
+        description: Severity of any errors
+      skip:
+        description: Number of records to skip before taking results
+        type: integer
+        format: int32
+      sortBy:
+        description: List of sort properties
+        items:
+          $ref: '#/definitions/Sort'
+        type: array
+      success:
+        description: Whether the query executed successfully
+        type: boolean
+      take:
+        description: Maximum number of records to include in results
+        type: integer
+        format: int32
+      total:
+        description: Total number of results available
+        type: integer
+        format: int32
+    type: object
+  PagingOfUserLookup:
+    description: >-
+      Specify paging and sorting options for querying records and returning
+      results
+    properties:
+      batchCount:
+        description: Number of result batches available with current query options
+        type: integer
+        format: int32
+      currentPage:
+        description: Index of current result page
+        type: integer
+        format: int32
+      hasNext:
+        description: Whether there are any results in additional pages
+        type: boolean
+      hasPrev:
+        description: Whether there are any results in previous pages
+        type: boolean
+      nextSkip:
+        description: Correct value of 'skip' for the next page of results
+        type: integer
+        format: int32
+      pageCount:
+        description: Number of result pages available with current query options
+        type: integer
+        format: int32
+      prevSkip:
+        description: Correct value of 'skip' for the previous page of results
+        type: integer
+        format: int32
+      records:
+        description: Query results
+        items:
+          $ref: '#/definitions/UserLookup'
+        type: array
+      severity:
+        $ref: '#/definitions/Severity'
+        description: Severity of any errors
+      skip:
+        description: Number of records to skip before taking results
+        type: integer
+        format: int32
+      sortBy:
+        description: List of sort properties
+        items:
+          $ref: '#/definitions/Sort'
+        type: array
+      success:
+        description: Whether the query executed successfully
+        type: boolean
+      take:
+        description: Maximum number of records to include in results
+        type: integer
+        format: int32
+      total:
+        description: Total number of results available
+        type: integer
+        format: int32
+    type: object
+  UserLookup:
+    description: Simple user representation
+    properties:
+      id:
+        description: User ID
+        type: integer
+        format: int32
+      value:
+        description: User name
+        type: string
+    type: object
+  UserRoleSummary:
+    description: All of the roles a user has
+    properties:
+      groups:
+        description: All of the groups to which the user belongs that have this role
+        items:
+          $ref: '#/definitions/GroupAssignedRoleModel'
+        type: array
+      isDirectAssignment:
+        description: Is the role directly assigned to the user
+        type: boolean
+      roleId:
+        description: Role ID
+        type: integer
+        format: int32
+      roleName:
+        description: Role Name
+        type: string
+    type: object
+  GroupAssignedRoleModel:
+    description: All of the groups to which the user belongs that have this role
+    properties:
+      groupId:
+        description: GroupId
+        type: integer
+        format: int32
+      groupName:
+        description: GroupName
+        type: string
+    type: object
+  RoleSummary:
+    description: Role Summary
+    properties:
+      name:
+        description: Role Name
+        type: string
+      roleId:
+        description: Role ID
+        type: integer
+        format: int32
+    type: object
+  UserIpAddressRestrictionModel:
+    description: UserIpAddressRestrictionModel
+    properties:
+      id:
+        description: Id
+        type: integer
+        format: int32
+      ipAddressRestrictionId:
+        description: IpAddressRestrictionId
+        type: integer
+        format: int32
+      ipAddressRestrictionName:
+        description: IpAddressRestrictionName
+        type: string
+      userDisplayName:
+        description: UserDisplayName
+        type: string
+      userId:
+        description: UserId
+        type: integer
+        format: int32
+      userName:
+        description: UserName
+        type: string
+    type: object
+  SecretDetailUpdateExpirationArgs:
+    description: SecretDetailUpdateExpirationArgs
+    properties:
+      data:
+        $ref: '#/definitions/SecretDetailExpirationUpdateModel'
+        description: Data
+    type: object
+  SecretDetailExpirationUpdateModel:
+    description: Data
+    properties:
+      expirationDate:
+        $ref: '#/definitions/UpdateFieldValueOfOptionalDateTime'
+        description: ExpirationDate
+      expirationDayInterval:
+        $ref: '#/definitions/UpdateFieldValueOfOptionalInt32'
+        description: ExpirationDayInterval
+      expirationType:
+        $ref: '#/definitions/UpdateFieldValueOfSecretDetailExpirationUpdateType'
+        description: ExpirationType
+    type: object
+  SecretDetailSettingsModel:
+    description: Secret Detail Settings
+    properties:
+      expirationDate:
+        description: Expiration Date
+        x-nullable: true
+        type: string
+        format: date-time
+      expirationDayInterval:
+        description: Expiration Day Interval
+        x-nullable: true
+        type: integer
+        format: int32
+      expirationTemplateText:
+        description: Expiration Template Text
+        type: string
+      expirationType:
+        $ref: '#/definitions/SecretDetailExpirationType'
+        description: Expiration Type
+      sendEmailWhenChanged:
+        description: Send Email When Changed
+        type: boolean
+      sendEmailWhenHeartbeatFails:
+        description: Send Email When Heartbeat Fails
+        type: boolean
+      sendEmailWhenViewed:
+        description: Send Email When Viewed
+        type: boolean
+    type: object
+  SecretDetailExpirationType:
+    description: Expiration Type
+    properties: {}
+    type: string
+    enum:
+      - Template
+      - DayInterval
+      - SpecificDate
+      - Disabled    
+  UpdateFieldValueOfOptionalDateTime:
+    description: Update when the pinned folder was last viewed
+    properties:
+      dirty:
+        description: Dirty
+        type: boolean
+      value:
+        description: Value
+        x-nullable: true
+        type: string
+        format: date-time
+    type: object
+  UpdateFieldValueOfSecretDetailExpirationUpdateType:
+    description: ExpirationType
+    properties:
+      dirty:
+        description: Dirty
+        type: boolean
+      value:
+        $ref: '#/definitions/SecretDetailExpirationUpdateType'
+        description: Value
+    type: object
+  UpdateFieldValueOfOptionalInt32:
+    description: The minimum length required for local user passwords
+    properties:
+      dirty:
+        description: Dirty
+        type: boolean
+      value:
+        description: Value
+        x-nullable: true
+        type: integer
+        format: int32
+    type: object
+  SecretDetailExpirationUpdateType:
+    description: Value
+    properties: {}
+    type: string
+    enum:
+      - Template
+      - DayInterval
+      - SpecificDate
+tags:
+  - name: Authentication
+    description: >-
+      Authenticate against Secret Server and acquire a token for other API
+      requests
+  - name: Secrets
+    description: View and maintain Secrets

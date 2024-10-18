@@ -1,0 +1,440 @@
+Important
+	API change
+		/api/v1/secrets:
+			summary: Search Secrets
+			description: Search, filter, sort, and page secrets (removed from 11.3.3, but exposed for completeness)
+		Need to use: SecretsService_SearchSecretLookup
+
+	Composing authorizations
+		C:\dev\secret.server\go-swagger-master\examples\composed-auth
+		API demonstrates how to compose several authentication schemes and configure complex security requirements
+
+
+	Roles
+		The mock API does not worry about role access, it assumes that the client has role access.
+		
+	
+	API access
+
+	go get -u https://github.com/secret-server/mock-datastore
+	
+init()		
+	BearerAuthenticator
+	https://github.com/go-swagger/go-swagger/blob/master/examples/composed-auth/restapi/operations/multi_auth_example_api.go
+
+		// Applies when the "Authorization: Bearer" header or the "access_token" query is set
+		api.HasRoleAuth = func(token string, scopes []string) (*models.Principal, error) {
+			// The header: Authorization: Bearer {base64 string} (or ?access_token={base 64 string} param) has already
+			// been decoded by the runtime as a token
+			api.Logger("HasRoleAuth handler called")
+			return auth.HasRole(token, scopes)
+		}
+
+
++--------------------------------------------------------------------------------+
+github
+	git init
+	git add .
+	git commit -m "initial commit"
+	git branch -M main
+	git remote add origin https://github.com/secret-server/mock-server.git
+	git push -u origin main
+	
+	+-----------------------------------------------------------------------------+
+	git add .
+	git commit -m "Add GetRoleByName method"
+	git branch -M main
+	git push -u origin main
+	
+	
++--------------------------------------------------------------------------------+
+server
+	https://medium.com/@cheickzida/golang-implementing-jwt-token-authentication-bba9bfd84d60
+		createToken
+		verifyToken
+		
+	https://shashankvivek-7.medium.com/go-swagger-user-authentication-securing-api-using-jwt-part-2-c80fdc1a020a
+		Glue
+		func configureAPI(api *operations.EFoodAPI) http.Handler {
+		  // some code...
+		  api.BearerAuth = utils.ValidateHeader // attached as middleware
+		  // more code here
+		}
+		
+	https://stackoverflow.com/questions/52085009/how-to-access-jwt-claims-from-api-handler-functions-in-go-swagger
+	https://stackoverflow.com/questions/45405626/how-to-decode-a-jwt-token-in-go
+	https://goswagger.io/go-swagger/tutorial/oauth2/
+	https://github.com/go-swagger/go-swagger/blob/master/examples/authentication/restapi/configure_auth_sample.go
+	https://friendlyuser.github.io/posts/tech/2023/Using_Go-Swagger_in_Golang_A_Comprehensive_Guide/#customizing
+	
+
+client
+	https://stackoverflow.com/questions/51452148/how-can-i-make-a-request-with-a-bearer-token-in-go#:~:text=I%20need%20to%20make%20a%20GET%20request%20to%20an%20API
+	
+	
++--------------------------------------------------------------------------------+
+folder: C:\dev\secret.server\mock-server
+
+"github.com/golang-jwt/jwt"
+	
+
+
+build: go build ./...
+
+Run:
+go run cmd/secret-server-rest-api-server/main.go -f C:/dev/secret.server/mock-datastore --port 8080
+
+go run cmd/secret-server-rest-api-server/main.go -f C:/dev/secret.server/mock-datastore -r Admin --port 8080
+
+go run cmd/secret-server-rest-api-server/main.go  -r Admin --port 8080
+
+Rocky9
+	firewall-cmd --zone=public --add-port=80/tcp   --permanent 
+	firewall-cmd --zone=public --add-port=8080/tcp --permanent 
+	firewall-cmd --zone=public --add-service=http  --permanent 
+	firewall-cmd --zone=public --add-service=https --permanent 
+	setsebool -P httpd_can_network_relay 1
+	firewall-cmd --reload
+
+
+Test: 
+	AuthApi 
+	curl -v POST http://127.0.0.1:8080/SecretServer/oauth2/token -H "Content-Type: application/x-www-form-urlencoded" -d "grant_type=password&username=kevin.kelche@example.com&password=bleach.out.34"
+
+	curl -v POST http://127.0.0.1:8080/SecretServer/oauth2/token -H "Content-Type: application/x-www-form-urlencoded" -d "grant_type=password&username=JasonLang&password=windows.frost6"
+ 
+	API: GetUsers
+	curl -v POST http://127.0.0.1:8080/SecretServer/api/v1 -H "Content-Type: application/x-www-form-urlencoded" -d "grant_type=password&username=kevin.kelche@example.com&password=bleach.out.34"
+
+	curl http://127.0.0.1:8080/SecretServer/api/v1/users/lookup?filter.searchText=test -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjM2MDAsInVzZXJuYW1lIjoiamFzb24ubGFuZ0BleGFtcGxlLmNvbSJ9.OiBAWYhhDY-Xct1AAZtMZr-R7ww-3nrchJIS7CoD9X0" -H "accept: application/json"
+ 
+ 	//fmt.Printf("UsersLookup called with params: %s, and principal: %s\r\n", spew.Sdump(params), spew.Sdump(principal))
+	
++--------------------------------------------------------------------------------+
+Future:
+	db: https://github.com/etcd-io/bbolt
+
+1.  Intergrate endpoints
+
+2.  Test endpoints with curl
+
+3.  Build php client to test endpoints.
+	https://docs.delinea.com/online-help/secret-server/api-scripting/rest-api/rest-api-python3-scripts/index.htm#RESTAPIPythonScripts
+
+4.  Build golang client to test endpoints.
+
+5.  Doc usage
+
+6.  Check in code.
+
+7.  VCA:  
+	Test using ss wrapper
+	Desing ss wrapper changes.
+	
+8.  Full build
+		go build ./cmd/secret-server-rest-api-server
+		secret-server-rest-api-server.exe -f C:/dev/secret.server/mock-datastore -r Admin --port 8080
+		
+		sudo ./todo-list-server --tls-certificate mycert1.crt --tls-key mycert1.key
+
+8.  Doc usage
+	Search for "command line parameters" on page https://github.com/go-swagger/go-swagger/blob/master/docs/generate/server.md
+		--cleanup-timeout duration     grace period for which to wait before killing idle connections (default 10s)
+		--graceful-timeout duration    grace period for which to wait before shutting down the server (default 15s)
+		--host string                  the IP to listen on (default "localhost")
+		--keep-alive duration          sets the TCP keep-alive timeouts on accepted connections. It prunes dead TCP connections ( e.g. closing laptop mid-download) (default 3m0s)
+		--listen-limit int             limit the number of outstanding requests
+		--max-header-size byte-size    controls the maximum number of bytes the server will read parsing the request header's keys and values, including the request line. It does not limit the size of the request body (default 1MB)
+		--port int                     the port to listen on for insecure connections, defaults to a random value
+		--read-timeout duration        maximum duration before timing out read of the request (default 30s)
+		--scheme strings               the listeners to enable, this can be repeated and defaults to the schemes in the swagger spec (default [http,https,unix])
+		--socket-path string           the unix socket to listen on (default "/var/run/todo-list.sock")
+		--tls-ca string                the certificate authority certificate file to be used with mutual tls auth
+		--tls-certificate string       the certificate file to use for secure connections
+		--tls-host string              the IP to listen on (default "localhost")
+		--tls-keep-alive duration      sets the TCP keep-alive timeouts on accepted connections. It prunes dead TCP connections ( e.g. closing laptop mid-download) (default 3m0s)
+		--tls-key string               the private key file to use for secure connections (without passphrase)
+		--tls-listen-limit int         limit the number of outstanding requests
+		--tls-port int                 the port to listen on for secure connections, defaults to a random value
+		--tls-read-timeout duration    maximum duration before timing out read of the request (default 30s)
+		--tls-write-timeout duration   maximum duration before timing out write of the response (default 30s)
+		--write-timeout duration       maximum duration before timing out write of the response (default 30s)
+	  
+GET: 	/v1/users/lookup: 	Lookup Users
+	filter.searchText
+	username, display name, or email address.
+	id==user id
+	value==user name
+	
+	{
+	  "batchCount": 0,
+	  "currentPage": 0,
+	  "hasNext": true,
+	  "hasPrev": true,
+	  "nextSkip": 0,
+	  "pageCount": 0,
+	  "prevSkip": 0,
+	  "records": [
+		{
+		  "id": 0,
+		  "value": "string"
+		}
+	  ],
+	  "severity": "None",
+	  "skip": 0,
+	  "sortBy": [
+		{
+		  "direction": "None",
+		  "name": "string",
+		  "priority": 0
+		}
+	  ],
+	"success": true,
+	"take": 0,
+	"total": 0
+	}
+	
+	
+
+"emailAddress": "string",
+  "userName": "string",
+  "emailAddress": "string",
+  "isLockedOut": true,
+
+{
+  "adAccountExpires": "2019-08-24T14:15:22Z",
+  "adGuid": "string",
+  "created": "2019-08-24T14:15:22Z",
+  "dateOptionId": 0,
+  "displayName": "string",
+  "domainId": 0,
+  "duoTwoFactor": true,
+  "emailAddress": "string",
+  "enabled": true,
+  "externalUserSource": "None",
+  "fido2TwoFactor": true,
+  "id": 0,
+  "ipAddressRestrictions": [
+    {
+      "id": 0,
+      "ipAddressRestrictionId": 0,
+      "ipAddressRestrictionName": "string",
+      "userDisplayName": "string",
+      "userId": 0,
+      "userName": "string"
+    }
+  ],
+  "isApplicationAccount": true,
+  "isEmailCopiedFromAD": true,
+  "isEmailVerified": true,
+  "isLockedOut": true,
+  "lastLogin": "2019-08-24T14:15:22Z",
+  "lastSessionActivity": "2019-08-24T14:15:22Z",
+  "lockOutReason": "string",
+  "lockOutReasonDescription": "string",
+  "loginFailures": 0,
+  "mustVerifyEmail": true,
+  "oathTwoFactor": true,
+  "oathVerified": true,
+  "passwordLastChanged": "2019-08-24T14:15:22Z",
+  "personalGroupId": 0,
+  "platformIntegrationType": "None",
+  "platformServiceUser": true,
+  "radiusTwoFactor": true,
+  "radiusUserName": "string",
+  "resetSessionStarted": "2019-08-24T14:15:22Z",
+  "slackId": "string",
+  "timeOptionId": 0,
+  "twoFactor": true,
+  "unixAuthenticationMethod": "Password",
+  "userLcid": 0,
+  "verifyEmailSentDate": "2019-08-24T14:15:22Z"
+}
+
++--------------------------------------------------------------------------------+
+Query Thycotic Secret Server through REST API
+https://diegobrito49.wordpress.com/2019/09/18/query-thycotic-secret-server-through-rest-api/
+
+Limited version of swagger.11.7.2-limited.yaml
+
+Run:
+go run cmd/secret-server-rest-api-server/main.go -f C:/dev/secret.server/mock-datastore --port 8080
+
+go run cmd/secret-server-rest-api-server/main.go -f C:/dev/secret.server/mock-datastore -r Admin --port 8080
+
+
+Test: 
+curl -v POST http://127.0.0.1:8080/SecretServer/oauth2/token -H "Content-Type: application/x-www-form-urlencoded" -d "grant_type=password&username=kevin.kelche@example.com&password=bleach.out.34"
+
+curl -v POST http://127.0.0.1:8080/SecretServer/oauth2/token -H "Content-Type: application/x-www-form-urlencoded" -d "grant_type=password&username=JasonLang&password=windows.frost6"
+ 
+ 
+var roleStatus bool = data.DoesUserHaveRoleName(user, serverFlags.RoleAccess);
+fmt.Println(username +", role=", serverFlags.RoleAccess + ", roleStatus=", roleStatus);
+if !roleStatus {
+	return returnErrorMessage("Invalid authentication.  User does not have the required role to access api.");
+}
+
+ Kevin Kelche:
+  id: 1
+  name: KevinKelche
+  display_name: Kevin Kelche
+  email: kevin.kelche@example.com
+  password: bleach.out.34
+  roles:
+    - 0
+    - 2
+Jason Lang:
+  id: 2
+  name: JasonLang
+  display_name: Jason Lang
+  email: jason.lang@example.com
+  password: windows.frost6
+  roles:
+    - 1
+    
+ 
+mock-server
+
+C:\dev\secret.server\mock-server
+	Limited base of features.
+
+	// initial generation steps
+
+	// go mod init command. 
+	https://github.com/secret-server/mock-server.git
+	
+	go mod init github.com/secret-server/mock-server
+	
+	
+	// Validate the swagger file.  Clean up any issues
+	swagger validate ./swagger.yaml
+
+	// Generate server code: note the file needs to be named swagger.yaml
+	// Default: swagger generate server
+	swagger generate server --default-scheme http  --principal jwt.MapClaims -f swagger.yaml
+
+	
+	// research 
+		https://shashankvivek-7.medium.com/go-swagger-user-authentication-securing-api-using-jwt-part-2-c80fdc1a020a
+		swagger generate server -f swagger.yaml --default-scheme http --exclude-main
+
+
+		Generate the code with a security principal:
+		swagger generate server -A AuthSample -P models.Principal -f ./swagger.yml
+
+	// Pull packages for the go.mod:
+	go mod tidy
+	
+	swagger generate server --default-scheme http  --principal jwt.MapClaims -f ./swagger.yml
+
+	// go get dependencies, alternatively you can use `dep init` or `dep ensure` to fix the dependencies.
+	go get -u ./...
+	
+	go: upgraded go.mongodb.org/mongo-driver v1.14.0 => v1.15.0
+	go: upgraded golang.org/x/sync v0.6.0 => v0.7.0
+
+	
+	Compare old and new configure_secret_server_rest_api.go
+	
+	// The structure of the generated code
+	tree 
+		C:.
+		├───cmd
+		│   └───secret-server-rest-api-server
+		├───models
+		└───restapi
+			└───operations
+				├───authentication
+				├───roles
+				├───role_permissions
+				└───secrets
+	
+	Write python script to test things out
+		https://docs.delinea.com/online-help/secret-server/api-scripting/rest-api-python3-scripts/index.htm
+
+
++--------------------------------------------------------------------------------
+
+Golang server test
+	// folder
+	cd C:\dev\secret.server\mock-server
+
+	// Start the server
+	go run cmd/secret-server-rest-api-server/main.go --port 8080
+	
+	// Access point
+	http://127.0.0.1:8080/SecretServer/oauth2/token
+	
+	// Pull swagger doc for server
+	curl -s http://127.0.0.1:8080/swagger.json 
+
+	// required: Use 'password' when authenticating, and 'refresh_token' when refreshing a token.
+		"grant_type=password&username=admin&password=test"
+	OR
+		"grant_type=refresh_token&refresh_token=token12345"
+
+	// Format types
+		https://linuxize.com/post/curl-post-request/
+		curl [URL] -d "key1=value1&key2=value2"
+		curl [URL] -d "key1=value1&key2=value2"
+
+	// Initial autho
+	curl -v POST http://127.0.0.1:8080/SecretServer/oauth2/token -H "Content-Type: application/x-www-form-urlencoded" -d "grant_type=password&username=admin&password=test"
+
+	
+	curl -X POST http://127.0.0.1:8080/SecretServer/oauth2/token -H "Content-Type: application/x-www-form-urlencoded" -d "grant_type=password&username=admin&password=test"
+
+	// Token refresh token
+	curl -X POST http://127.0.0.1:8080/SecretServer/oauth2/token -H "Content-Type: application/x-www-form-urlencoded" -d "grant_type=refresh_token&refresh_token=efresh-73ffe6f1-c8df-4abc-a041-9ec1990544e4"
+
+	response:
+		{
+			"access_token": "string",
+			"expires_in": "string",
+			"refresh_token": "string"
+			"token_type": "bearer",
+		}
+
+	Sample:
+		{
+			"access_token":"bearer-33eb462a-2dbc-49f3-9ba8-98eb70a176bb",
+			"expires_in":"20",
+			"refresh_token":"refresh-73ffe6f1-c8df-4abc-a041-9ec1990544e4",
+			"token_type":"bearer"
+		}
+
++-----------------------------------------------------------------------------+
+Check user permissions
+
+sequenceDiagram
+	autonumber
+    User->>+WebAPI: User's SecretServer username:password
+    WebAPI-->>+SS Wrapper: Authentication with username:password
+    SS Wrapper->>+SecretServer: username:password
+    SecretServer-->>-SS Wrapper: access token or error code
+    SS Wrapper-->>-WebAPI: Authentication success or failure
+    alt Authentication failure
+		WebAPI->>User: 401 Authentication failed
+    else Authentication success
+        WebAPI->>User: 200 Success
+    end
+    User->>+WebAPI: Has Permission?
+    WebAPI-->>+SS Wrapper: Role permission lookup
+    SS Wrapper-->>+SecretServer: Lookup user using username
+    SecretServer-->>-SS Wrapper: Return user id
+    SS Wrapper-->>+SecretServer: Lookup user roles using user id.
+    SecretServer-->>-SS Wrapper: Return list of user roles
+    SS Wrapper-->>-WebAPI: Verify permission
+    alt Permission failure
+        WebAPI->>User: 403 Forbidden
+    else Permission success
+        WebAPI->>User: 200 Success
+    end
+
+opt On SecretServer failure
+    WebAPI->>User: 500 Internal Server Error
+end
+    
+	
++-----------------------------------------------------------------------------+
