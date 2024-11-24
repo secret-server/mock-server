@@ -155,3 +155,7 @@
 {"level":"info","timestamp":"2024-10-16T22:34:57.799-0500","msg":"Configuration ","FileFolder":"C:/dev/secret.server/mock-datastore","RequiredAccessRole":"Admin","Timeout":3600}
 {"level":"info","timestamp":"2024-10-16T22:35:10.005-0500","msg":"Authenticate","GrantType":"password","Username":"KevinKelche","Password":"*************","RefreshToken":""}
 {"level":"info","timestamp":"2024-10-16T22:35:10.005-0500","msg":"Login verified"}
+{"level":"info","timestamp":"2024-10-23T10:54:24.375-0500","msg":"Token cache created"}
+{"level":"info","timestamp":"2024-10-23T10:54:24.375-0500","msg":"Configuration ","FileFolder":"C:/dev/secret.server/mock-datastore","RequiredAccessRole":"Admin","Timeout":3600}
+{"level":"info","timestamp":"2024-10-23T10:55:29.837-0500","msg":"Authenticate","GrantType":"password","Username":"kevin.kelche@example.com","Password":"*************","RefreshToken":""}
+{"level":"info","timestamp":"2024-10-23T10:55:29.837-0500","msg":"Login verified"}

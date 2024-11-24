@@ -62,7 +62,8 @@ var tokenCacheTimeout  = 3600;
 var tokenCacheExpiration time.Duration;
 var secondsTillExpire string;
 var accessRoleId int = -1;
-	
+var debugOutput bool = false;
+
 // var exampleFlags = struct {
 // 	Example1 string `long:"example1" description:"Sample for showing how to configure cmd-line flags"`
 // 	Example2 string `long:"example2" description:"Further info at https://github.com/jessevdk/go-flags"`
@@ -72,6 +73,7 @@ var serverFlags = struct {
 	FileFolder string `short:"f" long:"FileFolder" description:"Full path to the folder containing mock files"`
 	CacheTimeout int `short:"t" long:"TokenTimeout" description:"Timeout of the token cache"`
 	RoleAccess string `short:"r" long:"AccessRole" description:"The role used to access the API"`
+	Debug bool `short:"d" long:"Debug" description:"Debug output"`
 }{}
 
 
@@ -172,6 +174,10 @@ func configureAPI(api *operations.SecretServerRestAPIAPI) http.Handler {
         panic(err)
     }
 	datastorage = storage;
+
+	if(serverFlags.Debug) {
+		debugOutput = true;
+	}
 
 	//+----------------------------------------------------+
 	// API access - Role access configuration
@@ -352,6 +358,7 @@ func configureAPI(api *operations.SecretServerRestAPIAPI) http.Handler {
 		
 		//+----------------------------------------------------+
 		// Lookup & build results
+		// IMPORTANT: TODO: Filter can be a list of search items.  It's an array, HTML & encoded value
 		userLookupResults, err := datastorage.UserLookup(filter);
 		if err == nil {
 			userResults := []*models.UserLookup{};
