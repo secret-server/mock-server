@@ -6,11 +6,11 @@ package users
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"net/http"
+    "net/http"
 
-	"github.com/go-openapi/runtime"
+    "github.com/go-openapi/runtime"
 
-	"github.com/secret-server/mock-server/models"
+    "github.com/secret-server/mock-server/models"
 )
 
 // UsersServicePatchUserOKCode is the HTTP code returned for type UsersServicePatchUserOK
@@ -23,39 +23,39 @@ swagger:response usersServicePatchUserOK
 */
 type UsersServicePatchUserOK struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.UserModel `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.UserModel `json:"body,omitempty"`
 }
 
 // NewUsersServicePatchUserOK creates UsersServicePatchUserOK with default headers values
 func NewUsersServicePatchUserOK() *UsersServicePatchUserOK {
 
-	return &UsersServicePatchUserOK{}
+    return &UsersServicePatchUserOK{}
 }
 
 // WithPayload adds the payload to the users service patch user o k response
 func (o *UsersServicePatchUserOK) WithPayload(payload *models.UserModel) *UsersServicePatchUserOK {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the users service patch user o k response
 func (o *UsersServicePatchUserOK) SetPayload(payload *models.UserModel) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *UsersServicePatchUserOK) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(200)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(200)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }
 
 // UsersServicePatchUserBadRequestCode is the HTTP code returned for type UsersServicePatchUserBadRequest
@@ -68,39 +68,39 @@ swagger:response usersServicePatchUserBadRequest
 */
 type UsersServicePatchUserBadRequest struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.BadRequestResponse `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.BadRequestResponse `json:"body,omitempty"`
 }
 
 // NewUsersServicePatchUserBadRequest creates UsersServicePatchUserBadRequest with default headers values
 func NewUsersServicePatchUserBadRequest() *UsersServicePatchUserBadRequest {
 
-	return &UsersServicePatchUserBadRequest{}
+    return &UsersServicePatchUserBadRequest{}
 }
 
 // WithPayload adds the payload to the users service patch user bad request response
 func (o *UsersServicePatchUserBadRequest) WithPayload(payload *models.BadRequestResponse) *UsersServicePatchUserBadRequest {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the users service patch user bad request response
 func (o *UsersServicePatchUserBadRequest) SetPayload(payload *models.BadRequestResponse) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *UsersServicePatchUserBadRequest) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(400)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(400)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }
 
 // UsersServicePatchUserForbiddenCode is the HTTP code returned for type UsersServicePatchUserForbidden
@@ -113,39 +113,39 @@ swagger:response usersServicePatchUserForbidden
 */
 type UsersServicePatchUserForbidden struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.AuthenticationFailedResponse `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.AuthenticationFailedResponse `json:"body,omitempty"`
 }
 
 // NewUsersServicePatchUserForbidden creates UsersServicePatchUserForbidden with default headers values
 func NewUsersServicePatchUserForbidden() *UsersServicePatchUserForbidden {
 
-	return &UsersServicePatchUserForbidden{}
+    return &UsersServicePatchUserForbidden{}
 }
 
 // WithPayload adds the payload to the users service patch user forbidden response
 func (o *UsersServicePatchUserForbidden) WithPayload(payload *models.AuthenticationFailedResponse) *UsersServicePatchUserForbidden {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the users service patch user forbidden response
 func (o *UsersServicePatchUserForbidden) SetPayload(payload *models.AuthenticationFailedResponse) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *UsersServicePatchUserForbidden) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(403)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(403)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }
 
 // UsersServicePatchUserInternalServerErrorCode is the HTTP code returned for type UsersServicePatchUserInternalServerError
@@ -158,37 +158,37 @@ swagger:response usersServicePatchUserInternalServerError
 */
 type UsersServicePatchUserInternalServerError struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.InternalServerErrorResponse `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.InternalServerErrorResponse `json:"body,omitempty"`
 }
 
 // NewUsersServicePatchUserInternalServerError creates UsersServicePatchUserInternalServerError with default headers values
 func NewUsersServicePatchUserInternalServerError() *UsersServicePatchUserInternalServerError {
 
-	return &UsersServicePatchUserInternalServerError{}
+    return &UsersServicePatchUserInternalServerError{}
 }
 
 // WithPayload adds the payload to the users service patch user internal server error response
 func (o *UsersServicePatchUserInternalServerError) WithPayload(payload *models.InternalServerErrorResponse) *UsersServicePatchUserInternalServerError {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the users service patch user internal server error response
 func (o *UsersServicePatchUserInternalServerError) SetPayload(payload *models.InternalServerErrorResponse) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *UsersServicePatchUserInternalServerError) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(500)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(500)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }

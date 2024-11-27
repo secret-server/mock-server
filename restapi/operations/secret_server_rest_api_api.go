@@ -6,850 +6,850 @@ package operations
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"fmt"
-	"net/http"
-	"strings"
+    "fmt"
+    "net/http"
+    "strings"
 
-	"github.com/go-openapi/errors"
-	"github.com/go-openapi/loads"
-	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/runtime/middleware"
-	"github.com/go-openapi/runtime/security"
-	"github.com/go-openapi/spec"
-	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+    "github.com/go-openapi/errors"
+    "github.com/go-openapi/loads"
+    "github.com/go-openapi/runtime"
+    "github.com/go-openapi/runtime/middleware"
+    "github.com/go-openapi/runtime/security"
+    "github.com/go-openapi/spec"
+    "github.com/go-openapi/strfmt"
+    "github.com/go-openapi/swag"
 
-	"github.com/golang-jwt/jwt"
-	"github.com/secret-server/mock-server/restapi/operations/authentication"
-	"github.com/secret-server/mock-server/restapi/operations/roles"
-	"github.com/secret-server/mock-server/restapi/operations/secrets"
-	"github.com/secret-server/mock-server/restapi/operations/users"
+    "github.com/golang-jwt/jwt"
+    "github.com/secret-server/mock-server/restapi/operations/authentication"
+    "github.com/secret-server/mock-server/restapi/operations/roles"
+    "github.com/secret-server/mock-server/restapi/operations/secrets"
+    "github.com/secret-server/mock-server/restapi/operations/users"
 )
 
 // NewSecretServerRestAPIAPI creates a new SecretServerRestAPI instance
 func NewSecretServerRestAPIAPI(spec *loads.Document) *SecretServerRestAPIAPI {
-	return &SecretServerRestAPIAPI{
-		handlers:            make(map[string]map[string]http.Handler),
-		formats:             strfmt.Default,
-		defaultConsumes:     "application/json",
-		defaultProduces:     "application/json",
-		customConsumers:     make(map[string]runtime.Consumer),
-		customProducers:     make(map[string]runtime.Producer),
-		PreServerShutdown:   func() {},
-		ServerShutdown:      func() {},
-		spec:                spec,
-		useSwaggerUI:        false,
-		ServeError:          errors.ServeError,
-		BasicAuthenticator:  security.BasicAuth,
-		APIKeyAuthenticator: security.APIKeyAuth,
-		BearerAuthenticator: security.BearerAuth,
+    return &SecretServerRestAPIAPI{
+        handlers:            make(map[string]map[string]http.Handler),
+        formats:             strfmt.Default,
+        defaultConsumes:     "application/json",
+        defaultProduces:     "application/json",
+        customConsumers:     make(map[string]runtime.Consumer),
+        customProducers:     make(map[string]runtime.Producer),
+        PreServerShutdown:   func() {},
+        ServerShutdown:      func() {},
+        spec:                spec,
+        useSwaggerUI:        false,
+        ServeError:          errors.ServeError,
+        BasicAuthenticator:  security.BasicAuth,
+        APIKeyAuthenticator: security.APIKeyAuth,
+        BearerAuthenticator: security.BearerAuth,
 
-		JSONConsumer:          runtime.JSONConsumer(),
-		MultipartformConsumer: runtime.DiscardConsumer,
-		UrlformConsumer:       runtime.DiscardConsumer,
+        JSONConsumer:          runtime.JSONConsumer(),
+        MultipartformConsumer: runtime.DiscardConsumer,
+        UrlformConsumer:       runtime.DiscardConsumer,
 
-		BinProducer:  runtime.ByteStreamProducer(),
-		JSONProducer: runtime.JSONProducer(),
+        BinProducer:  runtime.ByteStreamProducer(),
+        JSONProducer: runtime.JSONProducer(),
 
-		AuthenticationOAuth2ServiceAuthorizeHandler: authentication.OAuth2ServiceAuthorizeHandlerFunc(func(params authentication.OAuth2ServiceAuthorizeParams) middleware.Responder {
-			return middleware.NotImplemented("operation authentication.OAuth2ServiceAuthorize has not yet been implemented")
-		}),
-		RolesRolesServiceCreateHandler: roles.RolesServiceCreateHandlerFunc(func(params roles.RolesServiceCreateParams, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation roles.RolesServiceCreate has not yet been implemented")
-		}),
-		RolesRolesServiceGetHandler: roles.RolesServiceGetHandlerFunc(func(params roles.RolesServiceGetParams, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation roles.RolesServiceGet has not yet been implemented")
-		}),
-		RolesRolesServiceGetAllHandler: roles.RolesServiceGetAllHandlerFunc(func(params roles.RolesServiceGetAllParams, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation roles.RolesServiceGetAll has not yet been implemented")
-		}),
-		RolesRolesServiceGetAllRolePermissionsByTypeHandler: roles.RolesServiceGetAllRolePermissionsByTypeHandlerFunc(func(params roles.RolesServiceGetAllRolePermissionsByTypeParams, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation roles.RolesServiceGetAllRolePermissionsByType has not yet been implemented")
-		}),
-		RolesRolesServiceGetRoleGroupsHandler: roles.RolesServiceGetRoleGroupsHandlerFunc(func(params roles.RolesServiceGetRoleGroupsParams, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation roles.RolesServiceGetRoleGroups has not yet been implemented")
-		}),
-		RolesRolesServiceGetRolePermissionsHandler: roles.RolesServiceGetRolePermissionsHandlerFunc(func(params roles.RolesServiceGetRolePermissionsParams, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation roles.RolesServiceGetRolePermissions has not yet been implemented")
-		}),
-		RolesRolesServicePatchGroupsHandler: roles.RolesServicePatchGroupsHandlerFunc(func(params roles.RolesServicePatchGroupsParams, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation roles.RolesServicePatchGroups has not yet been implemented")
-		}),
-		RolesRolesServiceStubHandler: roles.RolesServiceStubHandlerFunc(func(params roles.RolesServiceStubParams, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation roles.RolesServiceStub has not yet been implemented")
-		}),
-		RolesRolesServiceUpdateHandler: roles.RolesServiceUpdateHandlerFunc(func(params roles.RolesServiceUpdateParams, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation roles.RolesServiceUpdate has not yet been implemented")
-		}),
-		RolesRolesServiceUpdatePermissionsHandler: roles.RolesServiceUpdatePermissionsHandlerFunc(func(params roles.RolesServiceUpdatePermissionsParams, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation roles.RolesServiceUpdatePermissions has not yet been implemented")
-		}),
-		SecretsSecretsServiceCreateSecretHandler: secrets.SecretsServiceCreateSecretHandlerFunc(func(params secrets.SecretsServiceCreateSecretParams, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation secrets.SecretsServiceCreateSecret has not yet been implemented")
-		}),
-		SecretsSecretsServiceDeleteHandler: secrets.SecretsServiceDeleteHandlerFunc(func(params secrets.SecretsServiceDeleteParams, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation secrets.SecretsServiceDelete has not yet been implemented")
-		}),
-		SecretsSecretsServiceDeleteListFieldListDefinitionsHandler: secrets.SecretsServiceDeleteListFieldListDefinitionsHandlerFunc(func(params secrets.SecretsServiceDeleteListFieldListDefinitionsParams, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation secrets.SecretsServiceDeleteListFieldListDefinitions has not yet been implemented")
-		}),
-		SecretsSecretsServiceExpireHandler: secrets.SecretsServiceExpireHandlerFunc(func(params secrets.SecretsServiceExpireParams, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation secrets.SecretsServiceExpire has not yet been implemented")
-		}),
-		SecretsSecretsServiceGetFieldHandler: secrets.SecretsServiceGetFieldHandlerFunc(func(params secrets.SecretsServiceGetFieldParams, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation secrets.SecretsServiceGetField has not yet been implemented")
-		}),
-		SecretsSecretsServiceGetGeneralHandler: secrets.SecretsServiceGetGeneralHandlerFunc(func(params secrets.SecretsServiceGetGeneralParams, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation secrets.SecretsServiceGetGeneral has not yet been implemented")
-		}),
-		SecretsSecretsServiceGetListFieldHandler: secrets.SecretsServiceGetListFieldHandlerFunc(func(params secrets.SecretsServiceGetListFieldParams, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation secrets.SecretsServiceGetListField has not yet been implemented")
-		}),
-		SecretsSecretsServiceGetListFieldListDefinitionsHandler: secrets.SecretsServiceGetListFieldListDefinitionsHandlerFunc(func(params secrets.SecretsServiceGetListFieldListDefinitionsParams, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation secrets.SecretsServiceGetListFieldListDefinitions has not yet been implemented")
-		}),
-		SecretsSecretsServiceGetLookupHandler: secrets.SecretsServiceGetLookupHandlerFunc(func(params secrets.SecretsServiceGetLookupParams, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation secrets.SecretsServiceGetLookup has not yet been implemented")
-		}),
-		SecretsSecretsServiceGetRestrictedHandler: secrets.SecretsServiceGetRestrictedHandlerFunc(func(params secrets.SecretsServiceGetRestrictedParams, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation secrets.SecretsServiceGetRestricted has not yet been implemented")
-		}),
-		SecretsSecretsServiceGetSecretExtendedSearchDetailsHandler: secrets.SecretsServiceGetSecretExtendedSearchDetailsHandlerFunc(func(params secrets.SecretsServiceGetSecretExtendedSearchDetailsParams, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation secrets.SecretsServiceGetSecretExtendedSearchDetails has not yet been implemented")
-		}),
-		SecretsSecretsServiceGetSecretStateHandler: secrets.SecretsServiceGetSecretStateHandlerFunc(func(params secrets.SecretsServiceGetSecretStateParams, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation secrets.SecretsServiceGetSecretState has not yet been implemented")
-		}),
-		SecretsSecretsServiceGetSecretV2Handler: secrets.SecretsServiceGetSecretV2HandlerFunc(func(params secrets.SecretsServiceGetSecretV2Params, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation secrets.SecretsServiceGetSecretV2 has not yet been implemented")
-		}),
-		SecretsSecretsServicePutFieldHandler: secrets.SecretsServicePutFieldHandlerFunc(func(params secrets.SecretsServicePutFieldParams, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation secrets.SecretsServicePutField has not yet been implemented")
-		}),
-		SecretsSecretsServiceRunHeartBeatHandler: secrets.SecretsServiceRunHeartBeatHandlerFunc(func(params secrets.SecretsServiceRunHeartBeatParams, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation secrets.SecretsServiceRunHeartBeat has not yet been implemented")
-		}),
-		SecretsSecretsServiceSearchHandler: secrets.SecretsServiceSearchHandlerFunc(func(params secrets.SecretsServiceSearchParams, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation secrets.SecretsServiceSearch has not yet been implemented")
-		}),
-		SecretsSecretsServiceSearchSecretLookupHandler: secrets.SecretsServiceSearchSecretLookupHandlerFunc(func(params secrets.SecretsServiceSearchSecretLookupParams, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation secrets.SecretsServiceSearchSecretLookup has not yet been implemented")
-		}),
-		SecretsSecretsServiceSearchV2Handler: secrets.SecretsServiceSearchV2HandlerFunc(func(params secrets.SecretsServiceSearchV2Params, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation secrets.SecretsServiceSearchV2 has not yet been implemented")
-		}),
-		SecretsSecretsServiceUndeleteSecretHandler: secrets.SecretsServiceUndeleteSecretHandlerFunc(func(params secrets.SecretsServiceUndeleteSecretParams, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation secrets.SecretsServiceUndeleteSecret has not yet been implemented")
-		}),
-		SecretsSecretsServiceUndeleteSecretV2Handler: secrets.SecretsServiceUndeleteSecretV2HandlerFunc(func(params secrets.SecretsServiceUndeleteSecretV2Params, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation secrets.SecretsServiceUndeleteSecretV2 has not yet been implemented")
-		}),
-		SecretsSecretsServiceUpdateExpirationHandler: secrets.SecretsServiceUpdateExpirationHandlerFunc(func(params secrets.SecretsServiceUpdateExpirationParams, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation secrets.SecretsServiceUpdateExpiration has not yet been implemented")
-		}),
-		SecretsSecretsServiceUpdateListFieldListDefinitionsHandler: secrets.SecretsServiceUpdateListFieldListDefinitionsHandlerFunc(func(params secrets.SecretsServiceUpdateListFieldListDefinitionsParams, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation secrets.SecretsServiceUpdateListFieldListDefinitions has not yet been implemented")
-		}),
-		SecretsSecretsServiceUpdateSecretHandler: secrets.SecretsServiceUpdateSecretHandlerFunc(func(params secrets.SecretsServiceUpdateSecretParams, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation secrets.SecretsServiceUpdateSecret has not yet been implemented")
-		}),
-		UsersUsersServiceCreateUserRolesHandler: users.UsersServiceCreateUserRolesHandlerFunc(func(params users.UsersServiceCreateUserRolesParams, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation users.UsersServiceCreateUserRoles has not yet been implemented")
-		}),
-		UsersUsersServiceGetHandler: users.UsersServiceGetHandlerFunc(func(params users.UsersServiceGetParams, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation users.UsersServiceGet has not yet been implemented")
-		}),
-		UsersUsersServiceGetRolesHandler: users.UsersServiceGetRolesHandlerFunc(func(params users.UsersServiceGetRolesParams, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation users.UsersServiceGetRoles has not yet been implemented")
-		}),
-		UsersUsersServiceGetUserRolesHandler: users.UsersServiceGetUserRolesHandlerFunc(func(params users.UsersServiceGetUserRolesParams, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation users.UsersServiceGetUserRoles has not yet been implemented")
-		}),
-		UsersUsersServiceLookupHandler: users.UsersServiceLookupHandlerFunc(func(params users.UsersServiceLookupParams, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation users.UsersServiceLookup has not yet been implemented")
-		}),
-		UsersUsersServicePatchUserHandler: users.UsersServicePatchUserHandlerFunc(func(params users.UsersServicePatchUserParams, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation users.UsersServicePatchUser has not yet been implemented")
-		}),
-		UsersUsersServiceUpdateUserHandler: users.UsersServiceUpdateUserHandlerFunc(func(params users.UsersServiceUpdateUserParams, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation users.UsersServiceUpdateUser has not yet been implemented")
-		}),
-		UsersUsersServiceUpdateUserRolesHandler: users.UsersServiceUpdateUserRolesHandlerFunc(func(params users.UsersServiceUpdateUserRolesParams, principal *jwt.MapClaims) middleware.Responder {
-			return middleware.NotImplemented("operation users.UsersServiceUpdateUserRoles has not yet been implemented")
-		}),
+        AuthenticationOAuth2ServiceAuthorizeHandler: authentication.OAuth2ServiceAuthorizeHandlerFunc(func(params authentication.OAuth2ServiceAuthorizeParams) middleware.Responder {
+            return middleware.NotImplemented("operation authentication.OAuth2ServiceAuthorize has not yet been implemented")
+        }),
+        RolesRolesServiceCreateHandler: roles.RolesServiceCreateHandlerFunc(func(params roles.RolesServiceCreateParams, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation roles.RolesServiceCreate has not yet been implemented")
+        }),
+        RolesRolesServiceGetHandler: roles.RolesServiceGetHandlerFunc(func(params roles.RolesServiceGetParams, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation roles.RolesServiceGet has not yet been implemented")
+        }),
+        RolesRolesServiceGetAllHandler: roles.RolesServiceGetAllHandlerFunc(func(params roles.RolesServiceGetAllParams, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation roles.RolesServiceGetAll has not yet been implemented")
+        }),
+        RolesRolesServiceGetAllRolePermissionsByTypeHandler: roles.RolesServiceGetAllRolePermissionsByTypeHandlerFunc(func(params roles.RolesServiceGetAllRolePermissionsByTypeParams, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation roles.RolesServiceGetAllRolePermissionsByType has not yet been implemented")
+        }),
+        RolesRolesServiceGetRoleGroupsHandler: roles.RolesServiceGetRoleGroupsHandlerFunc(func(params roles.RolesServiceGetRoleGroupsParams, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation roles.RolesServiceGetRoleGroups has not yet been implemented")
+        }),
+        RolesRolesServiceGetRolePermissionsHandler: roles.RolesServiceGetRolePermissionsHandlerFunc(func(params roles.RolesServiceGetRolePermissionsParams, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation roles.RolesServiceGetRolePermissions has not yet been implemented")
+        }),
+        RolesRolesServicePatchGroupsHandler: roles.RolesServicePatchGroupsHandlerFunc(func(params roles.RolesServicePatchGroupsParams, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation roles.RolesServicePatchGroups has not yet been implemented")
+        }),
+        RolesRolesServiceStubHandler: roles.RolesServiceStubHandlerFunc(func(params roles.RolesServiceStubParams, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation roles.RolesServiceStub has not yet been implemented")
+        }),
+        RolesRolesServiceUpdateHandler: roles.RolesServiceUpdateHandlerFunc(func(params roles.RolesServiceUpdateParams, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation roles.RolesServiceUpdate has not yet been implemented")
+        }),
+        RolesRolesServiceUpdatePermissionsHandler: roles.RolesServiceUpdatePermissionsHandlerFunc(func(params roles.RolesServiceUpdatePermissionsParams, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation roles.RolesServiceUpdatePermissions has not yet been implemented")
+        }),
+        SecretsSecretsServiceCreateSecretHandler: secrets.SecretsServiceCreateSecretHandlerFunc(func(params secrets.SecretsServiceCreateSecretParams, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation secrets.SecretsServiceCreateSecret has not yet been implemented")
+        }),
+        SecretsSecretsServiceDeleteHandler: secrets.SecretsServiceDeleteHandlerFunc(func(params secrets.SecretsServiceDeleteParams, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation secrets.SecretsServiceDelete has not yet been implemented")
+        }),
+        SecretsSecretsServiceDeleteListFieldListDefinitionsHandler: secrets.SecretsServiceDeleteListFieldListDefinitionsHandlerFunc(func(params secrets.SecretsServiceDeleteListFieldListDefinitionsParams, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation secrets.SecretsServiceDeleteListFieldListDefinitions has not yet been implemented")
+        }),
+        SecretsSecretsServiceExpireHandler: secrets.SecretsServiceExpireHandlerFunc(func(params secrets.SecretsServiceExpireParams, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation secrets.SecretsServiceExpire has not yet been implemented")
+        }),
+        SecretsSecretsServiceGetFieldHandler: secrets.SecretsServiceGetFieldHandlerFunc(func(params secrets.SecretsServiceGetFieldParams, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation secrets.SecretsServiceGetField has not yet been implemented")
+        }),
+        SecretsSecretsServiceGetGeneralHandler: secrets.SecretsServiceGetGeneralHandlerFunc(func(params secrets.SecretsServiceGetGeneralParams, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation secrets.SecretsServiceGetGeneral has not yet been implemented")
+        }),
+        SecretsSecretsServiceGetListFieldHandler: secrets.SecretsServiceGetListFieldHandlerFunc(func(params secrets.SecretsServiceGetListFieldParams, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation secrets.SecretsServiceGetListField has not yet been implemented")
+        }),
+        SecretsSecretsServiceGetListFieldListDefinitionsHandler: secrets.SecretsServiceGetListFieldListDefinitionsHandlerFunc(func(params secrets.SecretsServiceGetListFieldListDefinitionsParams, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation secrets.SecretsServiceGetListFieldListDefinitions has not yet been implemented")
+        }),
+        SecretsSecretsServiceGetLookupHandler: secrets.SecretsServiceGetLookupHandlerFunc(func(params secrets.SecretsServiceGetLookupParams, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation secrets.SecretsServiceGetLookup has not yet been implemented")
+        }),
+        SecretsSecretsServiceGetRestrictedHandler: secrets.SecretsServiceGetRestrictedHandlerFunc(func(params secrets.SecretsServiceGetRestrictedParams, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation secrets.SecretsServiceGetRestricted has not yet been implemented")
+        }),
+        SecretsSecretsServiceGetSecretExtendedSearchDetailsHandler: secrets.SecretsServiceGetSecretExtendedSearchDetailsHandlerFunc(func(params secrets.SecretsServiceGetSecretExtendedSearchDetailsParams, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation secrets.SecretsServiceGetSecretExtendedSearchDetails has not yet been implemented")
+        }),
+        SecretsSecretsServiceGetSecretStateHandler: secrets.SecretsServiceGetSecretStateHandlerFunc(func(params secrets.SecretsServiceGetSecretStateParams, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation secrets.SecretsServiceGetSecretState has not yet been implemented")
+        }),
+        SecretsSecretsServiceGetSecretV2Handler: secrets.SecretsServiceGetSecretV2HandlerFunc(func(params secrets.SecretsServiceGetSecretV2Params, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation secrets.SecretsServiceGetSecretV2 has not yet been implemented")
+        }),
+        SecretsSecretsServicePutFieldHandler: secrets.SecretsServicePutFieldHandlerFunc(func(params secrets.SecretsServicePutFieldParams, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation secrets.SecretsServicePutField has not yet been implemented")
+        }),
+        SecretsSecretsServiceRunHeartBeatHandler: secrets.SecretsServiceRunHeartBeatHandlerFunc(func(params secrets.SecretsServiceRunHeartBeatParams, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation secrets.SecretsServiceRunHeartBeat has not yet been implemented")
+        }),
+        SecretsSecretsServiceSearchHandler: secrets.SecretsServiceSearchHandlerFunc(func(params secrets.SecretsServiceSearchParams, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation secrets.SecretsServiceSearch has not yet been implemented")
+        }),
+        SecretsSecretsServiceSearchSecretLookupHandler: secrets.SecretsServiceSearchSecretLookupHandlerFunc(func(params secrets.SecretsServiceSearchSecretLookupParams, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation secrets.SecretsServiceSearchSecretLookup has not yet been implemented")
+        }),
+        SecretsSecretsServiceSearchV2Handler: secrets.SecretsServiceSearchV2HandlerFunc(func(params secrets.SecretsServiceSearchV2Params, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation secrets.SecretsServiceSearchV2 has not yet been implemented")
+        }),
+        SecretsSecretsServiceUndeleteSecretHandler: secrets.SecretsServiceUndeleteSecretHandlerFunc(func(params secrets.SecretsServiceUndeleteSecretParams, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation secrets.SecretsServiceUndeleteSecret has not yet been implemented")
+        }),
+        SecretsSecretsServiceUndeleteSecretV2Handler: secrets.SecretsServiceUndeleteSecretV2HandlerFunc(func(params secrets.SecretsServiceUndeleteSecretV2Params, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation secrets.SecretsServiceUndeleteSecretV2 has not yet been implemented")
+        }),
+        SecretsSecretsServiceUpdateExpirationHandler: secrets.SecretsServiceUpdateExpirationHandlerFunc(func(params secrets.SecretsServiceUpdateExpirationParams, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation secrets.SecretsServiceUpdateExpiration has not yet been implemented")
+        }),
+        SecretsSecretsServiceUpdateListFieldListDefinitionsHandler: secrets.SecretsServiceUpdateListFieldListDefinitionsHandlerFunc(func(params secrets.SecretsServiceUpdateListFieldListDefinitionsParams, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation secrets.SecretsServiceUpdateListFieldListDefinitions has not yet been implemented")
+        }),
+        SecretsSecretsServiceUpdateSecretHandler: secrets.SecretsServiceUpdateSecretHandlerFunc(func(params secrets.SecretsServiceUpdateSecretParams, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation secrets.SecretsServiceUpdateSecret has not yet been implemented")
+        }),
+        UsersUsersServiceCreateUserRolesHandler: users.UsersServiceCreateUserRolesHandlerFunc(func(params users.UsersServiceCreateUserRolesParams, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation users.UsersServiceCreateUserRoles has not yet been implemented")
+        }),
+        UsersUsersServiceGetHandler: users.UsersServiceGetHandlerFunc(func(params users.UsersServiceGetParams, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation users.UsersServiceGet has not yet been implemented")
+        }),
+        UsersUsersServiceGetRolesHandler: users.UsersServiceGetRolesHandlerFunc(func(params users.UsersServiceGetRolesParams, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation users.UsersServiceGetRoles has not yet been implemented")
+        }),
+        UsersUsersServiceGetUserRolesHandler: users.UsersServiceGetUserRolesHandlerFunc(func(params users.UsersServiceGetUserRolesParams, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation users.UsersServiceGetUserRoles has not yet been implemented")
+        }),
+        UsersUsersServiceLookupHandler: users.UsersServiceLookupHandlerFunc(func(params users.UsersServiceLookupParams, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation users.UsersServiceLookup has not yet been implemented")
+        }),
+        UsersUsersServicePatchUserHandler: users.UsersServicePatchUserHandlerFunc(func(params users.UsersServicePatchUserParams, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation users.UsersServicePatchUser has not yet been implemented")
+        }),
+        UsersUsersServiceUpdateUserHandler: users.UsersServiceUpdateUserHandlerFunc(func(params users.UsersServiceUpdateUserParams, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation users.UsersServiceUpdateUser has not yet been implemented")
+        }),
+        UsersUsersServiceUpdateUserRolesHandler: users.UsersServiceUpdateUserRolesHandlerFunc(func(params users.UsersServiceUpdateUserRolesParams, principal *jwt.MapClaims) middleware.Responder {
+            return middleware.NotImplemented("operation users.UsersServiceUpdateUserRoles has not yet been implemented")
+        }),
 
-		// Applies when the "Authorization" header is set
-		BearerAuth: func(token string) (*jwt.MapClaims, error) {
-			return nil, errors.NotImplemented("api key auth (Bearer) Authorization from header param [Authorization] has not yet been implemented")
-		},
-		// default authorizer is authorized meaning no requests are blocked
-		APIAuthorizer: security.Authorized(),
-	}
+        // Applies when the "Authorization" header is set
+        BearerAuth: func(token string) (*jwt.MapClaims, error) {
+            return nil, errors.NotImplemented("api key auth (Bearer) Authorization from header param [Authorization] has not yet been implemented")
+        },
+        // default authorizer is authorized meaning no requests are blocked
+        APIAuthorizer: security.Authorized(),
+    }
 }
 
 /*SecretServerRestAPIAPI REST API documentation for Secret Server. This document describes how to use the REST API. All requests require an authentication token; please see the <a href="../OAuth/">authentication document</a> for more information. The <a href="swagger.json">Swagger specification</a> for this API is also available. */
 type SecretServerRestAPIAPI struct {
-	spec            *loads.Document
-	context         *middleware.Context
-	handlers        map[string]map[string]http.Handler
-	formats         strfmt.Registry
-	customConsumers map[string]runtime.Consumer
-	customProducers map[string]runtime.Producer
-	defaultConsumes string
-	defaultProduces string
-	Middleware      func(middleware.Builder) http.Handler
-	useSwaggerUI    bool
+    spec            *loads.Document
+    context         *middleware.Context
+    handlers        map[string]map[string]http.Handler
+    formats         strfmt.Registry
+    customConsumers map[string]runtime.Consumer
+    customProducers map[string]runtime.Producer
+    defaultConsumes string
+    defaultProduces string
+    Middleware      func(middleware.Builder) http.Handler
+    useSwaggerUI    bool
 
-	// BasicAuthenticator generates a runtime.Authenticator from the supplied basic auth function.
-	// It has a default implementation in the security package, however you can replace it for your particular usage.
-	BasicAuthenticator func(security.UserPassAuthentication) runtime.Authenticator
+    // BasicAuthenticator generates a runtime.Authenticator from the supplied basic auth function.
+    // It has a default implementation in the security package, however you can replace it for your particular usage.
+    BasicAuthenticator func(security.UserPassAuthentication) runtime.Authenticator
 
-	// APIKeyAuthenticator generates a runtime.Authenticator from the supplied token auth function.
-	// It has a default implementation in the security package, however you can replace it for your particular usage.
-	APIKeyAuthenticator func(string, string, security.TokenAuthentication) runtime.Authenticator
+    // APIKeyAuthenticator generates a runtime.Authenticator from the supplied token auth function.
+    // It has a default implementation in the security package, however you can replace it for your particular usage.
+    APIKeyAuthenticator func(string, string, security.TokenAuthentication) runtime.Authenticator
 
-	// BearerAuthenticator generates a runtime.Authenticator from the supplied bearer token auth function.
-	// It has a default implementation in the security package, however you can replace it for your particular usage.
-	BearerAuthenticator func(string, security.ScopedTokenAuthentication) runtime.Authenticator
+    // BearerAuthenticator generates a runtime.Authenticator from the supplied bearer token auth function.
+    // It has a default implementation in the security package, however you can replace it for your particular usage.
+    BearerAuthenticator func(string, security.ScopedTokenAuthentication) runtime.Authenticator
 
-	// JSONConsumer registers a consumer for the following mime types:
-	//   - application/json
-	JSONConsumer runtime.Consumer
-	// MultipartformConsumer registers a consumer for the following mime types:
-	//   - multipart/form-data
-	MultipartformConsumer runtime.Consumer
-	// UrlformConsumer registers a consumer for the following mime types:
-	//   - application/x-www-form-urlencoded
-	UrlformConsumer runtime.Consumer
+    // JSONConsumer registers a consumer for the following mime types:
+    //   - application/json
+    JSONConsumer runtime.Consumer
+    // MultipartformConsumer registers a consumer for the following mime types:
+    //   - multipart/form-data
+    MultipartformConsumer runtime.Consumer
+    // UrlformConsumer registers a consumer for the following mime types:
+    //   - application/x-www-form-urlencoded
+    UrlformConsumer runtime.Consumer
 
-	// BinProducer registers a producer for the following mime types:
-	//   - application/octet-stream
-	BinProducer runtime.Producer
-	// JSONProducer registers a producer for the following mime types:
-	//   - application/json
-	JSONProducer runtime.Producer
+    // BinProducer registers a producer for the following mime types:
+    //   - application/octet-stream
+    BinProducer runtime.Producer
+    // JSONProducer registers a producer for the following mime types:
+    //   - application/json
+    JSONProducer runtime.Producer
 
-	// BearerAuth registers a function that takes a token and returns a principal
-	// it performs authentication based on an api key Authorization provided in the header
-	BearerAuth func(string) (*jwt.MapClaims, error)
+    // BearerAuth registers a function that takes a token and returns a principal
+    // it performs authentication based on an api key Authorization provided in the header
+    BearerAuth func(string) (*jwt.MapClaims, error)
 
-	// APIAuthorizer provides access control (ACL/RBAC/ABAC) by providing access to the request and authenticated principal
-	APIAuthorizer runtime.Authorizer
+    // APIAuthorizer provides access control (ACL/RBAC/ABAC) by providing access to the request and authenticated principal
+    APIAuthorizer runtime.Authorizer
 
-	// AuthenticationOAuth2ServiceAuthorizeHandler sets the operation handler for the o auth2 service authorize operation
-	AuthenticationOAuth2ServiceAuthorizeHandler authentication.OAuth2ServiceAuthorizeHandler
-	// RolesRolesServiceCreateHandler sets the operation handler for the roles service create operation
-	RolesRolesServiceCreateHandler roles.RolesServiceCreateHandler
-	// RolesRolesServiceGetHandler sets the operation handler for the roles service get operation
-	RolesRolesServiceGetHandler roles.RolesServiceGetHandler
-	// RolesRolesServiceGetAllHandler sets the operation handler for the roles service get all operation
-	RolesRolesServiceGetAllHandler roles.RolesServiceGetAllHandler
-	// RolesRolesServiceGetAllRolePermissionsByTypeHandler sets the operation handler for the roles service get all role permissions by type operation
-	RolesRolesServiceGetAllRolePermissionsByTypeHandler roles.RolesServiceGetAllRolePermissionsByTypeHandler
-	// RolesRolesServiceGetRoleGroupsHandler sets the operation handler for the roles service get role groups operation
-	RolesRolesServiceGetRoleGroupsHandler roles.RolesServiceGetRoleGroupsHandler
-	// RolesRolesServiceGetRolePermissionsHandler sets the operation handler for the roles service get role permissions operation
-	RolesRolesServiceGetRolePermissionsHandler roles.RolesServiceGetRolePermissionsHandler
-	// RolesRolesServicePatchGroupsHandler sets the operation handler for the roles service patch groups operation
-	RolesRolesServicePatchGroupsHandler roles.RolesServicePatchGroupsHandler
-	// RolesRolesServiceStubHandler sets the operation handler for the roles service stub operation
-	RolesRolesServiceStubHandler roles.RolesServiceStubHandler
-	// RolesRolesServiceUpdateHandler sets the operation handler for the roles service update operation
-	RolesRolesServiceUpdateHandler roles.RolesServiceUpdateHandler
-	// RolesRolesServiceUpdatePermissionsHandler sets the operation handler for the roles service update permissions operation
-	RolesRolesServiceUpdatePermissionsHandler roles.RolesServiceUpdatePermissionsHandler
-	// SecretsSecretsServiceCreateSecretHandler sets the operation handler for the secrets service create secret operation
-	SecretsSecretsServiceCreateSecretHandler secrets.SecretsServiceCreateSecretHandler
-	// SecretsSecretsServiceDeleteHandler sets the operation handler for the secrets service delete operation
-	SecretsSecretsServiceDeleteHandler secrets.SecretsServiceDeleteHandler
-	// SecretsSecretsServiceDeleteListFieldListDefinitionsHandler sets the operation handler for the secrets service delete list field list definitions operation
-	SecretsSecretsServiceDeleteListFieldListDefinitionsHandler secrets.SecretsServiceDeleteListFieldListDefinitionsHandler
-	// SecretsSecretsServiceExpireHandler sets the operation handler for the secrets service expire operation
-	SecretsSecretsServiceExpireHandler secrets.SecretsServiceExpireHandler
-	// SecretsSecretsServiceGetFieldHandler sets the operation handler for the secrets service get field operation
-	SecretsSecretsServiceGetFieldHandler secrets.SecretsServiceGetFieldHandler
-	// SecretsSecretsServiceGetGeneralHandler sets the operation handler for the secrets service get general operation
-	SecretsSecretsServiceGetGeneralHandler secrets.SecretsServiceGetGeneralHandler
-	// SecretsSecretsServiceGetListFieldHandler sets the operation handler for the secrets service get list field operation
-	SecretsSecretsServiceGetListFieldHandler secrets.SecretsServiceGetListFieldHandler
-	// SecretsSecretsServiceGetListFieldListDefinitionsHandler sets the operation handler for the secrets service get list field list definitions operation
-	SecretsSecretsServiceGetListFieldListDefinitionsHandler secrets.SecretsServiceGetListFieldListDefinitionsHandler
-	// SecretsSecretsServiceGetLookupHandler sets the operation handler for the secrets service get lookup operation
-	SecretsSecretsServiceGetLookupHandler secrets.SecretsServiceGetLookupHandler
-	// SecretsSecretsServiceGetRestrictedHandler sets the operation handler for the secrets service get restricted operation
-	SecretsSecretsServiceGetRestrictedHandler secrets.SecretsServiceGetRestrictedHandler
-	// SecretsSecretsServiceGetSecretExtendedSearchDetailsHandler sets the operation handler for the secrets service get secret extended search details operation
-	SecretsSecretsServiceGetSecretExtendedSearchDetailsHandler secrets.SecretsServiceGetSecretExtendedSearchDetailsHandler
-	// SecretsSecretsServiceGetSecretStateHandler sets the operation handler for the secrets service get secret state operation
-	SecretsSecretsServiceGetSecretStateHandler secrets.SecretsServiceGetSecretStateHandler
-	// SecretsSecretsServiceGetSecretV2Handler sets the operation handler for the secrets service get secret v2 operation
-	SecretsSecretsServiceGetSecretV2Handler secrets.SecretsServiceGetSecretV2Handler
-	// SecretsSecretsServicePutFieldHandler sets the operation handler for the secrets service put field operation
-	SecretsSecretsServicePutFieldHandler secrets.SecretsServicePutFieldHandler
-	// SecretsSecretsServiceRunHeartBeatHandler sets the operation handler for the secrets service run heart beat operation
-	SecretsSecretsServiceRunHeartBeatHandler secrets.SecretsServiceRunHeartBeatHandler
-	// SecretsSecretsServiceSearchHandler sets the operation handler for the secrets service search operation
-	SecretsSecretsServiceSearchHandler secrets.SecretsServiceSearchHandler
-	// SecretsSecretsServiceSearchSecretLookupHandler sets the operation handler for the secrets service search secret lookup operation
-	SecretsSecretsServiceSearchSecretLookupHandler secrets.SecretsServiceSearchSecretLookupHandler
-	// SecretsSecretsServiceSearchV2Handler sets the operation handler for the secrets service search v2 operation
-	SecretsSecretsServiceSearchV2Handler secrets.SecretsServiceSearchV2Handler
-	// SecretsSecretsServiceUndeleteSecretHandler sets the operation handler for the secrets service undelete secret operation
-	SecretsSecretsServiceUndeleteSecretHandler secrets.SecretsServiceUndeleteSecretHandler
-	// SecretsSecretsServiceUndeleteSecretV2Handler sets the operation handler for the secrets service undelete secret v2 operation
-	SecretsSecretsServiceUndeleteSecretV2Handler secrets.SecretsServiceUndeleteSecretV2Handler
-	// SecretsSecretsServiceUpdateExpirationHandler sets the operation handler for the secrets service update expiration operation
-	SecretsSecretsServiceUpdateExpirationHandler secrets.SecretsServiceUpdateExpirationHandler
-	// SecretsSecretsServiceUpdateListFieldListDefinitionsHandler sets the operation handler for the secrets service update list field list definitions operation
-	SecretsSecretsServiceUpdateListFieldListDefinitionsHandler secrets.SecretsServiceUpdateListFieldListDefinitionsHandler
-	// SecretsSecretsServiceUpdateSecretHandler sets the operation handler for the secrets service update secret operation
-	SecretsSecretsServiceUpdateSecretHandler secrets.SecretsServiceUpdateSecretHandler
-	// UsersUsersServiceCreateUserRolesHandler sets the operation handler for the users service create user roles operation
-	UsersUsersServiceCreateUserRolesHandler users.UsersServiceCreateUserRolesHandler
-	// UsersUsersServiceGetHandler sets the operation handler for the users service get operation
-	UsersUsersServiceGetHandler users.UsersServiceGetHandler
-	// UsersUsersServiceGetRolesHandler sets the operation handler for the users service get roles operation
-	UsersUsersServiceGetRolesHandler users.UsersServiceGetRolesHandler
-	// UsersUsersServiceGetUserRolesHandler sets the operation handler for the users service get user roles operation
-	UsersUsersServiceGetUserRolesHandler users.UsersServiceGetUserRolesHandler
-	// UsersUsersServiceLookupHandler sets the operation handler for the users service lookup operation
-	UsersUsersServiceLookupHandler users.UsersServiceLookupHandler
-	// UsersUsersServicePatchUserHandler sets the operation handler for the users service patch user operation
-	UsersUsersServicePatchUserHandler users.UsersServicePatchUserHandler
-	// UsersUsersServiceUpdateUserHandler sets the operation handler for the users service update user operation
-	UsersUsersServiceUpdateUserHandler users.UsersServiceUpdateUserHandler
-	// UsersUsersServiceUpdateUserRolesHandler sets the operation handler for the users service update user roles operation
-	UsersUsersServiceUpdateUserRolesHandler users.UsersServiceUpdateUserRolesHandler
+    // AuthenticationOAuth2ServiceAuthorizeHandler sets the operation handler for the o auth2 service authorize operation
+    AuthenticationOAuth2ServiceAuthorizeHandler authentication.OAuth2ServiceAuthorizeHandler
+    // RolesRolesServiceCreateHandler sets the operation handler for the roles service create operation
+    RolesRolesServiceCreateHandler roles.RolesServiceCreateHandler
+    // RolesRolesServiceGetHandler sets the operation handler for the roles service get operation
+    RolesRolesServiceGetHandler roles.RolesServiceGetHandler
+    // RolesRolesServiceGetAllHandler sets the operation handler for the roles service get all operation
+    RolesRolesServiceGetAllHandler roles.RolesServiceGetAllHandler
+    // RolesRolesServiceGetAllRolePermissionsByTypeHandler sets the operation handler for the roles service get all role permissions by type operation
+    RolesRolesServiceGetAllRolePermissionsByTypeHandler roles.RolesServiceGetAllRolePermissionsByTypeHandler
+    // RolesRolesServiceGetRoleGroupsHandler sets the operation handler for the roles service get role groups operation
+    RolesRolesServiceGetRoleGroupsHandler roles.RolesServiceGetRoleGroupsHandler
+    // RolesRolesServiceGetRolePermissionsHandler sets the operation handler for the roles service get role permissions operation
+    RolesRolesServiceGetRolePermissionsHandler roles.RolesServiceGetRolePermissionsHandler
+    // RolesRolesServicePatchGroupsHandler sets the operation handler for the roles service patch groups operation
+    RolesRolesServicePatchGroupsHandler roles.RolesServicePatchGroupsHandler
+    // RolesRolesServiceStubHandler sets the operation handler for the roles service stub operation
+    RolesRolesServiceStubHandler roles.RolesServiceStubHandler
+    // RolesRolesServiceUpdateHandler sets the operation handler for the roles service update operation
+    RolesRolesServiceUpdateHandler roles.RolesServiceUpdateHandler
+    // RolesRolesServiceUpdatePermissionsHandler sets the operation handler for the roles service update permissions operation
+    RolesRolesServiceUpdatePermissionsHandler roles.RolesServiceUpdatePermissionsHandler
+    // SecretsSecretsServiceCreateSecretHandler sets the operation handler for the secrets service create secret operation
+    SecretsSecretsServiceCreateSecretHandler secrets.SecretsServiceCreateSecretHandler
+    // SecretsSecretsServiceDeleteHandler sets the operation handler for the secrets service delete operation
+    SecretsSecretsServiceDeleteHandler secrets.SecretsServiceDeleteHandler
+    // SecretsSecretsServiceDeleteListFieldListDefinitionsHandler sets the operation handler for the secrets service delete list field list definitions operation
+    SecretsSecretsServiceDeleteListFieldListDefinitionsHandler secrets.SecretsServiceDeleteListFieldListDefinitionsHandler
+    // SecretsSecretsServiceExpireHandler sets the operation handler for the secrets service expire operation
+    SecretsSecretsServiceExpireHandler secrets.SecretsServiceExpireHandler
+    // SecretsSecretsServiceGetFieldHandler sets the operation handler for the secrets service get field operation
+    SecretsSecretsServiceGetFieldHandler secrets.SecretsServiceGetFieldHandler
+    // SecretsSecretsServiceGetGeneralHandler sets the operation handler for the secrets service get general operation
+    SecretsSecretsServiceGetGeneralHandler secrets.SecretsServiceGetGeneralHandler
+    // SecretsSecretsServiceGetListFieldHandler sets the operation handler for the secrets service get list field operation
+    SecretsSecretsServiceGetListFieldHandler secrets.SecretsServiceGetListFieldHandler
+    // SecretsSecretsServiceGetListFieldListDefinitionsHandler sets the operation handler for the secrets service get list field list definitions operation
+    SecretsSecretsServiceGetListFieldListDefinitionsHandler secrets.SecretsServiceGetListFieldListDefinitionsHandler
+    // SecretsSecretsServiceGetLookupHandler sets the operation handler for the secrets service get lookup operation
+    SecretsSecretsServiceGetLookupHandler secrets.SecretsServiceGetLookupHandler
+    // SecretsSecretsServiceGetRestrictedHandler sets the operation handler for the secrets service get restricted operation
+    SecretsSecretsServiceGetRestrictedHandler secrets.SecretsServiceGetRestrictedHandler
+    // SecretsSecretsServiceGetSecretExtendedSearchDetailsHandler sets the operation handler for the secrets service get secret extended search details operation
+    SecretsSecretsServiceGetSecretExtendedSearchDetailsHandler secrets.SecretsServiceGetSecretExtendedSearchDetailsHandler
+    // SecretsSecretsServiceGetSecretStateHandler sets the operation handler for the secrets service get secret state operation
+    SecretsSecretsServiceGetSecretStateHandler secrets.SecretsServiceGetSecretStateHandler
+    // SecretsSecretsServiceGetSecretV2Handler sets the operation handler for the secrets service get secret v2 operation
+    SecretsSecretsServiceGetSecretV2Handler secrets.SecretsServiceGetSecretV2Handler
+    // SecretsSecretsServicePutFieldHandler sets the operation handler for the secrets service put field operation
+    SecretsSecretsServicePutFieldHandler secrets.SecretsServicePutFieldHandler
+    // SecretsSecretsServiceRunHeartBeatHandler sets the operation handler for the secrets service run heart beat operation
+    SecretsSecretsServiceRunHeartBeatHandler secrets.SecretsServiceRunHeartBeatHandler
+    // SecretsSecretsServiceSearchHandler sets the operation handler for the secrets service search operation
+    SecretsSecretsServiceSearchHandler secrets.SecretsServiceSearchHandler
+    // SecretsSecretsServiceSearchSecretLookupHandler sets the operation handler for the secrets service search secret lookup operation
+    SecretsSecretsServiceSearchSecretLookupHandler secrets.SecretsServiceSearchSecretLookupHandler
+    // SecretsSecretsServiceSearchV2Handler sets the operation handler for the secrets service search v2 operation
+    SecretsSecretsServiceSearchV2Handler secrets.SecretsServiceSearchV2Handler
+    // SecretsSecretsServiceUndeleteSecretHandler sets the operation handler for the secrets service undelete secret operation
+    SecretsSecretsServiceUndeleteSecretHandler secrets.SecretsServiceUndeleteSecretHandler
+    // SecretsSecretsServiceUndeleteSecretV2Handler sets the operation handler for the secrets service undelete secret v2 operation
+    SecretsSecretsServiceUndeleteSecretV2Handler secrets.SecretsServiceUndeleteSecretV2Handler
+    // SecretsSecretsServiceUpdateExpirationHandler sets the operation handler for the secrets service update expiration operation
+    SecretsSecretsServiceUpdateExpirationHandler secrets.SecretsServiceUpdateExpirationHandler
+    // SecretsSecretsServiceUpdateListFieldListDefinitionsHandler sets the operation handler for the secrets service update list field list definitions operation
+    SecretsSecretsServiceUpdateListFieldListDefinitionsHandler secrets.SecretsServiceUpdateListFieldListDefinitionsHandler
+    // SecretsSecretsServiceUpdateSecretHandler sets the operation handler for the secrets service update secret operation
+    SecretsSecretsServiceUpdateSecretHandler secrets.SecretsServiceUpdateSecretHandler
+    // UsersUsersServiceCreateUserRolesHandler sets the operation handler for the users service create user roles operation
+    UsersUsersServiceCreateUserRolesHandler users.UsersServiceCreateUserRolesHandler
+    // UsersUsersServiceGetHandler sets the operation handler for the users service get operation
+    UsersUsersServiceGetHandler users.UsersServiceGetHandler
+    // UsersUsersServiceGetRolesHandler sets the operation handler for the users service get roles operation
+    UsersUsersServiceGetRolesHandler users.UsersServiceGetRolesHandler
+    // UsersUsersServiceGetUserRolesHandler sets the operation handler for the users service get user roles operation
+    UsersUsersServiceGetUserRolesHandler users.UsersServiceGetUserRolesHandler
+    // UsersUsersServiceLookupHandler sets the operation handler for the users service lookup operation
+    UsersUsersServiceLookupHandler users.UsersServiceLookupHandler
+    // UsersUsersServicePatchUserHandler sets the operation handler for the users service patch user operation
+    UsersUsersServicePatchUserHandler users.UsersServicePatchUserHandler
+    // UsersUsersServiceUpdateUserHandler sets the operation handler for the users service update user operation
+    UsersUsersServiceUpdateUserHandler users.UsersServiceUpdateUserHandler
+    // UsersUsersServiceUpdateUserRolesHandler sets the operation handler for the users service update user roles operation
+    UsersUsersServiceUpdateUserRolesHandler users.UsersServiceUpdateUserRolesHandler
 
-	// ServeError is called when an error is received, there is a default handler
-	// but you can set your own with this
-	ServeError func(http.ResponseWriter, *http.Request, error)
+    // ServeError is called when an error is received, there is a default handler
+    // but you can set your own with this
+    ServeError func(http.ResponseWriter, *http.Request, error)
 
-	// PreServerShutdown is called before the HTTP(S) server is shutdown
-	// This allows for custom functions to get executed before the HTTP(S) server stops accepting traffic
-	PreServerShutdown func()
+    // PreServerShutdown is called before the HTTP(S) server is shutdown
+    // This allows for custom functions to get executed before the HTTP(S) server stops accepting traffic
+    PreServerShutdown func()
 
-	// ServerShutdown is called when the HTTP(S) server is shut down and done
-	// handling all active connections and does not accept connections any more
-	ServerShutdown func()
+    // ServerShutdown is called when the HTTP(S) server is shut down and done
+    // handling all active connections and does not accept connections any more
+    ServerShutdown func()
 
-	// Custom command line argument groups with their descriptions
-	CommandLineOptionsGroups []swag.CommandLineOptionsGroup
+    // Custom command line argument groups with their descriptions
+    CommandLineOptionsGroups []swag.CommandLineOptionsGroup
 
-	// User defined logger function.
-	Logger func(string, ...interface{})
+    // User defined logger function.
+    Logger func(string, ...interface{})
 }
 
 // UseRedoc for documentation at /docs
 func (o *SecretServerRestAPIAPI) UseRedoc() {
-	o.useSwaggerUI = false
+    o.useSwaggerUI = false
 }
 
 // UseSwaggerUI for documentation at /docs
 func (o *SecretServerRestAPIAPI) UseSwaggerUI() {
-	o.useSwaggerUI = true
+    o.useSwaggerUI = true
 }
 
 // SetDefaultProduces sets the default produces media type
 func (o *SecretServerRestAPIAPI) SetDefaultProduces(mediaType string) {
-	o.defaultProduces = mediaType
+    o.defaultProduces = mediaType
 }
 
 // SetDefaultConsumes returns the default consumes media type
 func (o *SecretServerRestAPIAPI) SetDefaultConsumes(mediaType string) {
-	o.defaultConsumes = mediaType
+    o.defaultConsumes = mediaType
 }
 
 // SetSpec sets a spec that will be served for the clients.
 func (o *SecretServerRestAPIAPI) SetSpec(spec *loads.Document) {
-	o.spec = spec
+    o.spec = spec
 }
 
 // DefaultProduces returns the default produces media type
 func (o *SecretServerRestAPIAPI) DefaultProduces() string {
-	return o.defaultProduces
+    return o.defaultProduces
 }
 
 // DefaultConsumes returns the default consumes media type
 func (o *SecretServerRestAPIAPI) DefaultConsumes() string {
-	return o.defaultConsumes
+    return o.defaultConsumes
 }
 
 // Formats returns the registered string formats
 func (o *SecretServerRestAPIAPI) Formats() strfmt.Registry {
-	return o.formats
+    return o.formats
 }
 
 // RegisterFormat registers a custom format validator
 func (o *SecretServerRestAPIAPI) RegisterFormat(name string, format strfmt.Format, validator strfmt.Validator) {
-	o.formats.Add(name, format, validator)
+    o.formats.Add(name, format, validator)
 }
 
 // Validate validates the registrations in the SecretServerRestAPIAPI
 func (o *SecretServerRestAPIAPI) Validate() error {
-	var unregistered []string
+    var unregistered []string
 
-	if o.JSONConsumer == nil {
-		unregistered = append(unregistered, "JSONConsumer")
-	}
-	if o.MultipartformConsumer == nil {
-		unregistered = append(unregistered, "MultipartformConsumer")
-	}
-	if o.UrlformConsumer == nil {
-		unregistered = append(unregistered, "UrlformConsumer")
-	}
+    if o.JSONConsumer == nil {
+        unregistered = append(unregistered, "JSONConsumer")
+    }
+    if o.MultipartformConsumer == nil {
+        unregistered = append(unregistered, "MultipartformConsumer")
+    }
+    if o.UrlformConsumer == nil {
+        unregistered = append(unregistered, "UrlformConsumer")
+    }
 
-	if o.BinProducer == nil {
-		unregistered = append(unregistered, "BinProducer")
-	}
-	if o.JSONProducer == nil {
-		unregistered = append(unregistered, "JSONProducer")
-	}
+    if o.BinProducer == nil {
+        unregistered = append(unregistered, "BinProducer")
+    }
+    if o.JSONProducer == nil {
+        unregistered = append(unregistered, "JSONProducer")
+    }
 
-	if o.BearerAuth == nil {
-		unregistered = append(unregistered, "AuthorizationAuth")
-	}
+    if o.BearerAuth == nil {
+        unregistered = append(unregistered, "AuthorizationAuth")
+    }
 
-	if o.AuthenticationOAuth2ServiceAuthorizeHandler == nil {
-		unregistered = append(unregistered, "authentication.OAuth2ServiceAuthorizeHandler")
-	}
-	if o.RolesRolesServiceCreateHandler == nil {
-		unregistered = append(unregistered, "roles.RolesServiceCreateHandler")
-	}
-	if o.RolesRolesServiceGetHandler == nil {
-		unregistered = append(unregistered, "roles.RolesServiceGetHandler")
-	}
-	if o.RolesRolesServiceGetAllHandler == nil {
-		unregistered = append(unregistered, "roles.RolesServiceGetAllHandler")
-	}
-	if o.RolesRolesServiceGetAllRolePermissionsByTypeHandler == nil {
-		unregistered = append(unregistered, "roles.RolesServiceGetAllRolePermissionsByTypeHandler")
-	}
-	if o.RolesRolesServiceGetRoleGroupsHandler == nil {
-		unregistered = append(unregistered, "roles.RolesServiceGetRoleGroupsHandler")
-	}
-	if o.RolesRolesServiceGetRolePermissionsHandler == nil {
-		unregistered = append(unregistered, "roles.RolesServiceGetRolePermissionsHandler")
-	}
-	if o.RolesRolesServicePatchGroupsHandler == nil {
-		unregistered = append(unregistered, "roles.RolesServicePatchGroupsHandler")
-	}
-	if o.RolesRolesServiceStubHandler == nil {
-		unregistered = append(unregistered, "roles.RolesServiceStubHandler")
-	}
-	if o.RolesRolesServiceUpdateHandler == nil {
-		unregistered = append(unregistered, "roles.RolesServiceUpdateHandler")
-	}
-	if o.RolesRolesServiceUpdatePermissionsHandler == nil {
-		unregistered = append(unregistered, "roles.RolesServiceUpdatePermissionsHandler")
-	}
-	if o.SecretsSecretsServiceCreateSecretHandler == nil {
-		unregistered = append(unregistered, "secrets.SecretsServiceCreateSecretHandler")
-	}
-	if o.SecretsSecretsServiceDeleteHandler == nil {
-		unregistered = append(unregistered, "secrets.SecretsServiceDeleteHandler")
-	}
-	if o.SecretsSecretsServiceDeleteListFieldListDefinitionsHandler == nil {
-		unregistered = append(unregistered, "secrets.SecretsServiceDeleteListFieldListDefinitionsHandler")
-	}
-	if o.SecretsSecretsServiceExpireHandler == nil {
-		unregistered = append(unregistered, "secrets.SecretsServiceExpireHandler")
-	}
-	if o.SecretsSecretsServiceGetFieldHandler == nil {
-		unregistered = append(unregistered, "secrets.SecretsServiceGetFieldHandler")
-	}
-	if o.SecretsSecretsServiceGetGeneralHandler == nil {
-		unregistered = append(unregistered, "secrets.SecretsServiceGetGeneralHandler")
-	}
-	if o.SecretsSecretsServiceGetListFieldHandler == nil {
-		unregistered = append(unregistered, "secrets.SecretsServiceGetListFieldHandler")
-	}
-	if o.SecretsSecretsServiceGetListFieldListDefinitionsHandler == nil {
-		unregistered = append(unregistered, "secrets.SecretsServiceGetListFieldListDefinitionsHandler")
-	}
-	if o.SecretsSecretsServiceGetLookupHandler == nil {
-		unregistered = append(unregistered, "secrets.SecretsServiceGetLookupHandler")
-	}
-	if o.SecretsSecretsServiceGetRestrictedHandler == nil {
-		unregistered = append(unregistered, "secrets.SecretsServiceGetRestrictedHandler")
-	}
-	if o.SecretsSecretsServiceGetSecretExtendedSearchDetailsHandler == nil {
-		unregistered = append(unregistered, "secrets.SecretsServiceGetSecretExtendedSearchDetailsHandler")
-	}
-	if o.SecretsSecretsServiceGetSecretStateHandler == nil {
-		unregistered = append(unregistered, "secrets.SecretsServiceGetSecretStateHandler")
-	}
-	if o.SecretsSecretsServiceGetSecretV2Handler == nil {
-		unregistered = append(unregistered, "secrets.SecretsServiceGetSecretV2Handler")
-	}
-	if o.SecretsSecretsServicePutFieldHandler == nil {
-		unregistered = append(unregistered, "secrets.SecretsServicePutFieldHandler")
-	}
-	if o.SecretsSecretsServiceRunHeartBeatHandler == nil {
-		unregistered = append(unregistered, "secrets.SecretsServiceRunHeartBeatHandler")
-	}
-	if o.SecretsSecretsServiceSearchHandler == nil {
-		unregistered = append(unregistered, "secrets.SecretsServiceSearchHandler")
-	}
-	if o.SecretsSecretsServiceSearchSecretLookupHandler == nil {
-		unregistered = append(unregistered, "secrets.SecretsServiceSearchSecretLookupHandler")
-	}
-	if o.SecretsSecretsServiceSearchV2Handler == nil {
-		unregistered = append(unregistered, "secrets.SecretsServiceSearchV2Handler")
-	}
-	if o.SecretsSecretsServiceUndeleteSecretHandler == nil {
-		unregistered = append(unregistered, "secrets.SecretsServiceUndeleteSecretHandler")
-	}
-	if o.SecretsSecretsServiceUndeleteSecretV2Handler == nil {
-		unregistered = append(unregistered, "secrets.SecretsServiceUndeleteSecretV2Handler")
-	}
-	if o.SecretsSecretsServiceUpdateExpirationHandler == nil {
-		unregistered = append(unregistered, "secrets.SecretsServiceUpdateExpirationHandler")
-	}
-	if o.SecretsSecretsServiceUpdateListFieldListDefinitionsHandler == nil {
-		unregistered = append(unregistered, "secrets.SecretsServiceUpdateListFieldListDefinitionsHandler")
-	}
-	if o.SecretsSecretsServiceUpdateSecretHandler == nil {
-		unregistered = append(unregistered, "secrets.SecretsServiceUpdateSecretHandler")
-	}
-	if o.UsersUsersServiceCreateUserRolesHandler == nil {
-		unregistered = append(unregistered, "users.UsersServiceCreateUserRolesHandler")
-	}
-	if o.UsersUsersServiceGetHandler == nil {
-		unregistered = append(unregistered, "users.UsersServiceGetHandler")
-	}
-	if o.UsersUsersServiceGetRolesHandler == nil {
-		unregistered = append(unregistered, "users.UsersServiceGetRolesHandler")
-	}
-	if o.UsersUsersServiceGetUserRolesHandler == nil {
-		unregistered = append(unregistered, "users.UsersServiceGetUserRolesHandler")
-	}
-	if o.UsersUsersServiceLookupHandler == nil {
-		unregistered = append(unregistered, "users.UsersServiceLookupHandler")
-	}
-	if o.UsersUsersServicePatchUserHandler == nil {
-		unregistered = append(unregistered, "users.UsersServicePatchUserHandler")
-	}
-	if o.UsersUsersServiceUpdateUserHandler == nil {
-		unregistered = append(unregistered, "users.UsersServiceUpdateUserHandler")
-	}
-	if o.UsersUsersServiceUpdateUserRolesHandler == nil {
-		unregistered = append(unregistered, "users.UsersServiceUpdateUserRolesHandler")
-	}
+    if o.AuthenticationOAuth2ServiceAuthorizeHandler == nil {
+        unregistered = append(unregistered, "authentication.OAuth2ServiceAuthorizeHandler")
+    }
+    if o.RolesRolesServiceCreateHandler == nil {
+        unregistered = append(unregistered, "roles.RolesServiceCreateHandler")
+    }
+    if o.RolesRolesServiceGetHandler == nil {
+        unregistered = append(unregistered, "roles.RolesServiceGetHandler")
+    }
+    if o.RolesRolesServiceGetAllHandler == nil {
+        unregistered = append(unregistered, "roles.RolesServiceGetAllHandler")
+    }
+    if o.RolesRolesServiceGetAllRolePermissionsByTypeHandler == nil {
+        unregistered = append(unregistered, "roles.RolesServiceGetAllRolePermissionsByTypeHandler")
+    }
+    if o.RolesRolesServiceGetRoleGroupsHandler == nil {
+        unregistered = append(unregistered, "roles.RolesServiceGetRoleGroupsHandler")
+    }
+    if o.RolesRolesServiceGetRolePermissionsHandler == nil {
+        unregistered = append(unregistered, "roles.RolesServiceGetRolePermissionsHandler")
+    }
+    if o.RolesRolesServicePatchGroupsHandler == nil {
+        unregistered = append(unregistered, "roles.RolesServicePatchGroupsHandler")
+    }
+    if o.RolesRolesServiceStubHandler == nil {
+        unregistered = append(unregistered, "roles.RolesServiceStubHandler")
+    }
+    if o.RolesRolesServiceUpdateHandler == nil {
+        unregistered = append(unregistered, "roles.RolesServiceUpdateHandler")
+    }
+    if o.RolesRolesServiceUpdatePermissionsHandler == nil {
+        unregistered = append(unregistered, "roles.RolesServiceUpdatePermissionsHandler")
+    }
+    if o.SecretsSecretsServiceCreateSecretHandler == nil {
+        unregistered = append(unregistered, "secrets.SecretsServiceCreateSecretHandler")
+    }
+    if o.SecretsSecretsServiceDeleteHandler == nil {
+        unregistered = append(unregistered, "secrets.SecretsServiceDeleteHandler")
+    }
+    if o.SecretsSecretsServiceDeleteListFieldListDefinitionsHandler == nil {
+        unregistered = append(unregistered, "secrets.SecretsServiceDeleteListFieldListDefinitionsHandler")
+    }
+    if o.SecretsSecretsServiceExpireHandler == nil {
+        unregistered = append(unregistered, "secrets.SecretsServiceExpireHandler")
+    }
+    if o.SecretsSecretsServiceGetFieldHandler == nil {
+        unregistered = append(unregistered, "secrets.SecretsServiceGetFieldHandler")
+    }
+    if o.SecretsSecretsServiceGetGeneralHandler == nil {
+        unregistered = append(unregistered, "secrets.SecretsServiceGetGeneralHandler")
+    }
+    if o.SecretsSecretsServiceGetListFieldHandler == nil {
+        unregistered = append(unregistered, "secrets.SecretsServiceGetListFieldHandler")
+    }
+    if o.SecretsSecretsServiceGetListFieldListDefinitionsHandler == nil {
+        unregistered = append(unregistered, "secrets.SecretsServiceGetListFieldListDefinitionsHandler")
+    }
+    if o.SecretsSecretsServiceGetLookupHandler == nil {
+        unregistered = append(unregistered, "secrets.SecretsServiceGetLookupHandler")
+    }
+    if o.SecretsSecretsServiceGetRestrictedHandler == nil {
+        unregistered = append(unregistered, "secrets.SecretsServiceGetRestrictedHandler")
+    }
+    if o.SecretsSecretsServiceGetSecretExtendedSearchDetailsHandler == nil {
+        unregistered = append(unregistered, "secrets.SecretsServiceGetSecretExtendedSearchDetailsHandler")
+    }
+    if o.SecretsSecretsServiceGetSecretStateHandler == nil {
+        unregistered = append(unregistered, "secrets.SecretsServiceGetSecretStateHandler")
+    }
+    if o.SecretsSecretsServiceGetSecretV2Handler == nil {
+        unregistered = append(unregistered, "secrets.SecretsServiceGetSecretV2Handler")
+    }
+    if o.SecretsSecretsServicePutFieldHandler == nil {
+        unregistered = append(unregistered, "secrets.SecretsServicePutFieldHandler")
+    }
+    if o.SecretsSecretsServiceRunHeartBeatHandler == nil {
+        unregistered = append(unregistered, "secrets.SecretsServiceRunHeartBeatHandler")
+    }
+    if o.SecretsSecretsServiceSearchHandler == nil {
+        unregistered = append(unregistered, "secrets.SecretsServiceSearchHandler")
+    }
+    if o.SecretsSecretsServiceSearchSecretLookupHandler == nil {
+        unregistered = append(unregistered, "secrets.SecretsServiceSearchSecretLookupHandler")
+    }
+    if o.SecretsSecretsServiceSearchV2Handler == nil {
+        unregistered = append(unregistered, "secrets.SecretsServiceSearchV2Handler")
+    }
+    if o.SecretsSecretsServiceUndeleteSecretHandler == nil {
+        unregistered = append(unregistered, "secrets.SecretsServiceUndeleteSecretHandler")
+    }
+    if o.SecretsSecretsServiceUndeleteSecretV2Handler == nil {
+        unregistered = append(unregistered, "secrets.SecretsServiceUndeleteSecretV2Handler")
+    }
+    if o.SecretsSecretsServiceUpdateExpirationHandler == nil {
+        unregistered = append(unregistered, "secrets.SecretsServiceUpdateExpirationHandler")
+    }
+    if o.SecretsSecretsServiceUpdateListFieldListDefinitionsHandler == nil {
+        unregistered = append(unregistered, "secrets.SecretsServiceUpdateListFieldListDefinitionsHandler")
+    }
+    if o.SecretsSecretsServiceUpdateSecretHandler == nil {
+        unregistered = append(unregistered, "secrets.SecretsServiceUpdateSecretHandler")
+    }
+    if o.UsersUsersServiceCreateUserRolesHandler == nil {
+        unregistered = append(unregistered, "users.UsersServiceCreateUserRolesHandler")
+    }
+    if o.UsersUsersServiceGetHandler == nil {
+        unregistered = append(unregistered, "users.UsersServiceGetHandler")
+    }
+    if o.UsersUsersServiceGetRolesHandler == nil {
+        unregistered = append(unregistered, "users.UsersServiceGetRolesHandler")
+    }
+    if o.UsersUsersServiceGetUserRolesHandler == nil {
+        unregistered = append(unregistered, "users.UsersServiceGetUserRolesHandler")
+    }
+    if o.UsersUsersServiceLookupHandler == nil {
+        unregistered = append(unregistered, "users.UsersServiceLookupHandler")
+    }
+    if o.UsersUsersServicePatchUserHandler == nil {
+        unregistered = append(unregistered, "users.UsersServicePatchUserHandler")
+    }
+    if o.UsersUsersServiceUpdateUserHandler == nil {
+        unregistered = append(unregistered, "users.UsersServiceUpdateUserHandler")
+    }
+    if o.UsersUsersServiceUpdateUserRolesHandler == nil {
+        unregistered = append(unregistered, "users.UsersServiceUpdateUserRolesHandler")
+    }
 
-	if len(unregistered) > 0 {
-		return fmt.Errorf("missing registration: %s", strings.Join(unregistered, ", "))
-	}
+    if len(unregistered) > 0 {
+        return fmt.Errorf("missing registration: %s", strings.Join(unregistered, ", "))
+    }
 
-	return nil
+    return nil
 }
 
 // ServeErrorFor gets a error handler for a given operation id
 func (o *SecretServerRestAPIAPI) ServeErrorFor(operationID string) func(http.ResponseWriter, *http.Request, error) {
-	return o.ServeError
+    return o.ServeError
 }
 
 // AuthenticatorsFor gets the authenticators for the specified security schemes
 func (o *SecretServerRestAPIAPI) AuthenticatorsFor(schemes map[string]spec.SecurityScheme) map[string]runtime.Authenticator {
-	result := make(map[string]runtime.Authenticator)
-	for name := range schemes {
-		switch name {
-		case "Bearer":
-			scheme := schemes[name]
-			result[name] = o.APIKeyAuthenticator(scheme.Name, scheme.In, func(token string) (interface{}, error) {
-				return o.BearerAuth(token)
-			})
+    result := make(map[string]runtime.Authenticator)
+    for name := range schemes {
+        switch name {
+        case "Bearer":
+            scheme := schemes[name]
+            result[name] = o.APIKeyAuthenticator(scheme.Name, scheme.In, func(token string) (interface{}, error) {
+                return o.BearerAuth(token)
+            })
 
-		}
-	}
-	return result
+        }
+    }
+    return result
 }
 
 // Authorizer returns the registered authorizer
 func (o *SecretServerRestAPIAPI) Authorizer() runtime.Authorizer {
-	return o.APIAuthorizer
+    return o.APIAuthorizer
 }
 
 // ConsumersFor gets the consumers for the specified media types.
 // MIME type parameters are ignored here.
 func (o *SecretServerRestAPIAPI) ConsumersFor(mediaTypes []string) map[string]runtime.Consumer {
-	result := make(map[string]runtime.Consumer, len(mediaTypes))
-	for _, mt := range mediaTypes {
-		switch mt {
-		case "application/json":
-			result["application/json"] = o.JSONConsumer
-		case "multipart/form-data":
-			result["multipart/form-data"] = o.MultipartformConsumer
-		case "application/x-www-form-urlencoded":
-			result["application/x-www-form-urlencoded"] = o.UrlformConsumer
-		}
+    result := make(map[string]runtime.Consumer, len(mediaTypes))
+    for _, mt := range mediaTypes {
+        switch mt {
+        case "application/json":
+            result["application/json"] = o.JSONConsumer
+        case "multipart/form-data":
+            result["multipart/form-data"] = o.MultipartformConsumer
+        case "application/x-www-form-urlencoded":
+            result["application/x-www-form-urlencoded"] = o.UrlformConsumer
+        }
 
-		if c, ok := o.customConsumers[mt]; ok {
-			result[mt] = c
-		}
-	}
-	return result
+        if c, ok := o.customConsumers[mt]; ok {
+            result[mt] = c
+        }
+    }
+    return result
 }
 
 // ProducersFor gets the producers for the specified media types.
 // MIME type parameters are ignored here.
 func (o *SecretServerRestAPIAPI) ProducersFor(mediaTypes []string) map[string]runtime.Producer {
-	result := make(map[string]runtime.Producer, len(mediaTypes))
-	for _, mt := range mediaTypes {
-		switch mt {
-		case "application/octet-stream":
-			result["application/octet-stream"] = o.BinProducer
-		case "application/json":
-			result["application/json"] = o.JSONProducer
-		}
+    result := make(map[string]runtime.Producer, len(mediaTypes))
+    for _, mt := range mediaTypes {
+        switch mt {
+        case "application/octet-stream":
+            result["application/octet-stream"] = o.BinProducer
+        case "application/json":
+            result["application/json"] = o.JSONProducer
+        }
 
-		if p, ok := o.customProducers[mt]; ok {
-			result[mt] = p
-		}
-	}
-	return result
+        if p, ok := o.customProducers[mt]; ok {
+            result[mt] = p
+        }
+    }
+    return result
 }
 
 // HandlerFor gets a http.Handler for the provided operation method and path
 func (o *SecretServerRestAPIAPI) HandlerFor(method, path string) (http.Handler, bool) {
-	if o.handlers == nil {
-		return nil, false
-	}
-	um := strings.ToUpper(method)
-	if _, ok := o.handlers[um]; !ok {
-		return nil, false
-	}
-	if path == "/" {
-		path = ""
-	}
-	h, ok := o.handlers[um][path]
-	return h, ok
+    if o.handlers == nil {
+        return nil, false
+    }
+    um := strings.ToUpper(method)
+    if _, ok := o.handlers[um]; !ok {
+        return nil, false
+    }
+    if path == "/" {
+        path = ""
+    }
+    h, ok := o.handlers[um][path]
+    return h, ok
 }
 
 // Context returns the middleware context for the secret server rest API API
 func (o *SecretServerRestAPIAPI) Context() *middleware.Context {
-	if o.context == nil {
-		o.context = middleware.NewRoutableContext(o.spec, o, nil)
-	}
+    if o.context == nil {
+        o.context = middleware.NewRoutableContext(o.spec, o, nil)
+    }
 
-	return o.context
+    return o.context
 }
 
 func (o *SecretServerRestAPIAPI) initHandlerCache() {
-	o.Context() // don't care about the result, just that the initialization happened
-	if o.handlers == nil {
-		o.handlers = make(map[string]map[string]http.Handler)
-	}
+    o.Context() // don't care about the result, just that the initialization happened
+    if o.handlers == nil {
+        o.handlers = make(map[string]map[string]http.Handler)
+    }
 
-	if o.handlers["POST"] == nil {
-		o.handlers["POST"] = make(map[string]http.Handler)
-	}
-	o.handlers["POST"]["/oauth2/token"] = authentication.NewOAuth2ServiceAuthorize(o.context, o.AuthenticationOAuth2ServiceAuthorizeHandler)
-	if o.handlers["POST"] == nil {
-		o.handlers["POST"] = make(map[string]http.Handler)
-	}
-	o.handlers["POST"]["/api/v1/roles"] = roles.NewRolesServiceCreate(o.context, o.RolesRolesServiceCreateHandler)
-	if o.handlers["GET"] == nil {
-		o.handlers["GET"] = make(map[string]http.Handler)
-	}
-	o.handlers["GET"]["/api/v1/roles/{id}"] = roles.NewRolesServiceGet(o.context, o.RolesRolesServiceGetHandler)
-	if o.handlers["GET"] == nil {
-		o.handlers["GET"] = make(map[string]http.Handler)
-	}
-	o.handlers["GET"]["/api/v1/roles"] = roles.NewRolesServiceGetAll(o.context, o.RolesRolesServiceGetAllHandler)
-	if o.handlers["GET"] == nil {
-		o.handlers["GET"] = make(map[string]http.Handler)
-	}
-	o.handlers["GET"]["/api/v1/roles/{id}/permissions/unassigned"] = roles.NewRolesServiceGetAllRolePermissionsByType(o.context, o.RolesRolesServiceGetAllRolePermissionsByTypeHandler)
-	if o.handlers["GET"] == nil {
-		o.handlers["GET"] = make(map[string]http.Handler)
-	}
-	o.handlers["GET"]["/api/v1/roles/{id}/groups"] = roles.NewRolesServiceGetRoleGroups(o.context, o.RolesRolesServiceGetRoleGroupsHandler)
-	if o.handlers["GET"] == nil {
-		o.handlers["GET"] = make(map[string]http.Handler)
-	}
-	o.handlers["GET"]["/api/v1/roles/{id}/permissions"] = roles.NewRolesServiceGetRolePermissions(o.context, o.RolesRolesServiceGetRolePermissionsHandler)
-	if o.handlers["PATCH"] == nil {
-		o.handlers["PATCH"] = make(map[string]http.Handler)
-	}
-	o.handlers["PATCH"]["/api/v1/roles/{roleId}/groups"] = roles.NewRolesServicePatchGroups(o.context, o.RolesRolesServicePatchGroupsHandler)
-	if o.handlers["GET"] == nil {
-		o.handlers["GET"] = make(map[string]http.Handler)
-	}
-	o.handlers["GET"]["/api/v1/roles/stub"] = roles.NewRolesServiceStub(o.context, o.RolesRolesServiceStubHandler)
-	if o.handlers["PATCH"] == nil {
-		o.handlers["PATCH"] = make(map[string]http.Handler)
-	}
-	o.handlers["PATCH"]["/api/v1/roles/{id}"] = roles.NewRolesServiceUpdate(o.context, o.RolesRolesServiceUpdateHandler)
-	if o.handlers["PUT"] == nil {
-		o.handlers["PUT"] = make(map[string]http.Handler)
-	}
-	o.handlers["PUT"]["/api/v1/roles/{id}/permissions"] = roles.NewRolesServiceUpdatePermissions(o.context, o.RolesRolesServiceUpdatePermissionsHandler)
-	if o.handlers["POST"] == nil {
-		o.handlers["POST"] = make(map[string]http.Handler)
-	}
-	o.handlers["POST"]["/api/v1/secrets"] = secrets.NewSecretsServiceCreateSecret(o.context, o.SecretsSecretsServiceCreateSecretHandler)
-	if o.handlers["DELETE"] == nil {
-		o.handlers["DELETE"] = make(map[string]http.Handler)
-	}
-	o.handlers["DELETE"]["/api/v1/secrets/{id}"] = secrets.NewSecretsServiceDelete(o.context, o.SecretsSecretsServiceDeleteHandler)
-	if o.handlers["DELETE"] == nil {
-		o.handlers["DELETE"] = make(map[string]http.Handler)
-	}
-	o.handlers["DELETE"]["/api/v1/secrets/{id}/fields/{slug}/listdetails"] = secrets.NewSecretsServiceDeleteListFieldListDefinitions(o.context, o.SecretsSecretsServiceDeleteListFieldListDefinitionsHandler)
-	if o.handlers["POST"] == nil {
-		o.handlers["POST"] = make(map[string]http.Handler)
-	}
-	o.handlers["POST"]["/api/v1/secrets/{id}/expire"] = secrets.NewSecretsServiceExpire(o.context, o.SecretsSecretsServiceExpireHandler)
-	if o.handlers["GET"] == nil {
-		o.handlers["GET"] = make(map[string]http.Handler)
-	}
-	o.handlers["GET"]["/api/v1/secrets/{id}/fields/{slug}"] = secrets.NewSecretsServiceGetField(o.context, o.SecretsSecretsServiceGetFieldHandler)
-	if o.handlers["GET"] == nil {
-		o.handlers["GET"] = make(map[string]http.Handler)
-	}
-	o.handlers["GET"]["/api/v1/secrets/secret-detail/{id}/general"] = secrets.NewSecretsServiceGetGeneral(o.context, o.SecretsSecretsServiceGetGeneralHandler)
-	if o.handlers["GET"] == nil {
-		o.handlers["GET"] = make(map[string]http.Handler)
-	}
-	o.handlers["GET"]["/api/v1/secrets/{id}/fields/{slug}/list"] = secrets.NewSecretsServiceGetListField(o.context, o.SecretsSecretsServiceGetListFieldHandler)
-	if o.handlers["GET"] == nil {
-		o.handlers["GET"] = make(map[string]http.Handler)
-	}
-	o.handlers["GET"]["/api/v1/secrets/{id}/fields/{slug}/listdetails"] = secrets.NewSecretsServiceGetListFieldListDefinitions(o.context, o.SecretsSecretsServiceGetListFieldListDefinitionsHandler)
-	if o.handlers["GET"] == nil {
-		o.handlers["GET"] = make(map[string]http.Handler)
-	}
-	o.handlers["GET"]["/api/v1/secrets/lookup/{id}"] = secrets.NewSecretsServiceGetLookup(o.context, o.SecretsSecretsServiceGetLookupHandler)
-	if o.handlers["POST"] == nil {
-		o.handlers["POST"] = make(map[string]http.Handler)
-	}
-	o.handlers["POST"]["/api/v1/secrets/{id}/restricted"] = secrets.NewSecretsServiceGetRestricted(o.context, o.SecretsSecretsServiceGetRestrictedHandler)
-	if o.handlers["POST"] == nil {
-		o.handlers["POST"] = make(map[string]http.Handler)
-	}
-	o.handlers["POST"]["/api/v1/secrets/extended-search-details"] = secrets.NewSecretsServiceGetSecretExtendedSearchDetails(o.context, o.SecretsSecretsServiceGetSecretExtendedSearchDetailsHandler)
-	if o.handlers["GET"] == nil {
-		o.handlers["GET"] = make(map[string]http.Handler)
-	}
-	o.handlers["GET"]["/api/v1/secrets/{id}/state"] = secrets.NewSecretsServiceGetSecretState(o.context, o.SecretsSecretsServiceGetSecretStateHandler)
-	if o.handlers["GET"] == nil {
-		o.handlers["GET"] = make(map[string]http.Handler)
-	}
-	o.handlers["GET"]["/api/v2/secrets/{id}"] = secrets.NewSecretsServiceGetSecretV2(o.context, o.SecretsSecretsServiceGetSecretV2Handler)
-	if o.handlers["PUT"] == nil {
-		o.handlers["PUT"] = make(map[string]http.Handler)
-	}
-	o.handlers["PUT"]["/api/v1/secrets/{id}/fields/{slug}"] = secrets.NewSecretsServicePutField(o.context, o.SecretsSecretsServicePutFieldHandler)
-	if o.handlers["POST"] == nil {
-		o.handlers["POST"] = make(map[string]http.Handler)
-	}
-	o.handlers["POST"]["/api/v1/secrets/{id}/heartbeat"] = secrets.NewSecretsServiceRunHeartBeat(o.context, o.SecretsSecretsServiceRunHeartBeatHandler)
-	if o.handlers["GET"] == nil {
-		o.handlers["GET"] = make(map[string]http.Handler)
-	}
-	o.handlers["GET"]["/api/v1/secrets"] = secrets.NewSecretsServiceSearch(o.context, o.SecretsSecretsServiceSearchHandler)
-	if o.handlers["GET"] == nil {
-		o.handlers["GET"] = make(map[string]http.Handler)
-	}
-	o.handlers["GET"]["/api/v1/secrets/lookup"] = secrets.NewSecretsServiceSearchSecretLookup(o.context, o.SecretsSecretsServiceSearchSecretLookupHandler)
-	if o.handlers["GET"] == nil {
-		o.handlers["GET"] = make(map[string]http.Handler)
-	}
-	o.handlers["GET"]["/api/v2/secrets"] = secrets.NewSecretsServiceSearchV2(o.context, o.SecretsSecretsServiceSearchV2Handler)
-	if o.handlers["PUT"] == nil {
-		o.handlers["PUT"] = make(map[string]http.Handler)
-	}
-	o.handlers["PUT"]["/api/v1/secrets/{id}/activate"] = secrets.NewSecretsServiceUndeleteSecret(o.context, o.SecretsSecretsServiceUndeleteSecretHandler)
-	if o.handlers["PUT"] == nil {
-		o.handlers["PUT"] = make(map[string]http.Handler)
-	}
-	o.handlers["PUT"]["/api/v2/secrets/{id}/activate"] = secrets.NewSecretsServiceUndeleteSecretV2(o.context, o.SecretsSecretsServiceUndeleteSecretV2Handler)
-	if o.handlers["PUT"] == nil {
-		o.handlers["PUT"] = make(map[string]http.Handler)
-	}
-	o.handlers["PUT"]["/api/v1/secrets/{id}/expiration"] = secrets.NewSecretsServiceUpdateExpiration(o.context, o.SecretsSecretsServiceUpdateExpirationHandler)
-	if o.handlers["PUT"] == nil {
-		o.handlers["PUT"] = make(map[string]http.Handler)
-	}
-	o.handlers["PUT"]["/api/v1/secrets/{id}/fields/{slug}/listdetails"] = secrets.NewSecretsServiceUpdateListFieldListDefinitions(o.context, o.SecretsSecretsServiceUpdateListFieldListDefinitionsHandler)
-	if o.handlers["PUT"] == nil {
-		o.handlers["PUT"] = make(map[string]http.Handler)
-	}
-	o.handlers["PUT"]["/api/v1/secrets/{id}"] = secrets.NewSecretsServiceUpdateSecret(o.context, o.SecretsSecretsServiceUpdateSecretHandler)
-	if o.handlers["POST"] == nil {
-		o.handlers["POST"] = make(map[string]http.Handler)
-	}
-	o.handlers["POST"]["/api/v1/users/{id}/roles"] = users.NewUsersServiceCreateUserRoles(o.context, o.UsersUsersServiceCreateUserRolesHandler)
-	if o.handlers["GET"] == nil {
-		o.handlers["GET"] = make(map[string]http.Handler)
-	}
-	o.handlers["GET"]["/api/v1/users/{id}"] = users.NewUsersServiceGet(o.context, o.UsersUsersServiceGetHandler)
-	if o.handlers["GET"] == nil {
-		o.handlers["GET"] = make(map[string]http.Handler)
-	}
-	o.handlers["GET"]["/api/v1/users/{id}/roles"] = users.NewUsersServiceGetRoles(o.context, o.UsersUsersServiceGetRolesHandler)
-	if o.handlers["GET"] == nil {
-		o.handlers["GET"] = make(map[string]http.Handler)
-	}
-	o.handlers["GET"]["/api/v1/users/{userId}/roles-assigned"] = users.NewUsersServiceGetUserRoles(o.context, o.UsersUsersServiceGetUserRolesHandler)
-	if o.handlers["GET"] == nil {
-		o.handlers["GET"] = make(map[string]http.Handler)
-	}
-	o.handlers["GET"]["/api/v1/users/lookup"] = users.NewUsersServiceLookup(o.context, o.UsersUsersServiceLookupHandler)
-	if o.handlers["PATCH"] == nil {
-		o.handlers["PATCH"] = make(map[string]http.Handler)
-	}
-	o.handlers["PATCH"]["/api/v1/users/{id}"] = users.NewUsersServicePatchUser(o.context, o.UsersUsersServicePatchUserHandler)
-	if o.handlers["PUT"] == nil {
-		o.handlers["PUT"] = make(map[string]http.Handler)
-	}
-	o.handlers["PUT"]["/api/v1/users/{id}"] = users.NewUsersServiceUpdateUser(o.context, o.UsersUsersServiceUpdateUserHandler)
-	if o.handlers["PUT"] == nil {
-		o.handlers["PUT"] = make(map[string]http.Handler)
-	}
-	o.handlers["PUT"]["/api/v1/users/{id}/roles"] = users.NewUsersServiceUpdateUserRoles(o.context, o.UsersUsersServiceUpdateUserRolesHandler)
+    if o.handlers["POST"] == nil {
+        o.handlers["POST"] = make(map[string]http.Handler)
+    }
+    o.handlers["POST"]["/oauth2/token"] = authentication.NewOAuth2ServiceAuthorize(o.context, o.AuthenticationOAuth2ServiceAuthorizeHandler)
+    if o.handlers["POST"] == nil {
+        o.handlers["POST"] = make(map[string]http.Handler)
+    }
+    o.handlers["POST"]["/api/v1/roles"] = roles.NewRolesServiceCreate(o.context, o.RolesRolesServiceCreateHandler)
+    if o.handlers["GET"] == nil {
+        o.handlers["GET"] = make(map[string]http.Handler)
+    }
+    o.handlers["GET"]["/api/v1/roles/{id}"] = roles.NewRolesServiceGet(o.context, o.RolesRolesServiceGetHandler)
+    if o.handlers["GET"] == nil {
+        o.handlers["GET"] = make(map[string]http.Handler)
+    }
+    o.handlers["GET"]["/api/v1/roles"] = roles.NewRolesServiceGetAll(o.context, o.RolesRolesServiceGetAllHandler)
+    if o.handlers["GET"] == nil {
+        o.handlers["GET"] = make(map[string]http.Handler)
+    }
+    o.handlers["GET"]["/api/v1/roles/{id}/permissions/unassigned"] = roles.NewRolesServiceGetAllRolePermissionsByType(o.context, o.RolesRolesServiceGetAllRolePermissionsByTypeHandler)
+    if o.handlers["GET"] == nil {
+        o.handlers["GET"] = make(map[string]http.Handler)
+    }
+    o.handlers["GET"]["/api/v1/roles/{id}/groups"] = roles.NewRolesServiceGetRoleGroups(o.context, o.RolesRolesServiceGetRoleGroupsHandler)
+    if o.handlers["GET"] == nil {
+        o.handlers["GET"] = make(map[string]http.Handler)
+    }
+    o.handlers["GET"]["/api/v1/roles/{id}/permissions"] = roles.NewRolesServiceGetRolePermissions(o.context, o.RolesRolesServiceGetRolePermissionsHandler)
+    if o.handlers["PATCH"] == nil {
+        o.handlers["PATCH"] = make(map[string]http.Handler)
+    }
+    o.handlers["PATCH"]["/api/v1/roles/{roleId}/groups"] = roles.NewRolesServicePatchGroups(o.context, o.RolesRolesServicePatchGroupsHandler)
+    if o.handlers["GET"] == nil {
+        o.handlers["GET"] = make(map[string]http.Handler)
+    }
+    o.handlers["GET"]["/api/v1/roles/stub"] = roles.NewRolesServiceStub(o.context, o.RolesRolesServiceStubHandler)
+    if o.handlers["PATCH"] == nil {
+        o.handlers["PATCH"] = make(map[string]http.Handler)
+    }
+    o.handlers["PATCH"]["/api/v1/roles/{id}"] = roles.NewRolesServiceUpdate(o.context, o.RolesRolesServiceUpdateHandler)
+    if o.handlers["PUT"] == nil {
+        o.handlers["PUT"] = make(map[string]http.Handler)
+    }
+    o.handlers["PUT"]["/api/v1/roles/{id}/permissions"] = roles.NewRolesServiceUpdatePermissions(o.context, o.RolesRolesServiceUpdatePermissionsHandler)
+    if o.handlers["POST"] == nil {
+        o.handlers["POST"] = make(map[string]http.Handler)
+    }
+    o.handlers["POST"]["/api/v1/secrets"] = secrets.NewSecretsServiceCreateSecret(o.context, o.SecretsSecretsServiceCreateSecretHandler)
+    if o.handlers["DELETE"] == nil {
+        o.handlers["DELETE"] = make(map[string]http.Handler)
+    }
+    o.handlers["DELETE"]["/api/v1/secrets/{id}"] = secrets.NewSecretsServiceDelete(o.context, o.SecretsSecretsServiceDeleteHandler)
+    if o.handlers["DELETE"] == nil {
+        o.handlers["DELETE"] = make(map[string]http.Handler)
+    }
+    o.handlers["DELETE"]["/api/v1/secrets/{id}/fields/{slug}/listdetails"] = secrets.NewSecretsServiceDeleteListFieldListDefinitions(o.context, o.SecretsSecretsServiceDeleteListFieldListDefinitionsHandler)
+    if o.handlers["POST"] == nil {
+        o.handlers["POST"] = make(map[string]http.Handler)
+    }
+    o.handlers["POST"]["/api/v1/secrets/{id}/expire"] = secrets.NewSecretsServiceExpire(o.context, o.SecretsSecretsServiceExpireHandler)
+    if o.handlers["GET"] == nil {
+        o.handlers["GET"] = make(map[string]http.Handler)
+    }
+    o.handlers["GET"]["/api/v1/secrets/{id}/fields/{slug}"] = secrets.NewSecretsServiceGetField(o.context, o.SecretsSecretsServiceGetFieldHandler)
+    if o.handlers["GET"] == nil {
+        o.handlers["GET"] = make(map[string]http.Handler)
+    }
+    o.handlers["GET"]["/api/v1/secrets/secret-detail/{id}/general"] = secrets.NewSecretsServiceGetGeneral(o.context, o.SecretsSecretsServiceGetGeneralHandler)
+    if o.handlers["GET"] == nil {
+        o.handlers["GET"] = make(map[string]http.Handler)
+    }
+    o.handlers["GET"]["/api/v1/secrets/{id}/fields/{slug}/list"] = secrets.NewSecretsServiceGetListField(o.context, o.SecretsSecretsServiceGetListFieldHandler)
+    if o.handlers["GET"] == nil {
+        o.handlers["GET"] = make(map[string]http.Handler)
+    }
+    o.handlers["GET"]["/api/v1/secrets/{id}/fields/{slug}/listdetails"] = secrets.NewSecretsServiceGetListFieldListDefinitions(o.context, o.SecretsSecretsServiceGetListFieldListDefinitionsHandler)
+    if o.handlers["GET"] == nil {
+        o.handlers["GET"] = make(map[string]http.Handler)
+    }
+    o.handlers["GET"]["/api/v1/secrets/lookup/{id}"] = secrets.NewSecretsServiceGetLookup(o.context, o.SecretsSecretsServiceGetLookupHandler)
+    if o.handlers["POST"] == nil {
+        o.handlers["POST"] = make(map[string]http.Handler)
+    }
+    o.handlers["POST"]["/api/v1/secrets/{id}/restricted"] = secrets.NewSecretsServiceGetRestricted(o.context, o.SecretsSecretsServiceGetRestrictedHandler)
+    if o.handlers["POST"] == nil {
+        o.handlers["POST"] = make(map[string]http.Handler)
+    }
+    o.handlers["POST"]["/api/v1/secrets/extended-search-details"] = secrets.NewSecretsServiceGetSecretExtendedSearchDetails(o.context, o.SecretsSecretsServiceGetSecretExtendedSearchDetailsHandler)
+    if o.handlers["GET"] == nil {
+        o.handlers["GET"] = make(map[string]http.Handler)
+    }
+    o.handlers["GET"]["/api/v1/secrets/{id}/state"] = secrets.NewSecretsServiceGetSecretState(o.context, o.SecretsSecretsServiceGetSecretStateHandler)
+    if o.handlers["GET"] == nil {
+        o.handlers["GET"] = make(map[string]http.Handler)
+    }
+    o.handlers["GET"]["/api/v2/secrets/{id}"] = secrets.NewSecretsServiceGetSecretV2(o.context, o.SecretsSecretsServiceGetSecretV2Handler)
+    if o.handlers["PUT"] == nil {
+        o.handlers["PUT"] = make(map[string]http.Handler)
+    }
+    o.handlers["PUT"]["/api/v1/secrets/{id}/fields/{slug}"] = secrets.NewSecretsServicePutField(o.context, o.SecretsSecretsServicePutFieldHandler)
+    if o.handlers["POST"] == nil {
+        o.handlers["POST"] = make(map[string]http.Handler)
+    }
+    o.handlers["POST"]["/api/v1/secrets/{id}/heartbeat"] = secrets.NewSecretsServiceRunHeartBeat(o.context, o.SecretsSecretsServiceRunHeartBeatHandler)
+    if o.handlers["GET"] == nil {
+        o.handlers["GET"] = make(map[string]http.Handler)
+    }
+    o.handlers["GET"]["/api/v1/secrets"] = secrets.NewSecretsServiceSearch(o.context, o.SecretsSecretsServiceSearchHandler)
+    if o.handlers["GET"] == nil {
+        o.handlers["GET"] = make(map[string]http.Handler)
+    }
+    o.handlers["GET"]["/api/v1/secrets/lookup"] = secrets.NewSecretsServiceSearchSecretLookup(o.context, o.SecretsSecretsServiceSearchSecretLookupHandler)
+    if o.handlers["GET"] == nil {
+        o.handlers["GET"] = make(map[string]http.Handler)
+    }
+    o.handlers["GET"]["/api/v2/secrets"] = secrets.NewSecretsServiceSearchV2(o.context, o.SecretsSecretsServiceSearchV2Handler)
+    if o.handlers["PUT"] == nil {
+        o.handlers["PUT"] = make(map[string]http.Handler)
+    }
+    o.handlers["PUT"]["/api/v1/secrets/{id}/activate"] = secrets.NewSecretsServiceUndeleteSecret(o.context, o.SecretsSecretsServiceUndeleteSecretHandler)
+    if o.handlers["PUT"] == nil {
+        o.handlers["PUT"] = make(map[string]http.Handler)
+    }
+    o.handlers["PUT"]["/api/v2/secrets/{id}/activate"] = secrets.NewSecretsServiceUndeleteSecretV2(o.context, o.SecretsSecretsServiceUndeleteSecretV2Handler)
+    if o.handlers["PUT"] == nil {
+        o.handlers["PUT"] = make(map[string]http.Handler)
+    }
+    o.handlers["PUT"]["/api/v1/secrets/{id}/expiration"] = secrets.NewSecretsServiceUpdateExpiration(o.context, o.SecretsSecretsServiceUpdateExpirationHandler)
+    if o.handlers["PUT"] == nil {
+        o.handlers["PUT"] = make(map[string]http.Handler)
+    }
+    o.handlers["PUT"]["/api/v1/secrets/{id}/fields/{slug}/listdetails"] = secrets.NewSecretsServiceUpdateListFieldListDefinitions(o.context, o.SecretsSecretsServiceUpdateListFieldListDefinitionsHandler)
+    if o.handlers["PUT"] == nil {
+        o.handlers["PUT"] = make(map[string]http.Handler)
+    }
+    o.handlers["PUT"]["/api/v1/secrets/{id}"] = secrets.NewSecretsServiceUpdateSecret(o.context, o.SecretsSecretsServiceUpdateSecretHandler)
+    if o.handlers["POST"] == nil {
+        o.handlers["POST"] = make(map[string]http.Handler)
+    }
+    o.handlers["POST"]["/api/v1/users/{id}/roles"] = users.NewUsersServiceCreateUserRoles(o.context, o.UsersUsersServiceCreateUserRolesHandler)
+    if o.handlers["GET"] == nil {
+        o.handlers["GET"] = make(map[string]http.Handler)
+    }
+    o.handlers["GET"]["/api/v1/users/{id}"] = users.NewUsersServiceGet(o.context, o.UsersUsersServiceGetHandler)
+    if o.handlers["GET"] == nil {
+        o.handlers["GET"] = make(map[string]http.Handler)
+    }
+    o.handlers["GET"]["/api/v1/users/{id}/roles"] = users.NewUsersServiceGetRoles(o.context, o.UsersUsersServiceGetRolesHandler)
+    if o.handlers["GET"] == nil {
+        o.handlers["GET"] = make(map[string]http.Handler)
+    }
+    o.handlers["GET"]["/api/v1/users/{userId}/roles-assigned"] = users.NewUsersServiceGetUserRoles(o.context, o.UsersUsersServiceGetUserRolesHandler)
+    if o.handlers["GET"] == nil {
+        o.handlers["GET"] = make(map[string]http.Handler)
+    }
+    o.handlers["GET"]["/api/v1/users/lookup"] = users.NewUsersServiceLookup(o.context, o.UsersUsersServiceLookupHandler)
+    if o.handlers["PATCH"] == nil {
+        o.handlers["PATCH"] = make(map[string]http.Handler)
+    }
+    o.handlers["PATCH"]["/api/v1/users/{id}"] = users.NewUsersServicePatchUser(o.context, o.UsersUsersServicePatchUserHandler)
+    if o.handlers["PUT"] == nil {
+        o.handlers["PUT"] = make(map[string]http.Handler)
+    }
+    o.handlers["PUT"]["/api/v1/users/{id}"] = users.NewUsersServiceUpdateUser(o.context, o.UsersUsersServiceUpdateUserHandler)
+    if o.handlers["PUT"] == nil {
+        o.handlers["PUT"] = make(map[string]http.Handler)
+    }
+    o.handlers["PUT"]["/api/v1/users/{id}/roles"] = users.NewUsersServiceUpdateUserRoles(o.context, o.UsersUsersServiceUpdateUserRolesHandler)
 }
 
 // Serve creates a http handler to serve the API over HTTP
 // can be used directly in http.ListenAndServe(":8000", api.Serve(nil))
 func (o *SecretServerRestAPIAPI) Serve(builder middleware.Builder) http.Handler {
-	o.Init()
+    o.Init()
 
-	if o.Middleware != nil {
-		return o.Middleware(builder)
-	}
-	if o.useSwaggerUI {
-		return o.context.APIHandlerSwaggerUI(builder)
-	}
-	return o.context.APIHandler(builder)
+    if o.Middleware != nil {
+        return o.Middleware(builder)
+    }
+    if o.useSwaggerUI {
+        return o.context.APIHandlerSwaggerUI(builder)
+    }
+    return o.context.APIHandler(builder)
 }
 
 // Init allows you to just initialize the handler cache, you can then recompose the middleware as you see fit
 func (o *SecretServerRestAPIAPI) Init() {
-	if len(o.handlers) == 0 {
-		o.initHandlerCache()
-	}
+    if len(o.handlers) == 0 {
+        o.initHandlerCache()
+    }
 }
 
 // RegisterConsumer allows you to add (or override) a consumer for a media type.
 func (o *SecretServerRestAPIAPI) RegisterConsumer(mediaType string, consumer runtime.Consumer) {
-	o.customConsumers[mediaType] = consumer
+    o.customConsumers[mediaType] = consumer
 }
 
 // RegisterProducer allows you to add (or override) a producer for a media type.
 func (o *SecretServerRestAPIAPI) RegisterProducer(mediaType string, producer runtime.Producer) {
-	o.customProducers[mediaType] = producer
+    o.customProducers[mediaType] = producer
 }
 
 // AddMiddlewareFor adds a http middleware to existing handler
 func (o *SecretServerRestAPIAPI) AddMiddlewareFor(method, path string, builder middleware.Builder) {
-	um := strings.ToUpper(method)
-	if path == "/" {
-		path = ""
-	}
-	o.Init()
-	if h, ok := o.handlers[um][path]; ok {
-		o.handlers[um][path] = builder(h)
-	}
+    um := strings.ToUpper(method)
+    if path == "/" {
+        path = ""
+    }
+    o.Init()
+    if h, ok := o.handlers[um][path]; ok {
+        o.handlers[um][path] = builder(h)
+    }
 }

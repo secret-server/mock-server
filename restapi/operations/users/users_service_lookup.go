@@ -6,11 +6,11 @@ package users
 // Editing this file might prove futile when you re-run the generate command
 
 import (
-	"net/http"
+    "net/http"
 
-	"github.com/go-openapi/runtime/middleware"
+    "github.com/go-openapi/runtime/middleware"
 
-	"github.com/golang-jwt/jwt"
+    "github.com/golang-jwt/jwt"
 )
 
 // UsersServiceLookupHandlerFunc turns a function with the right signature into a users service lookup handler
@@ -18,56 +18,56 @@ type UsersServiceLookupHandlerFunc func(UsersServiceLookupParams, *jwt.MapClaims
 
 // Handle executing the request and returning a response
 func (fn UsersServiceLookupHandlerFunc) Handle(params UsersServiceLookupParams, principal *jwt.MapClaims) middleware.Responder {
-	return fn(params, principal)
+    return fn(params, principal)
 }
 
 // UsersServiceLookupHandler interface for that can handle valid users service lookup params
 type UsersServiceLookupHandler interface {
-	Handle(UsersServiceLookupParams, *jwt.MapClaims) middleware.Responder
+    Handle(UsersServiceLookupParams, *jwt.MapClaims) middleware.Responder
 }
 
 // NewUsersServiceLookup creates a new http.Handler for the users service lookup operation
 func NewUsersServiceLookup(ctx *middleware.Context, handler UsersServiceLookupHandler) *UsersServiceLookup {
-	return &UsersServiceLookup{Context: ctx, Handler: handler}
+    return &UsersServiceLookup{Context: ctx, Handler: handler}
 }
 
 /*
-	UsersServiceLookup swagger:route GET /api/v1/users/lookup Users usersServiceLookup
+    UsersServiceLookup swagger:route GET /api/v1/users/lookup Users usersServiceLookup
 
 # Lookup Users
 
 Search, filter, sort, and page users, returning only user ID and name
 */
 type UsersServiceLookup struct {
-	Context *middleware.Context
-	Handler UsersServiceLookupHandler
+    Context *middleware.Context
+    Handler UsersServiceLookupHandler
 }
 
 func (o *UsersServiceLookup) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
-	route, rCtx, _ := o.Context.RouteInfo(r)
-	if rCtx != nil {
-		*r = *rCtx
-	}
-	var Params = NewUsersServiceLookupParams()
-	uprinc, aCtx, err := o.Context.Authorize(r, route)
-	if err != nil {
-		o.Context.Respond(rw, r, route.Produces, route, err)
-		return
-	}
-	if aCtx != nil {
-		*r = *aCtx
-	}
-	var principal *jwt.MapClaims
-	if uprinc != nil {
-		principal = uprinc.(*jwt.MapClaims) // this is really a jwt.MapClaims, I promise
-	}
+    route, rCtx, _ := o.Context.RouteInfo(r)
+    if rCtx != nil {
+        *r = *rCtx
+    }
+    var Params = NewUsersServiceLookupParams()
+    uprinc, aCtx, err := o.Context.Authorize(r, route)
+    if err != nil {
+        o.Context.Respond(rw, r, route.Produces, route, err)
+        return
+    }
+    if aCtx != nil {
+        *r = *aCtx
+    }
+    var principal *jwt.MapClaims
+    if uprinc != nil {
+        principal = uprinc.(*jwt.MapClaims) // this is really a jwt.MapClaims, I promise
+    }
 
-	if err := o.Context.BindValidRequest(r, route, &Params); err != nil { // bind params
-		o.Context.Respond(rw, r, route.Produces, route, err)
-		return
-	}
+    if err := o.Context.BindValidRequest(r, route, &Params); err != nil { // bind params
+        o.Context.Respond(rw, r, route.Produces, route, err)
+        return
+    }
 
-	res := o.Handler.Handle(Params, principal) // actually handle the request
-	o.Context.Respond(rw, r, route.Produces, route, res)
+    res := o.Handler.Handle(Params, principal) // actually handle the request
+    o.Context.Respond(rw, r, route.Produces, route, res)
 
 }

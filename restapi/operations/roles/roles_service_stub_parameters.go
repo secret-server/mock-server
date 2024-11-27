@@ -6,10 +6,10 @@ package roles
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"net/http"
+    "net/http"
 
-	"github.com/go-openapi/errors"
-	"github.com/go-openapi/runtime/middleware"
+    "github.com/go-openapi/errors"
+    "github.com/go-openapi/runtime/middleware"
 )
 
 // NewRolesServiceStubParams creates a new RolesServiceStubParams object
@@ -17,7 +17,7 @@ import (
 // There are no default values defined in the spec.
 func NewRolesServiceStubParams() RolesServiceStubParams {
 
-	return RolesServiceStubParams{}
+    return RolesServiceStubParams{}
 }
 
 // RolesServiceStubParams contains all the bound params for the roles service stub operation
@@ -26,8 +26,8 @@ func NewRolesServiceStubParams() RolesServiceStubParams {
 // swagger:parameters RolesService_Stub
 type RolesServiceStubParams struct {
 
-	// HTTP Request Object
-	HTTPRequest *http.Request `json:"-"`
+    // HTTP Request Object
+    HTTPRequest *http.Request `json:"-"`
 }
 
 // BindRequest both binds and validates a request, it assumes that complex things implement a Validatable(strfmt.Registry) error interface
@@ -35,12 +35,12 @@ type RolesServiceStubParams struct {
 //
 // To ensure default values, the struct must have been initialized with NewRolesServiceStubParams() beforehand.
 func (o *RolesServiceStubParams) BindRequest(r *http.Request, route *middleware.MatchedRoute) error {
-	var res []error
+    var res []error
 
-	o.HTTPRequest = r
+    o.HTTPRequest = r
 
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
+    if len(res) > 0 {
+        return errors.CompositeValidationError(res...)
+    }
+    return nil
 }

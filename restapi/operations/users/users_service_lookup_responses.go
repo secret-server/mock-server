@@ -6,11 +6,11 @@ package users
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"net/http"
+    "net/http"
 
-	"github.com/go-openapi/runtime"
+    "github.com/go-openapi/runtime"
 
-	"github.com/secret-server/mock-server/models"
+    "github.com/secret-server/mock-server/models"
 )
 
 // UsersServiceLookupOKCode is the HTTP code returned for type UsersServiceLookupOK
@@ -23,39 +23,39 @@ swagger:response usersServiceLookupOK
 */
 type UsersServiceLookupOK struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.PagingOfUserLookup `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.PagingOfUserLookup `json:"body,omitempty"`
 }
 
 // NewUsersServiceLookupOK creates UsersServiceLookupOK with default headers values
 func NewUsersServiceLookupOK() *UsersServiceLookupOK {
 
-	return &UsersServiceLookupOK{}
+    return &UsersServiceLookupOK{}
 }
 
 // WithPayload adds the payload to the users service lookup o k response
 func (o *UsersServiceLookupOK) WithPayload(payload *models.PagingOfUserLookup) *UsersServiceLookupOK {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the users service lookup o k response
 func (o *UsersServiceLookupOK) SetPayload(payload *models.PagingOfUserLookup) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *UsersServiceLookupOK) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(200)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(200)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }
 
 // UsersServiceLookupBadRequestCode is the HTTP code returned for type UsersServiceLookupBadRequest
@@ -68,39 +68,39 @@ swagger:response usersServiceLookupBadRequest
 */
 type UsersServiceLookupBadRequest struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.BadRequestResponse `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.BadRequestResponse `json:"body,omitempty"`
 }
 
 // NewUsersServiceLookupBadRequest creates UsersServiceLookupBadRequest with default headers values
 func NewUsersServiceLookupBadRequest() *UsersServiceLookupBadRequest {
 
-	return &UsersServiceLookupBadRequest{}
+    return &UsersServiceLookupBadRequest{}
 }
 
 // WithPayload adds the payload to the users service lookup bad request response
 func (o *UsersServiceLookupBadRequest) WithPayload(payload *models.BadRequestResponse) *UsersServiceLookupBadRequest {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the users service lookup bad request response
 func (o *UsersServiceLookupBadRequest) SetPayload(payload *models.BadRequestResponse) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *UsersServiceLookupBadRequest) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(400)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(400)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }
 
 // UsersServiceLookupForbiddenCode is the HTTP code returned for type UsersServiceLookupForbidden
@@ -113,39 +113,39 @@ swagger:response usersServiceLookupForbidden
 */
 type UsersServiceLookupForbidden struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.AuthenticationFailedResponse `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.AuthenticationFailedResponse `json:"body,omitempty"`
 }
 
 // NewUsersServiceLookupForbidden creates UsersServiceLookupForbidden with default headers values
 func NewUsersServiceLookupForbidden() *UsersServiceLookupForbidden {
 
-	return &UsersServiceLookupForbidden{}
+    return &UsersServiceLookupForbidden{}
 }
 
 // WithPayload adds the payload to the users service lookup forbidden response
 func (o *UsersServiceLookupForbidden) WithPayload(payload *models.AuthenticationFailedResponse) *UsersServiceLookupForbidden {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the users service lookup forbidden response
 func (o *UsersServiceLookupForbidden) SetPayload(payload *models.AuthenticationFailedResponse) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *UsersServiceLookupForbidden) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(403)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(403)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }
 
 // UsersServiceLookupInternalServerErrorCode is the HTTP code returned for type UsersServiceLookupInternalServerError
@@ -158,37 +158,37 @@ swagger:response usersServiceLookupInternalServerError
 */
 type UsersServiceLookupInternalServerError struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.InternalServerErrorResponse `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.InternalServerErrorResponse `json:"body,omitempty"`
 }
 
 // NewUsersServiceLookupInternalServerError creates UsersServiceLookupInternalServerError with default headers values
 func NewUsersServiceLookupInternalServerError() *UsersServiceLookupInternalServerError {
 
-	return &UsersServiceLookupInternalServerError{}
+    return &UsersServiceLookupInternalServerError{}
 }
 
 // WithPayload adds the payload to the users service lookup internal server error response
 func (o *UsersServiceLookupInternalServerError) WithPayload(payload *models.InternalServerErrorResponse) *UsersServiceLookupInternalServerError {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the users service lookup internal server error response
 func (o *UsersServiceLookupInternalServerError) SetPayload(payload *models.InternalServerErrorResponse) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *UsersServiceLookupInternalServerError) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(500)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(500)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }

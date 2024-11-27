@@ -6,11 +6,11 @@ package secrets
 // Editing this file might prove futile when you re-run the generate command
 
 import (
-	"net/http"
+    "net/http"
 
-	"github.com/go-openapi/runtime/middleware"
+    "github.com/go-openapi/runtime/middleware"
 
-	"github.com/golang-jwt/jwt"
+    "github.com/golang-jwt/jwt"
 )
 
 // SecretsServiceGetListFieldListDefinitionsHandlerFunc turns a function with the right signature into a secrets service get list field list definitions handler
@@ -18,56 +18,56 @@ type SecretsServiceGetListFieldListDefinitionsHandlerFunc func(SecretsServiceGet
 
 // Handle executing the request and returning a response
 func (fn SecretsServiceGetListFieldListDefinitionsHandlerFunc) Handle(params SecretsServiceGetListFieldListDefinitionsParams, principal *jwt.MapClaims) middleware.Responder {
-	return fn(params, principal)
+    return fn(params, principal)
 }
 
 // SecretsServiceGetListFieldListDefinitionsHandler interface for that can handle valid secrets service get list field list definitions params
 type SecretsServiceGetListFieldListDefinitionsHandler interface {
-	Handle(SecretsServiceGetListFieldListDefinitionsParams, *jwt.MapClaims) middleware.Responder
+    Handle(SecretsServiceGetListFieldListDefinitionsParams, *jwt.MapClaims) middleware.Responder
 }
 
 // NewSecretsServiceGetListFieldListDefinitions creates a new http.Handler for the secrets service get list field list definitions operation
 func NewSecretsServiceGetListFieldListDefinitions(ctx *middleware.Context, handler SecretsServiceGetListFieldListDefinitionsHandler) *SecretsServiceGetListFieldListDefinitions {
-	return &SecretsServiceGetListFieldListDefinitions{Context: ctx, Handler: handler}
+    return &SecretsServiceGetListFieldListDefinitions{Context: ctx, Handler: handler}
 }
 
 /*
-	SecretsServiceGetListFieldListDefinitions swagger:route GET /api/v1/secrets/{id}/fields/{slug}/listdetails Secrets secretsServiceGetListFieldListDefinitions
+    SecretsServiceGetListFieldListDefinitions swagger:route GET /api/v1/secrets/{id}/fields/{slug}/listdetails Secrets secretsServiceGetListFieldListDefinitions
 
 # Get Secret List Field List Data
 
 Get the lists associated to a secret list data field
 */
 type SecretsServiceGetListFieldListDefinitions struct {
-	Context *middleware.Context
-	Handler SecretsServiceGetListFieldListDefinitionsHandler
+    Context *middleware.Context
+    Handler SecretsServiceGetListFieldListDefinitionsHandler
 }
 
 func (o *SecretsServiceGetListFieldListDefinitions) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
-	route, rCtx, _ := o.Context.RouteInfo(r)
-	if rCtx != nil {
-		*r = *rCtx
-	}
-	var Params = NewSecretsServiceGetListFieldListDefinitionsParams()
-	uprinc, aCtx, err := o.Context.Authorize(r, route)
-	if err != nil {
-		o.Context.Respond(rw, r, route.Produces, route, err)
-		return
-	}
-	if aCtx != nil {
-		*r = *aCtx
-	}
-	var principal *jwt.MapClaims
-	if uprinc != nil {
-		principal = uprinc.(*jwt.MapClaims) // this is really a jwt.MapClaims, I promise
-	}
+    route, rCtx, _ := o.Context.RouteInfo(r)
+    if rCtx != nil {
+        *r = *rCtx
+    }
+    var Params = NewSecretsServiceGetListFieldListDefinitionsParams()
+    uprinc, aCtx, err := o.Context.Authorize(r, route)
+    if err != nil {
+        o.Context.Respond(rw, r, route.Produces, route, err)
+        return
+    }
+    if aCtx != nil {
+        *r = *aCtx
+    }
+    var principal *jwt.MapClaims
+    if uprinc != nil {
+        principal = uprinc.(*jwt.MapClaims) // this is really a jwt.MapClaims, I promise
+    }
 
-	if err := o.Context.BindValidRequest(r, route, &Params); err != nil { // bind params
-		o.Context.Respond(rw, r, route.Produces, route, err)
-		return
-	}
+    if err := o.Context.BindValidRequest(r, route, &Params); err != nil { // bind params
+        o.Context.Respond(rw, r, route.Produces, route, err)
+        return
+    }
 
-	res := o.Handler.Handle(Params, principal) // actually handle the request
-	o.Context.Respond(rw, r, route.Produces, route, res)
+    res := o.Handler.Handle(Params, principal) // actually handle the request
+    o.Context.Respond(rw, r, route.Produces, route, res)
 
 }

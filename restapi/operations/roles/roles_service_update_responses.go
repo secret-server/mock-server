@@ -6,11 +6,11 @@ package roles
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"net/http"
+    "net/http"
 
-	"github.com/go-openapi/runtime"
+    "github.com/go-openapi/runtime"
 
-	"github.com/secret-server/mock-server/models"
+    "github.com/secret-server/mock-server/models"
 )
 
 // RolesServiceUpdateOKCode is the HTTP code returned for type RolesServiceUpdateOK
@@ -23,39 +23,39 @@ swagger:response rolesServiceUpdateOK
 */
 type RolesServiceUpdateOK struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.RoleModel `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.RoleModel `json:"body,omitempty"`
 }
 
 // NewRolesServiceUpdateOK creates RolesServiceUpdateOK with default headers values
 func NewRolesServiceUpdateOK() *RolesServiceUpdateOK {
 
-	return &RolesServiceUpdateOK{}
+    return &RolesServiceUpdateOK{}
 }
 
 // WithPayload adds the payload to the roles service update o k response
 func (o *RolesServiceUpdateOK) WithPayload(payload *models.RoleModel) *RolesServiceUpdateOK {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the roles service update o k response
 func (o *RolesServiceUpdateOK) SetPayload(payload *models.RoleModel) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *RolesServiceUpdateOK) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(200)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(200)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }
 
 // RolesServiceUpdateBadRequestCode is the HTTP code returned for type RolesServiceUpdateBadRequest
@@ -68,39 +68,39 @@ swagger:response rolesServiceUpdateBadRequest
 */
 type RolesServiceUpdateBadRequest struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.BadRequestResponse `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.BadRequestResponse `json:"body,omitempty"`
 }
 
 // NewRolesServiceUpdateBadRequest creates RolesServiceUpdateBadRequest with default headers values
 func NewRolesServiceUpdateBadRequest() *RolesServiceUpdateBadRequest {
 
-	return &RolesServiceUpdateBadRequest{}
+    return &RolesServiceUpdateBadRequest{}
 }
 
 // WithPayload adds the payload to the roles service update bad request response
 func (o *RolesServiceUpdateBadRequest) WithPayload(payload *models.BadRequestResponse) *RolesServiceUpdateBadRequest {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the roles service update bad request response
 func (o *RolesServiceUpdateBadRequest) SetPayload(payload *models.BadRequestResponse) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *RolesServiceUpdateBadRequest) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(400)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(400)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }
 
 // RolesServiceUpdateForbiddenCode is the HTTP code returned for type RolesServiceUpdateForbidden
@@ -113,39 +113,39 @@ swagger:response rolesServiceUpdateForbidden
 */
 type RolesServiceUpdateForbidden struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.AuthenticationFailedResponse `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.AuthenticationFailedResponse `json:"body,omitempty"`
 }
 
 // NewRolesServiceUpdateForbidden creates RolesServiceUpdateForbidden with default headers values
 func NewRolesServiceUpdateForbidden() *RolesServiceUpdateForbidden {
 
-	return &RolesServiceUpdateForbidden{}
+    return &RolesServiceUpdateForbidden{}
 }
 
 // WithPayload adds the payload to the roles service update forbidden response
 func (o *RolesServiceUpdateForbidden) WithPayload(payload *models.AuthenticationFailedResponse) *RolesServiceUpdateForbidden {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the roles service update forbidden response
 func (o *RolesServiceUpdateForbidden) SetPayload(payload *models.AuthenticationFailedResponse) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *RolesServiceUpdateForbidden) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(403)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(403)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }
 
 // RolesServiceUpdateInternalServerErrorCode is the HTTP code returned for type RolesServiceUpdateInternalServerError
@@ -158,37 +158,37 @@ swagger:response rolesServiceUpdateInternalServerError
 */
 type RolesServiceUpdateInternalServerError struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.InternalServerErrorResponse `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.InternalServerErrorResponse `json:"body,omitempty"`
 }
 
 // NewRolesServiceUpdateInternalServerError creates RolesServiceUpdateInternalServerError with default headers values
 func NewRolesServiceUpdateInternalServerError() *RolesServiceUpdateInternalServerError {
 
-	return &RolesServiceUpdateInternalServerError{}
+    return &RolesServiceUpdateInternalServerError{}
 }
 
 // WithPayload adds the payload to the roles service update internal server error response
 func (o *RolesServiceUpdateInternalServerError) WithPayload(payload *models.InternalServerErrorResponse) *RolesServiceUpdateInternalServerError {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the roles service update internal server error response
 func (o *RolesServiceUpdateInternalServerError) SetPayload(payload *models.InternalServerErrorResponse) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *RolesServiceUpdateInternalServerError) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(500)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(500)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }

@@ -6,16 +6,16 @@ package roles
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"net/http"
+    "net/http"
 
-	"github.com/go-openapi/errors"
-	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/runtime/middleware"
-	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
+    "github.com/go-openapi/errors"
+    "github.com/go-openapi/runtime"
+    "github.com/go-openapi/runtime/middleware"
+    "github.com/go-openapi/strfmt"
+    "github.com/go-openapi/swag"
+    "github.com/go-openapi/validate"
 
-	"github.com/secret-server/mock-server/models"
+    "github.com/secret-server/mock-server/models"
 )
 
 // NewRolesServicePatchGroupsParams creates a new RolesServicePatchGroupsParams object
@@ -23,7 +23,7 @@ import (
 // There are no default values defined in the spec.
 func NewRolesServicePatchGroupsParams() RolesServicePatchGroupsParams {
 
-	return RolesServicePatchGroupsParams{}
+    return RolesServicePatchGroupsParams{}
 }
 
 // RolesServicePatchGroupsParams contains all the bound params for the roles service patch groups operation
@@ -32,18 +32,18 @@ func NewRolesServicePatchGroupsParams() RolesServicePatchGroupsParams {
 // swagger:parameters RolesService_PatchGroups
 type RolesServicePatchGroupsParams struct {
 
-	// HTTP Request Object
-	HTTPRequest *http.Request `json:"-"`
+    // HTTP Request Object
+    HTTPRequest *http.Request `json:"-"`
 
-	/*Role Groups update options
-	  In: body
-	*/
-	Args *models.RoleGroupsPatchArgs
-	/*Role ID
-	  Required: true
-	  In: path
-	*/
-	RoleID int32
+    /*Role Groups update options
+      In: body
+    */
+    Args *models.RoleGroupsPatchArgs
+    /*Role ID
+      Required: true
+      In: path
+    */
+    RoleID int32
 }
 
 // BindRequest both binds and validates a request, it assumes that complex things implement a Validatable(strfmt.Registry) error interface
@@ -51,57 +51,57 @@ type RolesServicePatchGroupsParams struct {
 //
 // To ensure default values, the struct must have been initialized with NewRolesServicePatchGroupsParams() beforehand.
 func (o *RolesServicePatchGroupsParams) BindRequest(r *http.Request, route *middleware.MatchedRoute) error {
-	var res []error
+    var res []error
 
-	o.HTTPRequest = r
+    o.HTTPRequest = r
 
-	if runtime.HasBody(r) {
-		defer r.Body.Close()
-		var body models.RoleGroupsPatchArgs
-		if err := route.Consumer.Consume(r.Body, &body); err != nil {
-			res = append(res, errors.NewParseError("args", "body", "", err))
-		} else {
-			// validate body object
-			if err := body.Validate(route.Formats); err != nil {
-				res = append(res, err)
-			}
+    if runtime.HasBody(r) {
+        defer r.Body.Close()
+        var body models.RoleGroupsPatchArgs
+        if err := route.Consumer.Consume(r.Body, &body); err != nil {
+            res = append(res, errors.NewParseError("args", "body", "", err))
+        } else {
+            // validate body object
+            if err := body.Validate(route.Formats); err != nil {
+                res = append(res, err)
+            }
 
-			ctx := validate.WithOperationRequest(r.Context())
-			if err := body.ContextValidate(ctx, route.Formats); err != nil {
-				res = append(res, err)
-			}
+            ctx := validate.WithOperationRequest(r.Context())
+            if err := body.ContextValidate(ctx, route.Formats); err != nil {
+                res = append(res, err)
+            }
 
-			if len(res) == 0 {
-				o.Args = &body
-			}
-		}
-	}
+            if len(res) == 0 {
+                o.Args = &body
+            }
+        }
+    }
 
-	rRoleID, rhkRoleID, _ := route.Params.GetOK("roleId")
-	if err := o.bindRoleID(rRoleID, rhkRoleID, route.Formats); err != nil {
-		res = append(res, err)
-	}
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
+    rRoleID, rhkRoleID, _ := route.Params.GetOK("roleId")
+    if err := o.bindRoleID(rRoleID, rhkRoleID, route.Formats); err != nil {
+        res = append(res, err)
+    }
+    if len(res) > 0 {
+        return errors.CompositeValidationError(res...)
+    }
+    return nil
 }
 
 // bindRoleID binds and validates parameter RoleID from path.
 func (o *RolesServicePatchGroupsParams) bindRoleID(rawData []string, hasKey bool, formats strfmt.Registry) error {
-	var raw string
-	if len(rawData) > 0 {
-		raw = rawData[len(rawData)-1]
-	}
+    var raw string
+    if len(rawData) > 0 {
+        raw = rawData[len(rawData)-1]
+    }
 
-	// Required: true
-	// Parameter is provided by construction from the route
+    // Required: true
+    // Parameter is provided by construction from the route
 
-	value, err := swag.ConvertInt32(raw)
-	if err != nil {
-		return errors.InvalidType("roleId", "path", "int32", raw)
-	}
-	o.RoleID = value
+    value, err := swag.ConvertInt32(raw)
+    if err != nil {
+        return errors.InvalidType("roleId", "path", "int32", raw)
+    }
+    o.RoleID = value
 
-	return nil
+    return nil
 }

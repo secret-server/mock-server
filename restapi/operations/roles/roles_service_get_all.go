@@ -6,11 +6,11 @@ package roles
 // Editing this file might prove futile when you re-run the generate command
 
 import (
-	"net/http"
+    "net/http"
 
-	"github.com/go-openapi/runtime/middleware"
+    "github.com/go-openapi/runtime/middleware"
 
-	"github.com/golang-jwt/jwt"
+    "github.com/golang-jwt/jwt"
 )
 
 // RolesServiceGetAllHandlerFunc turns a function with the right signature into a roles service get all handler
@@ -18,56 +18,56 @@ type RolesServiceGetAllHandlerFunc func(RolesServiceGetAllParams, *jwt.MapClaims
 
 // Handle executing the request and returning a response
 func (fn RolesServiceGetAllHandlerFunc) Handle(params RolesServiceGetAllParams, principal *jwt.MapClaims) middleware.Responder {
-	return fn(params, principal)
+    return fn(params, principal)
 }
 
 // RolesServiceGetAllHandler interface for that can handle valid roles service get all params
 type RolesServiceGetAllHandler interface {
-	Handle(RolesServiceGetAllParams, *jwt.MapClaims) middleware.Responder
+    Handle(RolesServiceGetAllParams, *jwt.MapClaims) middleware.Responder
 }
 
 // NewRolesServiceGetAll creates a new http.Handler for the roles service get all operation
 func NewRolesServiceGetAll(ctx *middleware.Context, handler RolesServiceGetAllHandler) *RolesServiceGetAll {
-	return &RolesServiceGetAll{Context: ctx, Handler: handler}
+    return &RolesServiceGetAll{Context: ctx, Handler: handler}
 }
 
 /*
-	RolesServiceGetAll swagger:route GET /api/v1/roles Roles rolesServiceGetAll
+    RolesServiceGetAll swagger:route GET /api/v1/roles Roles rolesServiceGetAll
 
 # Search Roles
 
 Search, filter, sort, and page Roles
 */
 type RolesServiceGetAll struct {
-	Context *middleware.Context
-	Handler RolesServiceGetAllHandler
+    Context *middleware.Context
+    Handler RolesServiceGetAllHandler
 }
 
 func (o *RolesServiceGetAll) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
-	route, rCtx, _ := o.Context.RouteInfo(r)
-	if rCtx != nil {
-		*r = *rCtx
-	}
-	var Params = NewRolesServiceGetAllParams()
-	uprinc, aCtx, err := o.Context.Authorize(r, route)
-	if err != nil {
-		o.Context.Respond(rw, r, route.Produces, route, err)
-		return
-	}
-	if aCtx != nil {
-		*r = *aCtx
-	}
-	var principal *jwt.MapClaims
-	if uprinc != nil {
-		principal = uprinc.(*jwt.MapClaims) // this is really a jwt.MapClaims, I promise
-	}
+    route, rCtx, _ := o.Context.RouteInfo(r)
+    if rCtx != nil {
+        *r = *rCtx
+    }
+    var Params = NewRolesServiceGetAllParams()
+    uprinc, aCtx, err := o.Context.Authorize(r, route)
+    if err != nil {
+        o.Context.Respond(rw, r, route.Produces, route, err)
+        return
+    }
+    if aCtx != nil {
+        *r = *aCtx
+    }
+    var principal *jwt.MapClaims
+    if uprinc != nil {
+        principal = uprinc.(*jwt.MapClaims) // this is really a jwt.MapClaims, I promise
+    }
 
-	if err := o.Context.BindValidRequest(r, route, &Params); err != nil { // bind params
-		o.Context.Respond(rw, r, route.Produces, route, err)
-		return
-	}
+    if err := o.Context.BindValidRequest(r, route, &Params); err != nil { // bind params
+        o.Context.Respond(rw, r, route.Produces, route, err)
+        return
+    }
 
-	res := o.Handler.Handle(Params, principal) // actually handle the request
-	o.Context.Respond(rw, r, route.Produces, route, res)
+    res := o.Handler.Handle(Params, principal) // actually handle the request
+    o.Context.Respond(rw, r, route.Produces, route, res)
 
 }

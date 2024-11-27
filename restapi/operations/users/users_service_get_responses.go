@@ -6,11 +6,11 @@ package users
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"net/http"
+    "net/http"
 
-	"github.com/go-openapi/runtime"
+    "github.com/go-openapi/runtime"
 
-	"github.com/secret-server/mock-server/models"
+    "github.com/secret-server/mock-server/models"
 )
 
 // UsersServiceGetOKCode is the HTTP code returned for type UsersServiceGetOK
@@ -23,39 +23,39 @@ swagger:response usersServiceGetOK
 */
 type UsersServiceGetOK struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.UserModel `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.UserModel `json:"body,omitempty"`
 }
 
 // NewUsersServiceGetOK creates UsersServiceGetOK with default headers values
 func NewUsersServiceGetOK() *UsersServiceGetOK {
 
-	return &UsersServiceGetOK{}
+    return &UsersServiceGetOK{}
 }
 
 // WithPayload adds the payload to the users service get o k response
 func (o *UsersServiceGetOK) WithPayload(payload *models.UserModel) *UsersServiceGetOK {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the users service get o k response
 func (o *UsersServiceGetOK) SetPayload(payload *models.UserModel) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *UsersServiceGetOK) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(200)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(200)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }
 
 // UsersServiceGetBadRequestCode is the HTTP code returned for type UsersServiceGetBadRequest
@@ -68,39 +68,39 @@ swagger:response usersServiceGetBadRequest
 */
 type UsersServiceGetBadRequest struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.BadRequestResponse `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.BadRequestResponse `json:"body,omitempty"`
 }
 
 // NewUsersServiceGetBadRequest creates UsersServiceGetBadRequest with default headers values
 func NewUsersServiceGetBadRequest() *UsersServiceGetBadRequest {
 
-	return &UsersServiceGetBadRequest{}
+    return &UsersServiceGetBadRequest{}
 }
 
 // WithPayload adds the payload to the users service get bad request response
 func (o *UsersServiceGetBadRequest) WithPayload(payload *models.BadRequestResponse) *UsersServiceGetBadRequest {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the users service get bad request response
 func (o *UsersServiceGetBadRequest) SetPayload(payload *models.BadRequestResponse) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *UsersServiceGetBadRequest) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(400)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(400)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }
 
 // UsersServiceGetForbiddenCode is the HTTP code returned for type UsersServiceGetForbidden
@@ -113,39 +113,39 @@ swagger:response usersServiceGetForbidden
 */
 type UsersServiceGetForbidden struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.AuthenticationFailedResponse `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.AuthenticationFailedResponse `json:"body,omitempty"`
 }
 
 // NewUsersServiceGetForbidden creates UsersServiceGetForbidden with default headers values
 func NewUsersServiceGetForbidden() *UsersServiceGetForbidden {
 
-	return &UsersServiceGetForbidden{}
+    return &UsersServiceGetForbidden{}
 }
 
 // WithPayload adds the payload to the users service get forbidden response
 func (o *UsersServiceGetForbidden) WithPayload(payload *models.AuthenticationFailedResponse) *UsersServiceGetForbidden {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the users service get forbidden response
 func (o *UsersServiceGetForbidden) SetPayload(payload *models.AuthenticationFailedResponse) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *UsersServiceGetForbidden) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(403)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(403)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }
 
 // UsersServiceGetInternalServerErrorCode is the HTTP code returned for type UsersServiceGetInternalServerError
@@ -158,37 +158,37 @@ swagger:response usersServiceGetInternalServerError
 */
 type UsersServiceGetInternalServerError struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.InternalServerErrorResponse `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.InternalServerErrorResponse `json:"body,omitempty"`
 }
 
 // NewUsersServiceGetInternalServerError creates UsersServiceGetInternalServerError with default headers values
 func NewUsersServiceGetInternalServerError() *UsersServiceGetInternalServerError {
 
-	return &UsersServiceGetInternalServerError{}
+    return &UsersServiceGetInternalServerError{}
 }
 
 // WithPayload adds the payload to the users service get internal server error response
 func (o *UsersServiceGetInternalServerError) WithPayload(payload *models.InternalServerErrorResponse) *UsersServiceGetInternalServerError {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the users service get internal server error response
 func (o *UsersServiceGetInternalServerError) SetPayload(payload *models.InternalServerErrorResponse) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *UsersServiceGetInternalServerError) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(500)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(500)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }

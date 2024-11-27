@@ -6,11 +6,11 @@ package roles
 // Editing this file might prove futile when you re-run the generate command
 
 import (
-	"net/http"
+    "net/http"
 
-	"github.com/go-openapi/runtime/middleware"
+    "github.com/go-openapi/runtime/middleware"
 
-	"github.com/golang-jwt/jwt"
+    "github.com/golang-jwt/jwt"
 )
 
 // RolesServiceGetRolePermissionsHandlerFunc turns a function with the right signature into a roles service get role permissions handler
@@ -18,56 +18,56 @@ type RolesServiceGetRolePermissionsHandlerFunc func(RolesServiceGetRolePermissio
 
 // Handle executing the request and returning a response
 func (fn RolesServiceGetRolePermissionsHandlerFunc) Handle(params RolesServiceGetRolePermissionsParams, principal *jwt.MapClaims) middleware.Responder {
-	return fn(params, principal)
+    return fn(params, principal)
 }
 
 // RolesServiceGetRolePermissionsHandler interface for that can handle valid roles service get role permissions params
 type RolesServiceGetRolePermissionsHandler interface {
-	Handle(RolesServiceGetRolePermissionsParams, *jwt.MapClaims) middleware.Responder
+    Handle(RolesServiceGetRolePermissionsParams, *jwt.MapClaims) middleware.Responder
 }
 
 // NewRolesServiceGetRolePermissions creates a new http.Handler for the roles service get role permissions operation
 func NewRolesServiceGetRolePermissions(ctx *middleware.Context, handler RolesServiceGetRolePermissionsHandler) *RolesServiceGetRolePermissions {
-	return &RolesServiceGetRolePermissions{Context: ctx, Handler: handler}
+    return &RolesServiceGetRolePermissions{Context: ctx, Handler: handler}
 }
 
 /*
-	RolesServiceGetRolePermissions swagger:route GET /api/v1/roles/{id}/permissions Roles rolesServiceGetRolePermissions
+    RolesServiceGetRolePermissions swagger:route GET /api/v1/roles/{id}/permissions Roles rolesServiceGetRolePermissions
 
 # Get Assigned Role Permissions
 
 Get Permissions assigned to a single Role by Role ID
 */
 type RolesServiceGetRolePermissions struct {
-	Context *middleware.Context
-	Handler RolesServiceGetRolePermissionsHandler
+    Context *middleware.Context
+    Handler RolesServiceGetRolePermissionsHandler
 }
 
 func (o *RolesServiceGetRolePermissions) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
-	route, rCtx, _ := o.Context.RouteInfo(r)
-	if rCtx != nil {
-		*r = *rCtx
-	}
-	var Params = NewRolesServiceGetRolePermissionsParams()
-	uprinc, aCtx, err := o.Context.Authorize(r, route)
-	if err != nil {
-		o.Context.Respond(rw, r, route.Produces, route, err)
-		return
-	}
-	if aCtx != nil {
-		*r = *aCtx
-	}
-	var principal *jwt.MapClaims
-	if uprinc != nil {
-		principal = uprinc.(*jwt.MapClaims) // this is really a jwt.MapClaims, I promise
-	}
+    route, rCtx, _ := o.Context.RouteInfo(r)
+    if rCtx != nil {
+        *r = *rCtx
+    }
+    var Params = NewRolesServiceGetRolePermissionsParams()
+    uprinc, aCtx, err := o.Context.Authorize(r, route)
+    if err != nil {
+        o.Context.Respond(rw, r, route.Produces, route, err)
+        return
+    }
+    if aCtx != nil {
+        *r = *aCtx
+    }
+    var principal *jwt.MapClaims
+    if uprinc != nil {
+        principal = uprinc.(*jwt.MapClaims) // this is really a jwt.MapClaims, I promise
+    }
 
-	if err := o.Context.BindValidRequest(r, route, &Params); err != nil { // bind params
-		o.Context.Respond(rw, r, route.Produces, route, err)
-		return
-	}
+    if err := o.Context.BindValidRequest(r, route, &Params); err != nil { // bind params
+        o.Context.Respond(rw, r, route.Produces, route, err)
+        return
+    }
 
-	res := o.Handler.Handle(Params, principal) // actually handle the request
-	o.Context.Respond(rw, r, route.Produces, route, res)
+    res := o.Handler.Handle(Params, principal) // actually handle the request
+    o.Context.Respond(rw, r, route.Produces, route, res)
 
 }

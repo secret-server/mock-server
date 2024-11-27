@@ -6,11 +6,11 @@ package roles
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"net/http"
+    "net/http"
 
-	"github.com/go-openapi/runtime"
+    "github.com/go-openapi/runtime"
 
-	"github.com/secret-server/mock-server/models"
+    "github.com/secret-server/mock-server/models"
 )
 
 // RolesServiceUpdatePermissionsOKCode is the HTTP code returned for type RolesServiceUpdatePermissionsOK
@@ -23,39 +23,39 @@ swagger:response rolesServiceUpdatePermissionsOK
 */
 type RolesServiceUpdatePermissionsOK struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.RolePermissionsAssignmentResponse `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.RolePermissionsAssignmentResponse `json:"body,omitempty"`
 }
 
 // NewRolesServiceUpdatePermissionsOK creates RolesServiceUpdatePermissionsOK with default headers values
 func NewRolesServiceUpdatePermissionsOK() *RolesServiceUpdatePermissionsOK {
 
-	return &RolesServiceUpdatePermissionsOK{}
+    return &RolesServiceUpdatePermissionsOK{}
 }
 
 // WithPayload adds the payload to the roles service update permissions o k response
 func (o *RolesServiceUpdatePermissionsOK) WithPayload(payload *models.RolePermissionsAssignmentResponse) *RolesServiceUpdatePermissionsOK {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the roles service update permissions o k response
 func (o *RolesServiceUpdatePermissionsOK) SetPayload(payload *models.RolePermissionsAssignmentResponse) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *RolesServiceUpdatePermissionsOK) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(200)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(200)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }
 
 // RolesServiceUpdatePermissionsBadRequestCode is the HTTP code returned for type RolesServiceUpdatePermissionsBadRequest
@@ -68,39 +68,39 @@ swagger:response rolesServiceUpdatePermissionsBadRequest
 */
 type RolesServiceUpdatePermissionsBadRequest struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.BadRequestResponse `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.BadRequestResponse `json:"body,omitempty"`
 }
 
 // NewRolesServiceUpdatePermissionsBadRequest creates RolesServiceUpdatePermissionsBadRequest with default headers values
 func NewRolesServiceUpdatePermissionsBadRequest() *RolesServiceUpdatePermissionsBadRequest {
 
-	return &RolesServiceUpdatePermissionsBadRequest{}
+    return &RolesServiceUpdatePermissionsBadRequest{}
 }
 
 // WithPayload adds the payload to the roles service update permissions bad request response
 func (o *RolesServiceUpdatePermissionsBadRequest) WithPayload(payload *models.BadRequestResponse) *RolesServiceUpdatePermissionsBadRequest {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the roles service update permissions bad request response
 func (o *RolesServiceUpdatePermissionsBadRequest) SetPayload(payload *models.BadRequestResponse) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *RolesServiceUpdatePermissionsBadRequest) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(400)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(400)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }
 
 // RolesServiceUpdatePermissionsForbiddenCode is the HTTP code returned for type RolesServiceUpdatePermissionsForbidden
@@ -113,39 +113,39 @@ swagger:response rolesServiceUpdatePermissionsForbidden
 */
 type RolesServiceUpdatePermissionsForbidden struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.AuthenticationFailedResponse `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.AuthenticationFailedResponse `json:"body,omitempty"`
 }
 
 // NewRolesServiceUpdatePermissionsForbidden creates RolesServiceUpdatePermissionsForbidden with default headers values
 func NewRolesServiceUpdatePermissionsForbidden() *RolesServiceUpdatePermissionsForbidden {
 
-	return &RolesServiceUpdatePermissionsForbidden{}
+    return &RolesServiceUpdatePermissionsForbidden{}
 }
 
 // WithPayload adds the payload to the roles service update permissions forbidden response
 func (o *RolesServiceUpdatePermissionsForbidden) WithPayload(payload *models.AuthenticationFailedResponse) *RolesServiceUpdatePermissionsForbidden {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the roles service update permissions forbidden response
 func (o *RolesServiceUpdatePermissionsForbidden) SetPayload(payload *models.AuthenticationFailedResponse) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *RolesServiceUpdatePermissionsForbidden) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(403)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(403)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }
 
 // RolesServiceUpdatePermissionsInternalServerErrorCode is the HTTP code returned for type RolesServiceUpdatePermissionsInternalServerError
@@ -158,37 +158,37 @@ swagger:response rolesServiceUpdatePermissionsInternalServerError
 */
 type RolesServiceUpdatePermissionsInternalServerError struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.InternalServerErrorResponse `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.InternalServerErrorResponse `json:"body,omitempty"`
 }
 
 // NewRolesServiceUpdatePermissionsInternalServerError creates RolesServiceUpdatePermissionsInternalServerError with default headers values
 func NewRolesServiceUpdatePermissionsInternalServerError() *RolesServiceUpdatePermissionsInternalServerError {
 
-	return &RolesServiceUpdatePermissionsInternalServerError{}
+    return &RolesServiceUpdatePermissionsInternalServerError{}
 }
 
 // WithPayload adds the payload to the roles service update permissions internal server error response
 func (o *RolesServiceUpdatePermissionsInternalServerError) WithPayload(payload *models.InternalServerErrorResponse) *RolesServiceUpdatePermissionsInternalServerError {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the roles service update permissions internal server error response
 func (o *RolesServiceUpdatePermissionsInternalServerError) SetPayload(payload *models.InternalServerErrorResponse) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *RolesServiceUpdatePermissionsInternalServerError) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(500)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(500)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }

@@ -6,11 +6,11 @@ package secrets
 // Editing this file might prove futile when you re-run the generate command
 
 import (
-	"net/http"
+    "net/http"
 
-	"github.com/go-openapi/runtime/middleware"
+    "github.com/go-openapi/runtime/middleware"
 
-	"github.com/golang-jwt/jwt"
+    "github.com/golang-jwt/jwt"
 )
 
 // SecretsServiceGetRestrictedHandlerFunc turns a function with the right signature into a secrets service get restricted handler
@@ -18,56 +18,56 @@ type SecretsServiceGetRestrictedHandlerFunc func(SecretsServiceGetRestrictedPara
 
 // Handle executing the request and returning a response
 func (fn SecretsServiceGetRestrictedHandlerFunc) Handle(params SecretsServiceGetRestrictedParams, principal *jwt.MapClaims) middleware.Responder {
-	return fn(params, principal)
+    return fn(params, principal)
 }
 
 // SecretsServiceGetRestrictedHandler interface for that can handle valid secrets service get restricted params
 type SecretsServiceGetRestrictedHandler interface {
-	Handle(SecretsServiceGetRestrictedParams, *jwt.MapClaims) middleware.Responder
+    Handle(SecretsServiceGetRestrictedParams, *jwt.MapClaims) middleware.Responder
 }
 
 // NewSecretsServiceGetRestricted creates a new http.Handler for the secrets service get restricted operation
 func NewSecretsServiceGetRestricted(ctx *middleware.Context, handler SecretsServiceGetRestrictedHandler) *SecretsServiceGetRestricted {
-	return &SecretsServiceGetRestricted{Context: ctx, Handler: handler}
+    return &SecretsServiceGetRestricted{Context: ctx, Handler: handler}
 }
 
 /*
-	SecretsServiceGetRestricted swagger:route POST /api/v1/secrets/{id}/restricted Secrets secretsServiceGetRestricted
+    SecretsServiceGetRestricted swagger:route POST /api/v1/secrets/{id}/restricted Secrets secretsServiceGetRestricted
 
 # Get Restricted Secret
 
 Get a restricted secret
 */
 type SecretsServiceGetRestricted struct {
-	Context *middleware.Context
-	Handler SecretsServiceGetRestrictedHandler
+    Context *middleware.Context
+    Handler SecretsServiceGetRestrictedHandler
 }
 
 func (o *SecretsServiceGetRestricted) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
-	route, rCtx, _ := o.Context.RouteInfo(r)
-	if rCtx != nil {
-		*r = *rCtx
-	}
-	var Params = NewSecretsServiceGetRestrictedParams()
-	uprinc, aCtx, err := o.Context.Authorize(r, route)
-	if err != nil {
-		o.Context.Respond(rw, r, route.Produces, route, err)
-		return
-	}
-	if aCtx != nil {
-		*r = *aCtx
-	}
-	var principal *jwt.MapClaims
-	if uprinc != nil {
-		principal = uprinc.(*jwt.MapClaims) // this is really a jwt.MapClaims, I promise
-	}
+    route, rCtx, _ := o.Context.RouteInfo(r)
+    if rCtx != nil {
+        *r = *rCtx
+    }
+    var Params = NewSecretsServiceGetRestrictedParams()
+    uprinc, aCtx, err := o.Context.Authorize(r, route)
+    if err != nil {
+        o.Context.Respond(rw, r, route.Produces, route, err)
+        return
+    }
+    if aCtx != nil {
+        *r = *aCtx
+    }
+    var principal *jwt.MapClaims
+    if uprinc != nil {
+        principal = uprinc.(*jwt.MapClaims) // this is really a jwt.MapClaims, I promise
+    }
 
-	if err := o.Context.BindValidRequest(r, route, &Params); err != nil { // bind params
-		o.Context.Respond(rw, r, route.Produces, route, err)
-		return
-	}
+    if err := o.Context.BindValidRequest(r, route, &Params); err != nil { // bind params
+        o.Context.Respond(rw, r, route.Produces, route, err)
+        return
+    }
 
-	res := o.Handler.Handle(Params, principal) // actually handle the request
-	o.Context.Respond(rw, r, route.Produces, route, res)
+    res := o.Handler.Handle(Params, principal) // actually handle the request
+    o.Context.Respond(rw, r, route.Produces, route, res)
 
 }

@@ -6,164 +6,164 @@ package roles
 // Editing this file might prove futile when you re-run the generate command
 
 import (
-	"errors"
-	"net/url"
-	golangswaggerpaths "path"
-	"strings"
+    "errors"
+    "net/url"
+    golangswaggerpaths "path"
+    "strings"
 
-	"github.com/go-openapi/swag"
+    "github.com/go-openapi/swag"
 )
 
 // RolesServiceGetRoleGroupsURL generates an URL for the roles service get role groups operation
 type RolesServiceGetRoleGroupsURL struct {
-	ID int32
+    ID int32
 
-	FilterIncludeInactiveUsersForGroup *bool
-	FilterUserDomainID                 *int32
-	Skip                               *int32
-	SortBy0Direction                   *string
-	SortBy0Name                        *string
-	SortBy0Priority                    *int32
-	Take                               *int32
+    FilterIncludeInactiveUsersForGroup *bool
+    FilterUserDomainID                 *int32
+    Skip                               *int32
+    SortBy0Direction                   *string
+    SortBy0Name                        *string
+    SortBy0Priority                    *int32
+    Take                               *int32
 
-	_basePath string
-	// avoid unkeyed usage
-	_ struct{}
+    _basePath string
+    // avoid unkeyed usage
+    _ struct{}
 }
 
 // WithBasePath sets the base path for this url builder, only required when it's different from the
 // base path specified in the swagger spec.
 // When the value of the base path is an empty string
 func (o *RolesServiceGetRoleGroupsURL) WithBasePath(bp string) *RolesServiceGetRoleGroupsURL {
-	o.SetBasePath(bp)
-	return o
+    o.SetBasePath(bp)
+    return o
 }
 
 // SetBasePath sets the base path for this url builder, only required when it's different from the
 // base path specified in the swagger spec.
 // When the value of the base path is an empty string
 func (o *RolesServiceGetRoleGroupsURL) SetBasePath(bp string) {
-	o._basePath = bp
+    o._basePath = bp
 }
 
 // Build a url path and query string
 func (o *RolesServiceGetRoleGroupsURL) Build() (*url.URL, error) {
-	var _result url.URL
+    var _result url.URL
 
-	var _path = "/api/v1/roles/{id}/groups"
+    var _path = "/api/v1/roles/{id}/groups"
 
-	id := swag.FormatInt32(o.ID)
-	if id != "" {
-		_path = strings.Replace(_path, "{id}", id, -1)
-	} else {
-		return nil, errors.New("id is required on RolesServiceGetRoleGroupsURL")
-	}
+    id := swag.FormatInt32(o.ID)
+    if id != "" {
+        _path = strings.Replace(_path, "{id}", id, -1)
+    } else {
+        return nil, errors.New("id is required on RolesServiceGetRoleGroupsURL")
+    }
 
-	_basePath := o._basePath
-	if _basePath == "" {
-		_basePath = "/SecretServer"
-	}
-	_result.Path = golangswaggerpaths.Join(_basePath, _path)
+    _basePath := o._basePath
+    if _basePath == "" {
+        _basePath = "/SecretServer"
+    }
+    _result.Path = golangswaggerpaths.Join(_basePath, _path)
 
-	qs := make(url.Values)
+    qs := make(url.Values)
 
-	var filterIncludeInactiveUsersForGroupQ string
-	if o.FilterIncludeInactiveUsersForGroup != nil {
-		filterIncludeInactiveUsersForGroupQ = swag.FormatBool(*o.FilterIncludeInactiveUsersForGroup)
-	}
-	if filterIncludeInactiveUsersForGroupQ != "" {
-		qs.Set("filter.includeInactiveUsersForGroup", filterIncludeInactiveUsersForGroupQ)
-	}
+    var filterIncludeInactiveUsersForGroupQ string
+    if o.FilterIncludeInactiveUsersForGroup != nil {
+        filterIncludeInactiveUsersForGroupQ = swag.FormatBool(*o.FilterIncludeInactiveUsersForGroup)
+    }
+    if filterIncludeInactiveUsersForGroupQ != "" {
+        qs.Set("filter.includeInactiveUsersForGroup", filterIncludeInactiveUsersForGroupQ)
+    }
 
-	var filterUserDomainIDQ string
-	if o.FilterUserDomainID != nil {
-		filterUserDomainIDQ = swag.FormatInt32(*o.FilterUserDomainID)
-	}
-	if filterUserDomainIDQ != "" {
-		qs.Set("filter.userDomainId", filterUserDomainIDQ)
-	}
+    var filterUserDomainIDQ string
+    if o.FilterUserDomainID != nil {
+        filterUserDomainIDQ = swag.FormatInt32(*o.FilterUserDomainID)
+    }
+    if filterUserDomainIDQ != "" {
+        qs.Set("filter.userDomainId", filterUserDomainIDQ)
+    }
 
-	var skipQ string
-	if o.Skip != nil {
-		skipQ = swag.FormatInt32(*o.Skip)
-	}
-	if skipQ != "" {
-		qs.Set("skip", skipQ)
-	}
+    var skipQ string
+    if o.Skip != nil {
+        skipQ = swag.FormatInt32(*o.Skip)
+    }
+    if skipQ != "" {
+        qs.Set("skip", skipQ)
+    }
 
-	var sortBy0DirectionQ string
-	if o.SortBy0Direction != nil {
-		sortBy0DirectionQ = *o.SortBy0Direction
-	}
-	if sortBy0DirectionQ != "" {
-		qs.Set("sortBy[0].direction", sortBy0DirectionQ)
-	}
+    var sortBy0DirectionQ string
+    if o.SortBy0Direction != nil {
+        sortBy0DirectionQ = *o.SortBy0Direction
+    }
+    if sortBy0DirectionQ != "" {
+        qs.Set("sortBy[0].direction", sortBy0DirectionQ)
+    }
 
-	var sortBy0NameQ string
-	if o.SortBy0Name != nil {
-		sortBy0NameQ = *o.SortBy0Name
-	}
-	if sortBy0NameQ != "" {
-		qs.Set("sortBy[0].name", sortBy0NameQ)
-	}
+    var sortBy0NameQ string
+    if o.SortBy0Name != nil {
+        sortBy0NameQ = *o.SortBy0Name
+    }
+    if sortBy0NameQ != "" {
+        qs.Set("sortBy[0].name", sortBy0NameQ)
+    }
 
-	var sortBy0PriorityQ string
-	if o.SortBy0Priority != nil {
-		sortBy0PriorityQ = swag.FormatInt32(*o.SortBy0Priority)
-	}
-	if sortBy0PriorityQ != "" {
-		qs.Set("sortBy[0].priority", sortBy0PriorityQ)
-	}
+    var sortBy0PriorityQ string
+    if o.SortBy0Priority != nil {
+        sortBy0PriorityQ = swag.FormatInt32(*o.SortBy0Priority)
+    }
+    if sortBy0PriorityQ != "" {
+        qs.Set("sortBy[0].priority", sortBy0PriorityQ)
+    }
 
-	var takeQ string
-	if o.Take != nil {
-		takeQ = swag.FormatInt32(*o.Take)
-	}
-	if takeQ != "" {
-		qs.Set("take", takeQ)
-	}
+    var takeQ string
+    if o.Take != nil {
+        takeQ = swag.FormatInt32(*o.Take)
+    }
+    if takeQ != "" {
+        qs.Set("take", takeQ)
+    }
 
-	_result.RawQuery = qs.Encode()
+    _result.RawQuery = qs.Encode()
 
-	return &_result, nil
+    return &_result, nil
 }
 
 // Must is a helper function to panic when the url builder returns an error
 func (o *RolesServiceGetRoleGroupsURL) Must(u *url.URL, err error) *url.URL {
-	if err != nil {
-		panic(err)
-	}
-	if u == nil {
-		panic("url can't be nil")
-	}
-	return u
+    if err != nil {
+        panic(err)
+    }
+    if u == nil {
+        panic("url can't be nil")
+    }
+    return u
 }
 
 // String returns the string representation of the path with query string
 func (o *RolesServiceGetRoleGroupsURL) String() string {
-	return o.Must(o.Build()).String()
+    return o.Must(o.Build()).String()
 }
 
 // BuildFull builds a full url with scheme, host, path and query string
 func (o *RolesServiceGetRoleGroupsURL) BuildFull(scheme, host string) (*url.URL, error) {
-	if scheme == "" {
-		return nil, errors.New("scheme is required for a full url on RolesServiceGetRoleGroupsURL")
-	}
-	if host == "" {
-		return nil, errors.New("host is required for a full url on RolesServiceGetRoleGroupsURL")
-	}
+    if scheme == "" {
+        return nil, errors.New("scheme is required for a full url on RolesServiceGetRoleGroupsURL")
+    }
+    if host == "" {
+        return nil, errors.New("host is required for a full url on RolesServiceGetRoleGroupsURL")
+    }
 
-	base, err := o.Build()
-	if err != nil {
-		return nil, err
-	}
+    base, err := o.Build()
+    if err != nil {
+        return nil, err
+    }
 
-	base.Scheme = scheme
-	base.Host = host
-	return base, nil
+    base.Scheme = scheme
+    base.Host = host
+    return base, nil
 }
 
 // StringFull returns the string representation of a complete url
 func (o *RolesServiceGetRoleGroupsURL) StringFull(scheme, host string) string {
-	return o.Must(o.BuildFull(scheme, host)).String()
+    return o.Must(o.BuildFull(scheme, host)).String()
 }

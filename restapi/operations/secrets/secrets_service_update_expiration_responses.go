@@ -6,11 +6,11 @@ package secrets
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"net/http"
+    "net/http"
 
-	"github.com/go-openapi/runtime"
+    "github.com/go-openapi/runtime"
 
-	"github.com/secret-server/mock-server/models"
+    "github.com/secret-server/mock-server/models"
 )
 
 // SecretsServiceUpdateExpirationOKCode is the HTTP code returned for type SecretsServiceUpdateExpirationOK
@@ -23,39 +23,39 @@ swagger:response secretsServiceUpdateExpirationOK
 */
 type SecretsServiceUpdateExpirationOK struct {
 
-	/*Updated secret settings
-	  In: Body
-	*/
-	Payload *models.SecretDetailSettingsModel `json:"body,omitempty"`
+    /*Updated secret settings
+      In: Body
+    */
+    Payload *models.SecretDetailSettingsModel `json:"body,omitempty"`
 }
 
 // NewSecretsServiceUpdateExpirationOK creates SecretsServiceUpdateExpirationOK with default headers values
 func NewSecretsServiceUpdateExpirationOK() *SecretsServiceUpdateExpirationOK {
 
-	return &SecretsServiceUpdateExpirationOK{}
+    return &SecretsServiceUpdateExpirationOK{}
 }
 
 // WithPayload adds the payload to the secrets service update expiration o k response
 func (o *SecretsServiceUpdateExpirationOK) WithPayload(payload *models.SecretDetailSettingsModel) *SecretsServiceUpdateExpirationOK {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the secrets service update expiration o k response
 func (o *SecretsServiceUpdateExpirationOK) SetPayload(payload *models.SecretDetailSettingsModel) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *SecretsServiceUpdateExpirationOK) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(200)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(200)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }
 
 // SecretsServiceUpdateExpirationBadRequestCode is the HTTP code returned for type SecretsServiceUpdateExpirationBadRequest
@@ -68,39 +68,39 @@ swagger:response secretsServiceUpdateExpirationBadRequest
 */
 type SecretsServiceUpdateExpirationBadRequest struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.BadRequestResponse `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.BadRequestResponse `json:"body,omitempty"`
 }
 
 // NewSecretsServiceUpdateExpirationBadRequest creates SecretsServiceUpdateExpirationBadRequest with default headers values
 func NewSecretsServiceUpdateExpirationBadRequest() *SecretsServiceUpdateExpirationBadRequest {
 
-	return &SecretsServiceUpdateExpirationBadRequest{}
+    return &SecretsServiceUpdateExpirationBadRequest{}
 }
 
 // WithPayload adds the payload to the secrets service update expiration bad request response
 func (o *SecretsServiceUpdateExpirationBadRequest) WithPayload(payload *models.BadRequestResponse) *SecretsServiceUpdateExpirationBadRequest {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the secrets service update expiration bad request response
 func (o *SecretsServiceUpdateExpirationBadRequest) SetPayload(payload *models.BadRequestResponse) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *SecretsServiceUpdateExpirationBadRequest) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(400)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(400)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }
 
 // SecretsServiceUpdateExpirationForbiddenCode is the HTTP code returned for type SecretsServiceUpdateExpirationForbidden
@@ -113,39 +113,39 @@ swagger:response secretsServiceUpdateExpirationForbidden
 */
 type SecretsServiceUpdateExpirationForbidden struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.AuthenticationFailedResponse `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.AuthenticationFailedResponse `json:"body,omitempty"`
 }
 
 // NewSecretsServiceUpdateExpirationForbidden creates SecretsServiceUpdateExpirationForbidden with default headers values
 func NewSecretsServiceUpdateExpirationForbidden() *SecretsServiceUpdateExpirationForbidden {
 
-	return &SecretsServiceUpdateExpirationForbidden{}
+    return &SecretsServiceUpdateExpirationForbidden{}
 }
 
 // WithPayload adds the payload to the secrets service update expiration forbidden response
 func (o *SecretsServiceUpdateExpirationForbidden) WithPayload(payload *models.AuthenticationFailedResponse) *SecretsServiceUpdateExpirationForbidden {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the secrets service update expiration forbidden response
 func (o *SecretsServiceUpdateExpirationForbidden) SetPayload(payload *models.AuthenticationFailedResponse) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *SecretsServiceUpdateExpirationForbidden) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(403)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(403)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }
 
 // SecretsServiceUpdateExpirationInternalServerErrorCode is the HTTP code returned for type SecretsServiceUpdateExpirationInternalServerError
@@ -158,37 +158,37 @@ swagger:response secretsServiceUpdateExpirationInternalServerError
 */
 type SecretsServiceUpdateExpirationInternalServerError struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.InternalServerErrorResponse `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.InternalServerErrorResponse `json:"body,omitempty"`
 }
 
 // NewSecretsServiceUpdateExpirationInternalServerError creates SecretsServiceUpdateExpirationInternalServerError with default headers values
 func NewSecretsServiceUpdateExpirationInternalServerError() *SecretsServiceUpdateExpirationInternalServerError {
 
-	return &SecretsServiceUpdateExpirationInternalServerError{}
+    return &SecretsServiceUpdateExpirationInternalServerError{}
 }
 
 // WithPayload adds the payload to the secrets service update expiration internal server error response
 func (o *SecretsServiceUpdateExpirationInternalServerError) WithPayload(payload *models.InternalServerErrorResponse) *SecretsServiceUpdateExpirationInternalServerError {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the secrets service update expiration internal server error response
 func (o *SecretsServiceUpdateExpirationInternalServerError) SetPayload(payload *models.InternalServerErrorResponse) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *SecretsServiceUpdateExpirationInternalServerError) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(500)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(500)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }

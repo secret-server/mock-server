@@ -6,14 +6,14 @@ package secrets
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"fmt"
-	"net/http"
+    "fmt"
+    "net/http"
 
-	"github.com/go-openapi/errors"
-	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/runtime/middleware"
-	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+    "github.com/go-openapi/errors"
+    "github.com/go-openapi/runtime"
+    "github.com/go-openapi/runtime/middleware"
+    "github.com/go-openapi/strfmt"
+    "github.com/go-openapi/swag"
 )
 
 // NewSecretsServiceSearchV2Params creates a new SecretsServiceSearchV2Params object
@@ -21,7 +21,7 @@ import (
 // There are no default values defined in the spec.
 func NewSecretsServiceSearchV2Params() SecretsServiceSearchV2Params {
 
-	return SecretsServiceSearchV2Params{}
+    return SecretsServiceSearchV2Params{}
 }
 
 // SecretsServiceSearchV2Params contains all the bound params for the secrets service search v2 operation
@@ -30,145 +30,145 @@ func NewSecretsServiceSearchV2Params() SecretsServiceSearchV2Params {
 // swagger:parameters SecretsService_SearchV2
 type SecretsServiceSearchV2Params struct {
 
-	// HTTP Request Object
-	HTTPRequest *http.Request `json:"-"`
+    // HTTP Request Object
+    HTTPRequest *http.Request `json:"-"`
 
-	/*Whether to allow DoubleLocks as part of the search. True by default.
-	  In: query
-	*/
-	FilterAllowDoubleLocks *bool
-	/*Whether to return the total number of secrets matching the filters. False by default. If false, the total can be retrieved separately by calling /v1/secrets/search-total with the same arguments used in the search.
-	  In: query
-	*/
-	FilterDoNotCalculateTotal *bool
-	/*Only include Secrets with this DoubleLock ID assigned in the search results.
-	  In: query
-	*/
-	FilterDoubleLockID *int32
-	/*A comma delimited list of all extended fields to return.  All fields must be marked as exposed for display.  When populated this value will be used instead of ExtendedFields[].  Combining the fields decreases the size of the GET URL to avoid the 2048 character length restriction in IIS.
-	  In: query
-	*/
-	FilterExtFieldsCombined *string
-	/*An array of names of Secret Template fields to return.  Only exposed fields can be returned.  This parameter will be ignored if ExtFieldsCombined is sent.
-	  In: query
-	  Collection Format: multi
-	*/
-	FilterExtendedFields []string
-	/*If not null, return only secrets matching the specified extended mapping type as defined on the secret’s template.
-	  In: query
-	*/
-	FilterExtendedTypeID *int32
-	/*If not null, returns only secrets within the specified folder.
-	  In: query
-	*/
-	FilterFolderID *int32
-	/*Whether to only return secrets with or without launchers. If null, returns secrets regardless of whether they have launchers.
-	  In: query
-	*/
-	FilterHasLauncher *bool
-	/*If not null, returns only secrets with a certain heartbeat status.
-	  In: query
-	*/
-	FilterHeartbeatStatus *string
-	/*Whether to include active secrets in results (when excluded equals true).
-	  In: query
-	*/
-	FilterIncludeActive *bool
-	/*Whether to include inactive secrets in results.
-	  In: query
-	*/
-	FilterIncludeInactive *bool
-	/*Whether to include restricted secrets in results. Restricted secrets are secrets that are DoubleLocked, require approval, or require a comment to view.
-	  In: query
-	*/
-	FilterIncludeRestricted *bool
-	/*Whether to include secrets in subfolders of the specified folder.
-	  In: query
-	*/
-	FilterIncludeSubFolders *bool
-	/*Whether to do an exact match of the search text or a partial match. If an exact match, the entire secret name, field value, or list option in a list field must match the search text.
-	  In: query
-	*/
-	FilterIsExactMatch *bool
-	/*Whether to only return secrets that are or are not checked out. If null, returns secrets regardless of whether they are checked out.
-	  In: query
-	*/
-	FilterOnlyCheckedOutSecrets *bool
-	/*Whether to only include secrets whose template has Remote Password Changing enabled.
-	  In: query
-	*/
-	FilterOnlyRPCEnabled *bool
-	/*Whether to only return secrets that are or are not checked out by the querying user. If null, returns secrets regardless of whether they are checked out.
-	  In: query
-	*/
-	FilterOnlySecretsCheckedOutByUser *bool
-	/*When true only Secrets where you are not the owner and the Secret was shared explicitly with your user id will be returned.
-	  In: query
-	*/
-	FilterOnlySharedWithMe *bool
-	/*If not null, returns only secrets matching the specified password types.
-	  In: query
-	  Collection Format: multi
-	*/
-	FilterPasswordTypeIds []int64
-	/*Specify whether to filter by List, View, Edit, or Owner permission. Default is List.
-	  In: query
-	*/
-	FilterPermissionRequired *string
-	/*Specify whether to search All, Recent, or Favorites
-	  In: query
-	*/
-	FilterScope *string
-	/*If set, restricts the search to only match secrets where the value of the field specified by name contains the search text.
-	  In: query
-	*/
-	FilterSearchField *string
-	/*If set, restricts the search to only match secrets where the value of the field specified by the slug name contains the search text. This will override SearchField.
-	  In: query
-	*/
-	FilterSearchFieldSlug *string
-	/*The text to match in the secret name, field value, or list field contents.
-	  In: query
-	*/
-	FilterSearchText *string
-	/*If not null or empty, returns only secrets matching the specified secret ids.
-	  In: query
-	  Collection Format: multi
-	*/
-	FilterSecretIds []int64
-	/*If not null or empty, returns only secrets matching the specified templates.
-	  In: query
-	  Collection Format: multi
-	*/
-	FilterSecretTemplateIds []int64
-	/*A comma delimited list of all secret template IDs.  When populated this value will be used instead of SecretTemplateIds[].  Combining the fields decreases the size of the GET URL to avoid the 2048 character length restriction in IIS.
-	  In: query
-	*/
-	FilterSecretTemplateIdsCombined *string
-	/*If not null, returns only secrets within a the specified site.
-	  In: query
-	*/
-	FilterSiteID *int32
-	/*Number of records to skip before taking results
-	  In: query
-	*/
-	Skip *int32
-	/*Sort direction
-	  In: query
-	*/
-	SortBy0Direction *string
-	/*Sort field name
-	  In: query
-	*/
-	SortBy0Name *string
-	/*Priority index. Sorts with lower values are executed earlier
-	  In: query
-	*/
-	SortBy0Priority *int32
-	/*Maximum number of records to include in results
-	  In: query
-	*/
-	Take *int32
+    /*Whether to allow DoubleLocks as part of the search. True by default.
+      In: query
+    */
+    FilterAllowDoubleLocks *bool
+    /*Whether to return the total number of secrets matching the filters. False by default. If false, the total can be retrieved separately by calling /v1/secrets/search-total with the same arguments used in the search.
+      In: query
+    */
+    FilterDoNotCalculateTotal *bool
+    /*Only include Secrets with this DoubleLock ID assigned in the search results.
+      In: query
+    */
+    FilterDoubleLockID *int32
+    /*A comma delimited list of all extended fields to return.  All fields must be marked as exposed for display.  When populated this value will be used instead of ExtendedFields[].  Combining the fields decreases the size of the GET URL to avoid the 2048 character length restriction in IIS.
+      In: query
+    */
+    FilterExtFieldsCombined *string
+    /*An array of names of Secret Template fields to return.  Only exposed fields can be returned.  This parameter will be ignored if ExtFieldsCombined is sent.
+      In: query
+      Collection Format: multi
+    */
+    FilterExtendedFields []string
+    /*If not null, return only secrets matching the specified extended mapping type as defined on the secret’s template.
+      In: query
+    */
+    FilterExtendedTypeID *int32
+    /*If not null, returns only secrets within the specified folder.
+      In: query
+    */
+    FilterFolderID *int32
+    /*Whether to only return secrets with or without launchers. If null, returns secrets regardless of whether they have launchers.
+      In: query
+    */
+    FilterHasLauncher *bool
+    /*If not null, returns only secrets with a certain heartbeat status.
+      In: query
+    */
+    FilterHeartbeatStatus *string
+    /*Whether to include active secrets in results (when excluded equals true).
+      In: query
+    */
+    FilterIncludeActive *bool
+    /*Whether to include inactive secrets in results.
+      In: query
+    */
+    FilterIncludeInactive *bool
+    /*Whether to include restricted secrets in results. Restricted secrets are secrets that are DoubleLocked, require approval, or require a comment to view.
+      In: query
+    */
+    FilterIncludeRestricted *bool
+    /*Whether to include secrets in subfolders of the specified folder.
+      In: query
+    */
+    FilterIncludeSubFolders *bool
+    /*Whether to do an exact match of the search text or a partial match. If an exact match, the entire secret name, field value, or list option in a list field must match the search text.
+      In: query
+    */
+    FilterIsExactMatch *bool
+    /*Whether to only return secrets that are or are not checked out. If null, returns secrets regardless of whether they are checked out.
+      In: query
+    */
+    FilterOnlyCheckedOutSecrets *bool
+    /*Whether to only include secrets whose template has Remote Password Changing enabled.
+      In: query
+    */
+    FilterOnlyRPCEnabled *bool
+    /*Whether to only return secrets that are or are not checked out by the querying user. If null, returns secrets regardless of whether they are checked out.
+      In: query
+    */
+    FilterOnlySecretsCheckedOutByUser *bool
+    /*When true only Secrets where you are not the owner and the Secret was shared explicitly with your user id will be returned.
+      In: query
+    */
+    FilterOnlySharedWithMe *bool
+    /*If not null, returns only secrets matching the specified password types.
+      In: query
+      Collection Format: multi
+    */
+    FilterPasswordTypeIds []int64
+    /*Specify whether to filter by List, View, Edit, or Owner permission. Default is List.
+      In: query
+    */
+    FilterPermissionRequired *string
+    /*Specify whether to search All, Recent, or Favorites
+      In: query
+    */
+    FilterScope *string
+    /*If set, restricts the search to only match secrets where the value of the field specified by name contains the search text.
+      In: query
+    */
+    FilterSearchField *string
+    /*If set, restricts the search to only match secrets where the value of the field specified by the slug name contains the search text. This will override SearchField.
+      In: query
+    */
+    FilterSearchFieldSlug *string
+    /*The text to match in the secret name, field value, or list field contents.
+      In: query
+    */
+    FilterSearchText *string
+    /*If not null or empty, returns only secrets matching the specified secret ids.
+      In: query
+      Collection Format: multi
+    */
+    FilterSecretIds []int64
+    /*If not null or empty, returns only secrets matching the specified templates.
+      In: query
+      Collection Format: multi
+    */
+    FilterSecretTemplateIds []int64
+    /*A comma delimited list of all secret template IDs.  When populated this value will be used instead of SecretTemplateIds[].  Combining the fields decreases the size of the GET URL to avoid the 2048 character length restriction in IIS.
+      In: query
+    */
+    FilterSecretTemplateIdsCombined *string
+    /*If not null, returns only secrets within a the specified site.
+      In: query
+    */
+    FilterSiteID *int32
+    /*Number of records to skip before taking results
+      In: query
+    */
+    Skip *int32
+    /*Sort direction
+      In: query
+    */
+    SortBy0Direction *string
+    /*Sort field name
+      In: query
+    */
+    SortBy0Name *string
+    /*Priority index. Sorts with lower values are executed earlier
+      In: query
+    */
+    SortBy0Priority *int32
+    /*Maximum number of records to include in results
+      In: query
+    */
+    Take *int32
 }
 
 // BindRequest both binds and validates a request, it assumes that complex things implement a Validatable(strfmt.Registry) error interface
@@ -176,892 +176,892 @@ type SecretsServiceSearchV2Params struct {
 //
 // To ensure default values, the struct must have been initialized with NewSecretsServiceSearchV2Params() beforehand.
 func (o *SecretsServiceSearchV2Params) BindRequest(r *http.Request, route *middleware.MatchedRoute) error {
-	var res []error
+    var res []error
 
-	o.HTTPRequest = r
+    o.HTTPRequest = r
 
-	qs := runtime.Values(r.URL.Query())
+    qs := runtime.Values(r.URL.Query())
 
-	qFilterAllowDoubleLocks, qhkFilterAllowDoubleLocks, _ := qs.GetOK("filter.allowDoubleLocks")
-	if err := o.bindFilterAllowDoubleLocks(qFilterAllowDoubleLocks, qhkFilterAllowDoubleLocks, route.Formats); err != nil {
-		res = append(res, err)
-	}
+    qFilterAllowDoubleLocks, qhkFilterAllowDoubleLocks, _ := qs.GetOK("filter.allowDoubleLocks")
+    if err := o.bindFilterAllowDoubleLocks(qFilterAllowDoubleLocks, qhkFilterAllowDoubleLocks, route.Formats); err != nil {
+        res = append(res, err)
+    }
 
-	qFilterDoNotCalculateTotal, qhkFilterDoNotCalculateTotal, _ := qs.GetOK("filter.doNotCalculateTotal")
-	if err := o.bindFilterDoNotCalculateTotal(qFilterDoNotCalculateTotal, qhkFilterDoNotCalculateTotal, route.Formats); err != nil {
-		res = append(res, err)
-	}
+    qFilterDoNotCalculateTotal, qhkFilterDoNotCalculateTotal, _ := qs.GetOK("filter.doNotCalculateTotal")
+    if err := o.bindFilterDoNotCalculateTotal(qFilterDoNotCalculateTotal, qhkFilterDoNotCalculateTotal, route.Formats); err != nil {
+        res = append(res, err)
+    }
 
-	qFilterDoubleLockID, qhkFilterDoubleLockID, _ := qs.GetOK("filter.doubleLockId")
-	if err := o.bindFilterDoubleLockID(qFilterDoubleLockID, qhkFilterDoubleLockID, route.Formats); err != nil {
-		res = append(res, err)
-	}
+    qFilterDoubleLockID, qhkFilterDoubleLockID, _ := qs.GetOK("filter.doubleLockId")
+    if err := o.bindFilterDoubleLockID(qFilterDoubleLockID, qhkFilterDoubleLockID, route.Formats); err != nil {
+        res = append(res, err)
+    }
 
-	qFilterExtFieldsCombined, qhkFilterExtFieldsCombined, _ := qs.GetOK("filter.extFieldsCombined")
-	if err := o.bindFilterExtFieldsCombined(qFilterExtFieldsCombined, qhkFilterExtFieldsCombined, route.Formats); err != nil {
-		res = append(res, err)
-	}
+    qFilterExtFieldsCombined, qhkFilterExtFieldsCombined, _ := qs.GetOK("filter.extFieldsCombined")
+    if err := o.bindFilterExtFieldsCombined(qFilterExtFieldsCombined, qhkFilterExtFieldsCombined, route.Formats); err != nil {
+        res = append(res, err)
+    }
 
-	qFilterExtendedFields, qhkFilterExtendedFields, _ := qs.GetOK("filter.extendedFields")
-	if err := o.bindFilterExtendedFields(qFilterExtendedFields, qhkFilterExtendedFields, route.Formats); err != nil {
-		res = append(res, err)
-	}
+    qFilterExtendedFields, qhkFilterExtendedFields, _ := qs.GetOK("filter.extendedFields")
+    if err := o.bindFilterExtendedFields(qFilterExtendedFields, qhkFilterExtendedFields, route.Formats); err != nil {
+        res = append(res, err)
+    }
 
-	qFilterExtendedTypeID, qhkFilterExtendedTypeID, _ := qs.GetOK("filter.extendedTypeId")
-	if err := o.bindFilterExtendedTypeID(qFilterExtendedTypeID, qhkFilterExtendedTypeID, route.Formats); err != nil {
-		res = append(res, err)
-	}
+    qFilterExtendedTypeID, qhkFilterExtendedTypeID, _ := qs.GetOK("filter.extendedTypeId")
+    if err := o.bindFilterExtendedTypeID(qFilterExtendedTypeID, qhkFilterExtendedTypeID, route.Formats); err != nil {
+        res = append(res, err)
+    }
 
-	qFilterFolderID, qhkFilterFolderID, _ := qs.GetOK("filter.folderId")
-	if err := o.bindFilterFolderID(qFilterFolderID, qhkFilterFolderID, route.Formats); err != nil {
-		res = append(res, err)
-	}
+    qFilterFolderID, qhkFilterFolderID, _ := qs.GetOK("filter.folderId")
+    if err := o.bindFilterFolderID(qFilterFolderID, qhkFilterFolderID, route.Formats); err != nil {
+        res = append(res, err)
+    }
 
-	qFilterHasLauncher, qhkFilterHasLauncher, _ := qs.GetOK("filter.hasLauncher")
-	if err := o.bindFilterHasLauncher(qFilterHasLauncher, qhkFilterHasLauncher, route.Formats); err != nil {
-		res = append(res, err)
-	}
+    qFilterHasLauncher, qhkFilterHasLauncher, _ := qs.GetOK("filter.hasLauncher")
+    if err := o.bindFilterHasLauncher(qFilterHasLauncher, qhkFilterHasLauncher, route.Formats); err != nil {
+        res = append(res, err)
+    }
 
-	qFilterHeartbeatStatus, qhkFilterHeartbeatStatus, _ := qs.GetOK("filter.heartbeatStatus")
-	if err := o.bindFilterHeartbeatStatus(qFilterHeartbeatStatus, qhkFilterHeartbeatStatus, route.Formats); err != nil {
-		res = append(res, err)
-	}
+    qFilterHeartbeatStatus, qhkFilterHeartbeatStatus, _ := qs.GetOK("filter.heartbeatStatus")
+    if err := o.bindFilterHeartbeatStatus(qFilterHeartbeatStatus, qhkFilterHeartbeatStatus, route.Formats); err != nil {
+        res = append(res, err)
+    }
 
-	qFilterIncludeActive, qhkFilterIncludeActive, _ := qs.GetOK("filter.includeActive")
-	if err := o.bindFilterIncludeActive(qFilterIncludeActive, qhkFilterIncludeActive, route.Formats); err != nil {
-		res = append(res, err)
-	}
+    qFilterIncludeActive, qhkFilterIncludeActive, _ := qs.GetOK("filter.includeActive")
+    if err := o.bindFilterIncludeActive(qFilterIncludeActive, qhkFilterIncludeActive, route.Formats); err != nil {
+        res = append(res, err)
+    }
 
-	qFilterIncludeInactive, qhkFilterIncludeInactive, _ := qs.GetOK("filter.includeInactive")
-	if err := o.bindFilterIncludeInactive(qFilterIncludeInactive, qhkFilterIncludeInactive, route.Formats); err != nil {
-		res = append(res, err)
-	}
+    qFilterIncludeInactive, qhkFilterIncludeInactive, _ := qs.GetOK("filter.includeInactive")
+    if err := o.bindFilterIncludeInactive(qFilterIncludeInactive, qhkFilterIncludeInactive, route.Formats); err != nil {
+        res = append(res, err)
+    }
 
-	qFilterIncludeRestricted, qhkFilterIncludeRestricted, _ := qs.GetOK("filter.includeRestricted")
-	if err := o.bindFilterIncludeRestricted(qFilterIncludeRestricted, qhkFilterIncludeRestricted, route.Formats); err != nil {
-		res = append(res, err)
-	}
+    qFilterIncludeRestricted, qhkFilterIncludeRestricted, _ := qs.GetOK("filter.includeRestricted")
+    if err := o.bindFilterIncludeRestricted(qFilterIncludeRestricted, qhkFilterIncludeRestricted, route.Formats); err != nil {
+        res = append(res, err)
+    }
 
-	qFilterIncludeSubFolders, qhkFilterIncludeSubFolders, _ := qs.GetOK("filter.includeSubFolders")
-	if err := o.bindFilterIncludeSubFolders(qFilterIncludeSubFolders, qhkFilterIncludeSubFolders, route.Formats); err != nil {
-		res = append(res, err)
-	}
+    qFilterIncludeSubFolders, qhkFilterIncludeSubFolders, _ := qs.GetOK("filter.includeSubFolders")
+    if err := o.bindFilterIncludeSubFolders(qFilterIncludeSubFolders, qhkFilterIncludeSubFolders, route.Formats); err != nil {
+        res = append(res, err)
+    }
 
-	qFilterIsExactMatch, qhkFilterIsExactMatch, _ := qs.GetOK("filter.isExactMatch")
-	if err := o.bindFilterIsExactMatch(qFilterIsExactMatch, qhkFilterIsExactMatch, route.Formats); err != nil {
-		res = append(res, err)
-	}
+    qFilterIsExactMatch, qhkFilterIsExactMatch, _ := qs.GetOK("filter.isExactMatch")
+    if err := o.bindFilterIsExactMatch(qFilterIsExactMatch, qhkFilterIsExactMatch, route.Formats); err != nil {
+        res = append(res, err)
+    }
 
-	qFilterOnlyCheckedOutSecrets, qhkFilterOnlyCheckedOutSecrets, _ := qs.GetOK("filter.onlyCheckedOutSecrets")
-	if err := o.bindFilterOnlyCheckedOutSecrets(qFilterOnlyCheckedOutSecrets, qhkFilterOnlyCheckedOutSecrets, route.Formats); err != nil {
-		res = append(res, err)
-	}
+    qFilterOnlyCheckedOutSecrets, qhkFilterOnlyCheckedOutSecrets, _ := qs.GetOK("filter.onlyCheckedOutSecrets")
+    if err := o.bindFilterOnlyCheckedOutSecrets(qFilterOnlyCheckedOutSecrets, qhkFilterOnlyCheckedOutSecrets, route.Formats); err != nil {
+        res = append(res, err)
+    }
 
-	qFilterOnlyRPCEnabled, qhkFilterOnlyRPCEnabled, _ := qs.GetOK("filter.onlyRPCEnabled")
-	if err := o.bindFilterOnlyRPCEnabled(qFilterOnlyRPCEnabled, qhkFilterOnlyRPCEnabled, route.Formats); err != nil {
-		res = append(res, err)
-	}
+    qFilterOnlyRPCEnabled, qhkFilterOnlyRPCEnabled, _ := qs.GetOK("filter.onlyRPCEnabled")
+    if err := o.bindFilterOnlyRPCEnabled(qFilterOnlyRPCEnabled, qhkFilterOnlyRPCEnabled, route.Formats); err != nil {
+        res = append(res, err)
+    }
 
-	qFilterOnlySecretsCheckedOutByUser, qhkFilterOnlySecretsCheckedOutByUser, _ := qs.GetOK("filter.onlySecretsCheckedOutByUser")
-	if err := o.bindFilterOnlySecretsCheckedOutByUser(qFilterOnlySecretsCheckedOutByUser, qhkFilterOnlySecretsCheckedOutByUser, route.Formats); err != nil {
-		res = append(res, err)
-	}
+    qFilterOnlySecretsCheckedOutByUser, qhkFilterOnlySecretsCheckedOutByUser, _ := qs.GetOK("filter.onlySecretsCheckedOutByUser")
+    if err := o.bindFilterOnlySecretsCheckedOutByUser(qFilterOnlySecretsCheckedOutByUser, qhkFilterOnlySecretsCheckedOutByUser, route.Formats); err != nil {
+        res = append(res, err)
+    }
 
-	qFilterOnlySharedWithMe, qhkFilterOnlySharedWithMe, _ := qs.GetOK("filter.onlySharedWithMe")
-	if err := o.bindFilterOnlySharedWithMe(qFilterOnlySharedWithMe, qhkFilterOnlySharedWithMe, route.Formats); err != nil {
-		res = append(res, err)
-	}
+    qFilterOnlySharedWithMe, qhkFilterOnlySharedWithMe, _ := qs.GetOK("filter.onlySharedWithMe")
+    if err := o.bindFilterOnlySharedWithMe(qFilterOnlySharedWithMe, qhkFilterOnlySharedWithMe, route.Formats); err != nil {
+        res = append(res, err)
+    }
 
-	qFilterPasswordTypeIds, qhkFilterPasswordTypeIds, _ := qs.GetOK("filter.passwordTypeIds")
-	if err := o.bindFilterPasswordTypeIds(qFilterPasswordTypeIds, qhkFilterPasswordTypeIds, route.Formats); err != nil {
-		res = append(res, err)
-	}
+    qFilterPasswordTypeIds, qhkFilterPasswordTypeIds, _ := qs.GetOK("filter.passwordTypeIds")
+    if err := o.bindFilterPasswordTypeIds(qFilterPasswordTypeIds, qhkFilterPasswordTypeIds, route.Formats); err != nil {
+        res = append(res, err)
+    }
 
-	qFilterPermissionRequired, qhkFilterPermissionRequired, _ := qs.GetOK("filter.permissionRequired")
-	if err := o.bindFilterPermissionRequired(qFilterPermissionRequired, qhkFilterPermissionRequired, route.Formats); err != nil {
-		res = append(res, err)
-	}
+    qFilterPermissionRequired, qhkFilterPermissionRequired, _ := qs.GetOK("filter.permissionRequired")
+    if err := o.bindFilterPermissionRequired(qFilterPermissionRequired, qhkFilterPermissionRequired, route.Formats); err != nil {
+        res = append(res, err)
+    }
 
-	qFilterScope, qhkFilterScope, _ := qs.GetOK("filter.scope")
-	if err := o.bindFilterScope(qFilterScope, qhkFilterScope, route.Formats); err != nil {
-		res = append(res, err)
-	}
+    qFilterScope, qhkFilterScope, _ := qs.GetOK("filter.scope")
+    if err := o.bindFilterScope(qFilterScope, qhkFilterScope, route.Formats); err != nil {
+        res = append(res, err)
+    }
 
-	qFilterSearchField, qhkFilterSearchField, _ := qs.GetOK("filter.searchField")
-	if err := o.bindFilterSearchField(qFilterSearchField, qhkFilterSearchField, route.Formats); err != nil {
-		res = append(res, err)
-	}
+    qFilterSearchField, qhkFilterSearchField, _ := qs.GetOK("filter.searchField")
+    if err := o.bindFilterSearchField(qFilterSearchField, qhkFilterSearchField, route.Formats); err != nil {
+        res = append(res, err)
+    }
 
-	qFilterSearchFieldSlug, qhkFilterSearchFieldSlug, _ := qs.GetOK("filter.searchFieldSlug")
-	if err := o.bindFilterSearchFieldSlug(qFilterSearchFieldSlug, qhkFilterSearchFieldSlug, route.Formats); err != nil {
-		res = append(res, err)
-	}
+    qFilterSearchFieldSlug, qhkFilterSearchFieldSlug, _ := qs.GetOK("filter.searchFieldSlug")
+    if err := o.bindFilterSearchFieldSlug(qFilterSearchFieldSlug, qhkFilterSearchFieldSlug, route.Formats); err != nil {
+        res = append(res, err)
+    }
 
-	qFilterSearchText, qhkFilterSearchText, _ := qs.GetOK("filter.searchText")
-	if err := o.bindFilterSearchText(qFilterSearchText, qhkFilterSearchText, route.Formats); err != nil {
-		res = append(res, err)
-	}
+    qFilterSearchText, qhkFilterSearchText, _ := qs.GetOK("filter.searchText")
+    if err := o.bindFilterSearchText(qFilterSearchText, qhkFilterSearchText, route.Formats); err != nil {
+        res = append(res, err)
+    }
 
-	qFilterSecretIds, qhkFilterSecretIds, _ := qs.GetOK("filter.secretIds")
-	if err := o.bindFilterSecretIds(qFilterSecretIds, qhkFilterSecretIds, route.Formats); err != nil {
-		res = append(res, err)
-	}
+    qFilterSecretIds, qhkFilterSecretIds, _ := qs.GetOK("filter.secretIds")
+    if err := o.bindFilterSecretIds(qFilterSecretIds, qhkFilterSecretIds, route.Formats); err != nil {
+        res = append(res, err)
+    }
 
-	qFilterSecretTemplateIds, qhkFilterSecretTemplateIds, _ := qs.GetOK("filter.secretTemplateIds")
-	if err := o.bindFilterSecretTemplateIds(qFilterSecretTemplateIds, qhkFilterSecretTemplateIds, route.Formats); err != nil {
-		res = append(res, err)
-	}
+    qFilterSecretTemplateIds, qhkFilterSecretTemplateIds, _ := qs.GetOK("filter.secretTemplateIds")
+    if err := o.bindFilterSecretTemplateIds(qFilterSecretTemplateIds, qhkFilterSecretTemplateIds, route.Formats); err != nil {
+        res = append(res, err)
+    }
 
-	qFilterSecretTemplateIdsCombined, qhkFilterSecretTemplateIdsCombined, _ := qs.GetOK("filter.secretTemplateIdsCombined")
-	if err := o.bindFilterSecretTemplateIdsCombined(qFilterSecretTemplateIdsCombined, qhkFilterSecretTemplateIdsCombined, route.Formats); err != nil {
-		res = append(res, err)
-	}
+    qFilterSecretTemplateIdsCombined, qhkFilterSecretTemplateIdsCombined, _ := qs.GetOK("filter.secretTemplateIdsCombined")
+    if err := o.bindFilterSecretTemplateIdsCombined(qFilterSecretTemplateIdsCombined, qhkFilterSecretTemplateIdsCombined, route.Formats); err != nil {
+        res = append(res, err)
+    }
 
-	qFilterSiteID, qhkFilterSiteID, _ := qs.GetOK("filter.siteId")
-	if err := o.bindFilterSiteID(qFilterSiteID, qhkFilterSiteID, route.Formats); err != nil {
-		res = append(res, err)
-	}
+    qFilterSiteID, qhkFilterSiteID, _ := qs.GetOK("filter.siteId")
+    if err := o.bindFilterSiteID(qFilterSiteID, qhkFilterSiteID, route.Formats); err != nil {
+        res = append(res, err)
+    }
 
-	qSkip, qhkSkip, _ := qs.GetOK("skip")
-	if err := o.bindSkip(qSkip, qhkSkip, route.Formats); err != nil {
-		res = append(res, err)
-	}
+    qSkip, qhkSkip, _ := qs.GetOK("skip")
+    if err := o.bindSkip(qSkip, qhkSkip, route.Formats); err != nil {
+        res = append(res, err)
+    }
 
-	qSortBy0Direction, qhkSortBy0Direction, _ := qs.GetOK("sortBy[0].direction")
-	if err := o.bindSortBy0Direction(qSortBy0Direction, qhkSortBy0Direction, route.Formats); err != nil {
-		res = append(res, err)
-	}
+    qSortBy0Direction, qhkSortBy0Direction, _ := qs.GetOK("sortBy[0].direction")
+    if err := o.bindSortBy0Direction(qSortBy0Direction, qhkSortBy0Direction, route.Formats); err != nil {
+        res = append(res, err)
+    }
 
-	qSortBy0Name, qhkSortBy0Name, _ := qs.GetOK("sortBy[0].name")
-	if err := o.bindSortBy0Name(qSortBy0Name, qhkSortBy0Name, route.Formats); err != nil {
-		res = append(res, err)
-	}
+    qSortBy0Name, qhkSortBy0Name, _ := qs.GetOK("sortBy[0].name")
+    if err := o.bindSortBy0Name(qSortBy0Name, qhkSortBy0Name, route.Formats); err != nil {
+        res = append(res, err)
+    }
 
-	qSortBy0Priority, qhkSortBy0Priority, _ := qs.GetOK("sortBy[0].priority")
-	if err := o.bindSortBy0Priority(qSortBy0Priority, qhkSortBy0Priority, route.Formats); err != nil {
-		res = append(res, err)
-	}
+    qSortBy0Priority, qhkSortBy0Priority, _ := qs.GetOK("sortBy[0].priority")
+    if err := o.bindSortBy0Priority(qSortBy0Priority, qhkSortBy0Priority, route.Formats); err != nil {
+        res = append(res, err)
+    }
 
-	qTake, qhkTake, _ := qs.GetOK("take")
-	if err := o.bindTake(qTake, qhkTake, route.Formats); err != nil {
-		res = append(res, err)
-	}
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
+    qTake, qhkTake, _ := qs.GetOK("take")
+    if err := o.bindTake(qTake, qhkTake, route.Formats); err != nil {
+        res = append(res, err)
+    }
+    if len(res) > 0 {
+        return errors.CompositeValidationError(res...)
+    }
+    return nil
 }
 
 // bindFilterAllowDoubleLocks binds and validates parameter FilterAllowDoubleLocks from query.
 func (o *SecretsServiceSearchV2Params) bindFilterAllowDoubleLocks(rawData []string, hasKey bool, formats strfmt.Registry) error {
-	var raw string
-	if len(rawData) > 0 {
-		raw = rawData[len(rawData)-1]
-	}
+    var raw string
+    if len(rawData) > 0 {
+        raw = rawData[len(rawData)-1]
+    }
 
-	// Required: false
-	// AllowEmptyValue: false
+    // Required: false
+    // AllowEmptyValue: false
 
-	if raw == "" { // empty values pass all other validations
-		return nil
-	}
+    if raw == "" { // empty values pass all other validations
+        return nil
+    }
 
-	value, err := swag.ConvertBool(raw)
-	if err != nil {
-		return errors.InvalidType("filter.allowDoubleLocks", "query", "bool", raw)
-	}
-	o.FilterAllowDoubleLocks = &value
+    value, err := swag.ConvertBool(raw)
+    if err != nil {
+        return errors.InvalidType("filter.allowDoubleLocks", "query", "bool", raw)
+    }
+    o.FilterAllowDoubleLocks = &value
 
-	return nil
+    return nil
 }
 
 // bindFilterDoNotCalculateTotal binds and validates parameter FilterDoNotCalculateTotal from query.
 func (o *SecretsServiceSearchV2Params) bindFilterDoNotCalculateTotal(rawData []string, hasKey bool, formats strfmt.Registry) error {
-	var raw string
-	if len(rawData) > 0 {
-		raw = rawData[len(rawData)-1]
-	}
+    var raw string
+    if len(rawData) > 0 {
+        raw = rawData[len(rawData)-1]
+    }
 
-	// Required: false
-	// AllowEmptyValue: false
+    // Required: false
+    // AllowEmptyValue: false
 
-	if raw == "" { // empty values pass all other validations
-		return nil
-	}
+    if raw == "" { // empty values pass all other validations
+        return nil
+    }
 
-	value, err := swag.ConvertBool(raw)
-	if err != nil {
-		return errors.InvalidType("filter.doNotCalculateTotal", "query", "bool", raw)
-	}
-	o.FilterDoNotCalculateTotal = &value
+    value, err := swag.ConvertBool(raw)
+    if err != nil {
+        return errors.InvalidType("filter.doNotCalculateTotal", "query", "bool", raw)
+    }
+    o.FilterDoNotCalculateTotal = &value
 
-	return nil
+    return nil
 }
 
 // bindFilterDoubleLockID binds and validates parameter FilterDoubleLockID from query.
 func (o *SecretsServiceSearchV2Params) bindFilterDoubleLockID(rawData []string, hasKey bool, formats strfmt.Registry) error {
-	var raw string
-	if len(rawData) > 0 {
-		raw = rawData[len(rawData)-1]
-	}
+    var raw string
+    if len(rawData) > 0 {
+        raw = rawData[len(rawData)-1]
+    }
 
-	// Required: false
-	// AllowEmptyValue: false
+    // Required: false
+    // AllowEmptyValue: false
 
-	if raw == "" { // empty values pass all other validations
-		return nil
-	}
+    if raw == "" { // empty values pass all other validations
+        return nil
+    }
 
-	value, err := swag.ConvertInt32(raw)
-	if err != nil {
-		return errors.InvalidType("filter.doubleLockId", "query", "int32", raw)
-	}
-	o.FilterDoubleLockID = &value
+    value, err := swag.ConvertInt32(raw)
+    if err != nil {
+        return errors.InvalidType("filter.doubleLockId", "query", "int32", raw)
+    }
+    o.FilterDoubleLockID = &value
 
-	return nil
+    return nil
 }
 
 // bindFilterExtFieldsCombined binds and validates parameter FilterExtFieldsCombined from query.
 func (o *SecretsServiceSearchV2Params) bindFilterExtFieldsCombined(rawData []string, hasKey bool, formats strfmt.Registry) error {
-	var raw string
-	if len(rawData) > 0 {
-		raw = rawData[len(rawData)-1]
-	}
+    var raw string
+    if len(rawData) > 0 {
+        raw = rawData[len(rawData)-1]
+    }
 
-	// Required: false
-	// AllowEmptyValue: false
+    // Required: false
+    // AllowEmptyValue: false
 
-	if raw == "" { // empty values pass all other validations
-		return nil
-	}
-	o.FilterExtFieldsCombined = &raw
+    if raw == "" { // empty values pass all other validations
+        return nil
+    }
+    o.FilterExtFieldsCombined = &raw
 
-	return nil
+    return nil
 }
 
 // bindFilterExtendedFields binds and validates array parameter FilterExtendedFields from query.
 //
 // Arrays are parsed according to CollectionFormat: "multi" (defaults to "csv" when empty).
 func (o *SecretsServiceSearchV2Params) bindFilterExtendedFields(rawData []string, hasKey bool, formats strfmt.Registry) error {
-	// CollectionFormat: multi
-	filterExtendedFieldsIC := rawData
-	if len(filterExtendedFieldsIC) == 0 {
-		return nil
-	}
+    // CollectionFormat: multi
+    filterExtendedFieldsIC := rawData
+    if len(filterExtendedFieldsIC) == 0 {
+        return nil
+    }
 
-	var filterExtendedFieldsIR []string
-	for _, filterExtendedFieldsIV := range filterExtendedFieldsIC {
-		filterExtendedFieldsI := filterExtendedFieldsIV
+    var filterExtendedFieldsIR []string
+    for _, filterExtendedFieldsIV := range filterExtendedFieldsIC {
+        filterExtendedFieldsI := filterExtendedFieldsIV
 
-		filterExtendedFieldsIR = append(filterExtendedFieldsIR, filterExtendedFieldsI)
-	}
+        filterExtendedFieldsIR = append(filterExtendedFieldsIR, filterExtendedFieldsI)
+    }
 
-	o.FilterExtendedFields = filterExtendedFieldsIR
+    o.FilterExtendedFields = filterExtendedFieldsIR
 
-	return nil
+    return nil
 }
 
 // bindFilterExtendedTypeID binds and validates parameter FilterExtendedTypeID from query.
 func (o *SecretsServiceSearchV2Params) bindFilterExtendedTypeID(rawData []string, hasKey bool, formats strfmt.Registry) error {
-	var raw string
-	if len(rawData) > 0 {
-		raw = rawData[len(rawData)-1]
-	}
+    var raw string
+    if len(rawData) > 0 {
+        raw = rawData[len(rawData)-1]
+    }
 
-	// Required: false
-	// AllowEmptyValue: false
+    // Required: false
+    // AllowEmptyValue: false
 
-	if raw == "" { // empty values pass all other validations
-		return nil
-	}
+    if raw == "" { // empty values pass all other validations
+        return nil
+    }
 
-	value, err := swag.ConvertInt32(raw)
-	if err != nil {
-		return errors.InvalidType("filter.extendedTypeId", "query", "int32", raw)
-	}
-	o.FilterExtendedTypeID = &value
+    value, err := swag.ConvertInt32(raw)
+    if err != nil {
+        return errors.InvalidType("filter.extendedTypeId", "query", "int32", raw)
+    }
+    o.FilterExtendedTypeID = &value
 
-	return nil
+    return nil
 }
 
 // bindFilterFolderID binds and validates parameter FilterFolderID from query.
 func (o *SecretsServiceSearchV2Params) bindFilterFolderID(rawData []string, hasKey bool, formats strfmt.Registry) error {
-	var raw string
-	if len(rawData) > 0 {
-		raw = rawData[len(rawData)-1]
-	}
+    var raw string
+    if len(rawData) > 0 {
+        raw = rawData[len(rawData)-1]
+    }
 
-	// Required: false
-	// AllowEmptyValue: false
+    // Required: false
+    // AllowEmptyValue: false
 
-	if raw == "" { // empty values pass all other validations
-		return nil
-	}
+    if raw == "" { // empty values pass all other validations
+        return nil
+    }
 
-	value, err := swag.ConvertInt32(raw)
-	if err != nil {
-		return errors.InvalidType("filter.folderId", "query", "int32", raw)
-	}
-	o.FilterFolderID = &value
+    value, err := swag.ConvertInt32(raw)
+    if err != nil {
+        return errors.InvalidType("filter.folderId", "query", "int32", raw)
+    }
+    o.FilterFolderID = &value
 
-	return nil
+    return nil
 }
 
 // bindFilterHasLauncher binds and validates parameter FilterHasLauncher from query.
 func (o *SecretsServiceSearchV2Params) bindFilterHasLauncher(rawData []string, hasKey bool, formats strfmt.Registry) error {
-	var raw string
-	if len(rawData) > 0 {
-		raw = rawData[len(rawData)-1]
-	}
+    var raw string
+    if len(rawData) > 0 {
+        raw = rawData[len(rawData)-1]
+    }
 
-	// Required: false
-	// AllowEmptyValue: false
+    // Required: false
+    // AllowEmptyValue: false
 
-	if raw == "" { // empty values pass all other validations
-		return nil
-	}
+    if raw == "" { // empty values pass all other validations
+        return nil
+    }
 
-	value, err := swag.ConvertBool(raw)
-	if err != nil {
-		return errors.InvalidType("filter.hasLauncher", "query", "bool", raw)
-	}
-	o.FilterHasLauncher = &value
+    value, err := swag.ConvertBool(raw)
+    if err != nil {
+        return errors.InvalidType("filter.hasLauncher", "query", "bool", raw)
+    }
+    o.FilterHasLauncher = &value
 
-	return nil
+    return nil
 }
 
 // bindFilterHeartbeatStatus binds and validates parameter FilterHeartbeatStatus from query.
 func (o *SecretsServiceSearchV2Params) bindFilterHeartbeatStatus(rawData []string, hasKey bool, formats strfmt.Registry) error {
-	var raw string
-	if len(rawData) > 0 {
-		raw = rawData[len(rawData)-1]
-	}
+    var raw string
+    if len(rawData) > 0 {
+        raw = rawData[len(rawData)-1]
+    }
 
-	// Required: false
-	// AllowEmptyValue: false
+    // Required: false
+    // AllowEmptyValue: false
 
-	if raw == "" { // empty values pass all other validations
-		return nil
-	}
-	o.FilterHeartbeatStatus = &raw
+    if raw == "" { // empty values pass all other validations
+        return nil
+    }
+    o.FilterHeartbeatStatus = &raw
 
-	return nil
+    return nil
 }
 
 // bindFilterIncludeActive binds and validates parameter FilterIncludeActive from query.
 func (o *SecretsServiceSearchV2Params) bindFilterIncludeActive(rawData []string, hasKey bool, formats strfmt.Registry) error {
-	var raw string
-	if len(rawData) > 0 {
-		raw = rawData[len(rawData)-1]
-	}
+    var raw string
+    if len(rawData) > 0 {
+        raw = rawData[len(rawData)-1]
+    }
 
-	// Required: false
-	// AllowEmptyValue: false
+    // Required: false
+    // AllowEmptyValue: false
 
-	if raw == "" { // empty values pass all other validations
-		return nil
-	}
+    if raw == "" { // empty values pass all other validations
+        return nil
+    }
 
-	value, err := swag.ConvertBool(raw)
-	if err != nil {
-		return errors.InvalidType("filter.includeActive", "query", "bool", raw)
-	}
-	o.FilterIncludeActive = &value
+    value, err := swag.ConvertBool(raw)
+    if err != nil {
+        return errors.InvalidType("filter.includeActive", "query", "bool", raw)
+    }
+    o.FilterIncludeActive = &value
 
-	return nil
+    return nil
 }
 
 // bindFilterIncludeInactive binds and validates parameter FilterIncludeInactive from query.
 func (o *SecretsServiceSearchV2Params) bindFilterIncludeInactive(rawData []string, hasKey bool, formats strfmt.Registry) error {
-	var raw string
-	if len(rawData) > 0 {
-		raw = rawData[len(rawData)-1]
-	}
+    var raw string
+    if len(rawData) > 0 {
+        raw = rawData[len(rawData)-1]
+    }
 
-	// Required: false
-	// AllowEmptyValue: false
+    // Required: false
+    // AllowEmptyValue: false
 
-	if raw == "" { // empty values pass all other validations
-		return nil
-	}
+    if raw == "" { // empty values pass all other validations
+        return nil
+    }
 
-	value, err := swag.ConvertBool(raw)
-	if err != nil {
-		return errors.InvalidType("filter.includeInactive", "query", "bool", raw)
-	}
-	o.FilterIncludeInactive = &value
+    value, err := swag.ConvertBool(raw)
+    if err != nil {
+        return errors.InvalidType("filter.includeInactive", "query", "bool", raw)
+    }
+    o.FilterIncludeInactive = &value
 
-	return nil
+    return nil
 }
 
 // bindFilterIncludeRestricted binds and validates parameter FilterIncludeRestricted from query.
 func (o *SecretsServiceSearchV2Params) bindFilterIncludeRestricted(rawData []string, hasKey bool, formats strfmt.Registry) error {
-	var raw string
-	if len(rawData) > 0 {
-		raw = rawData[len(rawData)-1]
-	}
+    var raw string
+    if len(rawData) > 0 {
+        raw = rawData[len(rawData)-1]
+    }
 
-	// Required: false
-	// AllowEmptyValue: false
+    // Required: false
+    // AllowEmptyValue: false
 
-	if raw == "" { // empty values pass all other validations
-		return nil
-	}
+    if raw == "" { // empty values pass all other validations
+        return nil
+    }
 
-	value, err := swag.ConvertBool(raw)
-	if err != nil {
-		return errors.InvalidType("filter.includeRestricted", "query", "bool", raw)
-	}
-	o.FilterIncludeRestricted = &value
+    value, err := swag.ConvertBool(raw)
+    if err != nil {
+        return errors.InvalidType("filter.includeRestricted", "query", "bool", raw)
+    }
+    o.FilterIncludeRestricted = &value
 
-	return nil
+    return nil
 }
 
 // bindFilterIncludeSubFolders binds and validates parameter FilterIncludeSubFolders from query.
 func (o *SecretsServiceSearchV2Params) bindFilterIncludeSubFolders(rawData []string, hasKey bool, formats strfmt.Registry) error {
-	var raw string
-	if len(rawData) > 0 {
-		raw = rawData[len(rawData)-1]
-	}
+    var raw string
+    if len(rawData) > 0 {
+        raw = rawData[len(rawData)-1]
+    }
 
-	// Required: false
-	// AllowEmptyValue: false
+    // Required: false
+    // AllowEmptyValue: false
 
-	if raw == "" { // empty values pass all other validations
-		return nil
-	}
+    if raw == "" { // empty values pass all other validations
+        return nil
+    }
 
-	value, err := swag.ConvertBool(raw)
-	if err != nil {
-		return errors.InvalidType("filter.includeSubFolders", "query", "bool", raw)
-	}
-	o.FilterIncludeSubFolders = &value
+    value, err := swag.ConvertBool(raw)
+    if err != nil {
+        return errors.InvalidType("filter.includeSubFolders", "query", "bool", raw)
+    }
+    o.FilterIncludeSubFolders = &value
 
-	return nil
+    return nil
 }
 
 // bindFilterIsExactMatch binds and validates parameter FilterIsExactMatch from query.
 func (o *SecretsServiceSearchV2Params) bindFilterIsExactMatch(rawData []string, hasKey bool, formats strfmt.Registry) error {
-	var raw string
-	if len(rawData) > 0 {
-		raw = rawData[len(rawData)-1]
-	}
+    var raw string
+    if len(rawData) > 0 {
+        raw = rawData[len(rawData)-1]
+    }
 
-	// Required: false
-	// AllowEmptyValue: false
+    // Required: false
+    // AllowEmptyValue: false
 
-	if raw == "" { // empty values pass all other validations
-		return nil
-	}
+    if raw == "" { // empty values pass all other validations
+        return nil
+    }
 
-	value, err := swag.ConvertBool(raw)
-	if err != nil {
-		return errors.InvalidType("filter.isExactMatch", "query", "bool", raw)
-	}
-	o.FilterIsExactMatch = &value
+    value, err := swag.ConvertBool(raw)
+    if err != nil {
+        return errors.InvalidType("filter.isExactMatch", "query", "bool", raw)
+    }
+    o.FilterIsExactMatch = &value
 
-	return nil
+    return nil
 }
 
 // bindFilterOnlyCheckedOutSecrets binds and validates parameter FilterOnlyCheckedOutSecrets from query.
 func (o *SecretsServiceSearchV2Params) bindFilterOnlyCheckedOutSecrets(rawData []string, hasKey bool, formats strfmt.Registry) error {
-	var raw string
-	if len(rawData) > 0 {
-		raw = rawData[len(rawData)-1]
-	}
+    var raw string
+    if len(rawData) > 0 {
+        raw = rawData[len(rawData)-1]
+    }
 
-	// Required: false
-	// AllowEmptyValue: false
+    // Required: false
+    // AllowEmptyValue: false
 
-	if raw == "" { // empty values pass all other validations
-		return nil
-	}
+    if raw == "" { // empty values pass all other validations
+        return nil
+    }
 
-	value, err := swag.ConvertBool(raw)
-	if err != nil {
-		return errors.InvalidType("filter.onlyCheckedOutSecrets", "query", "bool", raw)
-	}
-	o.FilterOnlyCheckedOutSecrets = &value
+    value, err := swag.ConvertBool(raw)
+    if err != nil {
+        return errors.InvalidType("filter.onlyCheckedOutSecrets", "query", "bool", raw)
+    }
+    o.FilterOnlyCheckedOutSecrets = &value
 
-	return nil
+    return nil
 }
 
 // bindFilterOnlyRPCEnabled binds and validates parameter FilterOnlyRPCEnabled from query.
 func (o *SecretsServiceSearchV2Params) bindFilterOnlyRPCEnabled(rawData []string, hasKey bool, formats strfmt.Registry) error {
-	var raw string
-	if len(rawData) > 0 {
-		raw = rawData[len(rawData)-1]
-	}
+    var raw string
+    if len(rawData) > 0 {
+        raw = rawData[len(rawData)-1]
+    }
 
-	// Required: false
-	// AllowEmptyValue: false
+    // Required: false
+    // AllowEmptyValue: false
 
-	if raw == "" { // empty values pass all other validations
-		return nil
-	}
+    if raw == "" { // empty values pass all other validations
+        return nil
+    }
 
-	value, err := swag.ConvertBool(raw)
-	if err != nil {
-		return errors.InvalidType("filter.onlyRPCEnabled", "query", "bool", raw)
-	}
-	o.FilterOnlyRPCEnabled = &value
+    value, err := swag.ConvertBool(raw)
+    if err != nil {
+        return errors.InvalidType("filter.onlyRPCEnabled", "query", "bool", raw)
+    }
+    o.FilterOnlyRPCEnabled = &value
 
-	return nil
+    return nil
 }
 
 // bindFilterOnlySecretsCheckedOutByUser binds and validates parameter FilterOnlySecretsCheckedOutByUser from query.
 func (o *SecretsServiceSearchV2Params) bindFilterOnlySecretsCheckedOutByUser(rawData []string, hasKey bool, formats strfmt.Registry) error {
-	var raw string
-	if len(rawData) > 0 {
-		raw = rawData[len(rawData)-1]
-	}
+    var raw string
+    if len(rawData) > 0 {
+        raw = rawData[len(rawData)-1]
+    }
 
-	// Required: false
-	// AllowEmptyValue: false
+    // Required: false
+    // AllowEmptyValue: false
 
-	if raw == "" { // empty values pass all other validations
-		return nil
-	}
+    if raw == "" { // empty values pass all other validations
+        return nil
+    }
 
-	value, err := swag.ConvertBool(raw)
-	if err != nil {
-		return errors.InvalidType("filter.onlySecretsCheckedOutByUser", "query", "bool", raw)
-	}
-	o.FilterOnlySecretsCheckedOutByUser = &value
+    value, err := swag.ConvertBool(raw)
+    if err != nil {
+        return errors.InvalidType("filter.onlySecretsCheckedOutByUser", "query", "bool", raw)
+    }
+    o.FilterOnlySecretsCheckedOutByUser = &value
 
-	return nil
+    return nil
 }
 
 // bindFilterOnlySharedWithMe binds and validates parameter FilterOnlySharedWithMe from query.
 func (o *SecretsServiceSearchV2Params) bindFilterOnlySharedWithMe(rawData []string, hasKey bool, formats strfmt.Registry) error {
-	var raw string
-	if len(rawData) > 0 {
-		raw = rawData[len(rawData)-1]
-	}
+    var raw string
+    if len(rawData) > 0 {
+        raw = rawData[len(rawData)-1]
+    }
 
-	// Required: false
-	// AllowEmptyValue: false
+    // Required: false
+    // AllowEmptyValue: false
 
-	if raw == "" { // empty values pass all other validations
-		return nil
-	}
+    if raw == "" { // empty values pass all other validations
+        return nil
+    }
 
-	value, err := swag.ConvertBool(raw)
-	if err != nil {
-		return errors.InvalidType("filter.onlySharedWithMe", "query", "bool", raw)
-	}
-	o.FilterOnlySharedWithMe = &value
+    value, err := swag.ConvertBool(raw)
+    if err != nil {
+        return errors.InvalidType("filter.onlySharedWithMe", "query", "bool", raw)
+    }
+    o.FilterOnlySharedWithMe = &value
 
-	return nil
+    return nil
 }
 
 // bindFilterPasswordTypeIds binds and validates array parameter FilterPasswordTypeIds from query.
 //
 // Arrays are parsed according to CollectionFormat: "multi" (defaults to "csv" when empty).
 func (o *SecretsServiceSearchV2Params) bindFilterPasswordTypeIds(rawData []string, hasKey bool, formats strfmt.Registry) error {
-	// CollectionFormat: multi
-	filterPasswordTypeIdsIC := rawData
-	if len(filterPasswordTypeIdsIC) == 0 {
-		return nil
-	}
+    // CollectionFormat: multi
+    filterPasswordTypeIdsIC := rawData
+    if len(filterPasswordTypeIdsIC) == 0 {
+        return nil
+    }
 
-	var filterPasswordTypeIdsIR []int64
-	for i, filterPasswordTypeIdsIV := range filterPasswordTypeIdsIC {
-		filterPasswordTypeIdsI, err := swag.ConvertInt64(filterPasswordTypeIdsIV)
-		if err != nil {
-			return errors.InvalidType(fmt.Sprintf("%s.%v", "filter.passwordTypeIds", i), "query", "int64", filterPasswordTypeIdsI)
-		}
+    var filterPasswordTypeIdsIR []int64
+    for i, filterPasswordTypeIdsIV := range filterPasswordTypeIdsIC {
+        filterPasswordTypeIdsI, err := swag.ConvertInt64(filterPasswordTypeIdsIV)
+        if err != nil {
+            return errors.InvalidType(fmt.Sprintf("%s.%v", "filter.passwordTypeIds", i), "query", "int64", filterPasswordTypeIdsI)
+        }
 
-		filterPasswordTypeIdsIR = append(filterPasswordTypeIdsIR, filterPasswordTypeIdsI)
-	}
+        filterPasswordTypeIdsIR = append(filterPasswordTypeIdsIR, filterPasswordTypeIdsI)
+    }
 
-	o.FilterPasswordTypeIds = filterPasswordTypeIdsIR
+    o.FilterPasswordTypeIds = filterPasswordTypeIdsIR
 
-	return nil
+    return nil
 }
 
 // bindFilterPermissionRequired binds and validates parameter FilterPermissionRequired from query.
 func (o *SecretsServiceSearchV2Params) bindFilterPermissionRequired(rawData []string, hasKey bool, formats strfmt.Registry) error {
-	var raw string
-	if len(rawData) > 0 {
-		raw = rawData[len(rawData)-1]
-	}
+    var raw string
+    if len(rawData) > 0 {
+        raw = rawData[len(rawData)-1]
+    }
 
-	// Required: false
-	// AllowEmptyValue: false
+    // Required: false
+    // AllowEmptyValue: false
 
-	if raw == "" { // empty values pass all other validations
-		return nil
-	}
-	o.FilterPermissionRequired = &raw
+    if raw == "" { // empty values pass all other validations
+        return nil
+    }
+    o.FilterPermissionRequired = &raw
 
-	return nil
+    return nil
 }
 
 // bindFilterScope binds and validates parameter FilterScope from query.
 func (o *SecretsServiceSearchV2Params) bindFilterScope(rawData []string, hasKey bool, formats strfmt.Registry) error {
-	var raw string
-	if len(rawData) > 0 {
-		raw = rawData[len(rawData)-1]
-	}
+    var raw string
+    if len(rawData) > 0 {
+        raw = rawData[len(rawData)-1]
+    }
 
-	// Required: false
-	// AllowEmptyValue: false
+    // Required: false
+    // AllowEmptyValue: false
 
-	if raw == "" { // empty values pass all other validations
-		return nil
-	}
-	o.FilterScope = &raw
+    if raw == "" { // empty values pass all other validations
+        return nil
+    }
+    o.FilterScope = &raw
 
-	return nil
+    return nil
 }
 
 // bindFilterSearchField binds and validates parameter FilterSearchField from query.
 func (o *SecretsServiceSearchV2Params) bindFilterSearchField(rawData []string, hasKey bool, formats strfmt.Registry) error {
-	var raw string
-	if len(rawData) > 0 {
-		raw = rawData[len(rawData)-1]
-	}
+    var raw string
+    if len(rawData) > 0 {
+        raw = rawData[len(rawData)-1]
+    }
 
-	// Required: false
-	// AllowEmptyValue: false
+    // Required: false
+    // AllowEmptyValue: false
 
-	if raw == "" { // empty values pass all other validations
-		return nil
-	}
-	o.FilterSearchField = &raw
+    if raw == "" { // empty values pass all other validations
+        return nil
+    }
+    o.FilterSearchField = &raw
 
-	return nil
+    return nil
 }
 
 // bindFilterSearchFieldSlug binds and validates parameter FilterSearchFieldSlug from query.
 func (o *SecretsServiceSearchV2Params) bindFilterSearchFieldSlug(rawData []string, hasKey bool, formats strfmt.Registry) error {
-	var raw string
-	if len(rawData) > 0 {
-		raw = rawData[len(rawData)-1]
-	}
+    var raw string
+    if len(rawData) > 0 {
+        raw = rawData[len(rawData)-1]
+    }
 
-	// Required: false
-	// AllowEmptyValue: false
+    // Required: false
+    // AllowEmptyValue: false
 
-	if raw == "" { // empty values pass all other validations
-		return nil
-	}
-	o.FilterSearchFieldSlug = &raw
+    if raw == "" { // empty values pass all other validations
+        return nil
+    }
+    o.FilterSearchFieldSlug = &raw
 
-	return nil
+    return nil
 }
 
 // bindFilterSearchText binds and validates parameter FilterSearchText from query.
 func (o *SecretsServiceSearchV2Params) bindFilterSearchText(rawData []string, hasKey bool, formats strfmt.Registry) error {
-	var raw string
-	if len(rawData) > 0 {
-		raw = rawData[len(rawData)-1]
-	}
+    var raw string
+    if len(rawData) > 0 {
+        raw = rawData[len(rawData)-1]
+    }
 
-	// Required: false
-	// AllowEmptyValue: false
+    // Required: false
+    // AllowEmptyValue: false
 
-	if raw == "" { // empty values pass all other validations
-		return nil
-	}
-	o.FilterSearchText = &raw
+    if raw == "" { // empty values pass all other validations
+        return nil
+    }
+    o.FilterSearchText = &raw
 
-	return nil
+    return nil
 }
 
 // bindFilterSecretIds binds and validates array parameter FilterSecretIds from query.
 //
 // Arrays are parsed according to CollectionFormat: "multi" (defaults to "csv" when empty).
 func (o *SecretsServiceSearchV2Params) bindFilterSecretIds(rawData []string, hasKey bool, formats strfmt.Registry) error {
-	// CollectionFormat: multi
-	filterSecretIdsIC := rawData
-	if len(filterSecretIdsIC) == 0 {
-		return nil
-	}
+    // CollectionFormat: multi
+    filterSecretIdsIC := rawData
+    if len(filterSecretIdsIC) == 0 {
+        return nil
+    }
 
-	var filterSecretIdsIR []int64
-	for i, filterSecretIdsIV := range filterSecretIdsIC {
-		filterSecretIdsI, err := swag.ConvertInt64(filterSecretIdsIV)
-		if err != nil {
-			return errors.InvalidType(fmt.Sprintf("%s.%v", "filter.secretIds", i), "query", "int64", filterSecretIdsI)
-		}
+    var filterSecretIdsIR []int64
+    for i, filterSecretIdsIV := range filterSecretIdsIC {
+        filterSecretIdsI, err := swag.ConvertInt64(filterSecretIdsIV)
+        if err != nil {
+            return errors.InvalidType(fmt.Sprintf("%s.%v", "filter.secretIds", i), "query", "int64", filterSecretIdsI)
+        }
 
-		filterSecretIdsIR = append(filterSecretIdsIR, filterSecretIdsI)
-	}
+        filterSecretIdsIR = append(filterSecretIdsIR, filterSecretIdsI)
+    }
 
-	o.FilterSecretIds = filterSecretIdsIR
+    o.FilterSecretIds = filterSecretIdsIR
 
-	return nil
+    return nil
 }
 
 // bindFilterSecretTemplateIds binds and validates array parameter FilterSecretTemplateIds from query.
 //
 // Arrays are parsed according to CollectionFormat: "multi" (defaults to "csv" when empty).
 func (o *SecretsServiceSearchV2Params) bindFilterSecretTemplateIds(rawData []string, hasKey bool, formats strfmt.Registry) error {
-	// CollectionFormat: multi
-	filterSecretTemplateIdsIC := rawData
-	if len(filterSecretTemplateIdsIC) == 0 {
-		return nil
-	}
+    // CollectionFormat: multi
+    filterSecretTemplateIdsIC := rawData
+    if len(filterSecretTemplateIdsIC) == 0 {
+        return nil
+    }
 
-	var filterSecretTemplateIdsIR []int64
-	for i, filterSecretTemplateIdsIV := range filterSecretTemplateIdsIC {
-		filterSecretTemplateIdsI, err := swag.ConvertInt64(filterSecretTemplateIdsIV)
-		if err != nil {
-			return errors.InvalidType(fmt.Sprintf("%s.%v", "filter.secretTemplateIds", i), "query", "int64", filterSecretTemplateIdsI)
-		}
+    var filterSecretTemplateIdsIR []int64
+    for i, filterSecretTemplateIdsIV := range filterSecretTemplateIdsIC {
+        filterSecretTemplateIdsI, err := swag.ConvertInt64(filterSecretTemplateIdsIV)
+        if err != nil {
+            return errors.InvalidType(fmt.Sprintf("%s.%v", "filter.secretTemplateIds", i), "query", "int64", filterSecretTemplateIdsI)
+        }
 
-		filterSecretTemplateIdsIR = append(filterSecretTemplateIdsIR, filterSecretTemplateIdsI)
-	}
+        filterSecretTemplateIdsIR = append(filterSecretTemplateIdsIR, filterSecretTemplateIdsI)
+    }
 
-	o.FilterSecretTemplateIds = filterSecretTemplateIdsIR
+    o.FilterSecretTemplateIds = filterSecretTemplateIdsIR
 
-	return nil
+    return nil
 }
 
 // bindFilterSecretTemplateIdsCombined binds and validates parameter FilterSecretTemplateIdsCombined from query.
 func (o *SecretsServiceSearchV2Params) bindFilterSecretTemplateIdsCombined(rawData []string, hasKey bool, formats strfmt.Registry) error {
-	var raw string
-	if len(rawData) > 0 {
-		raw = rawData[len(rawData)-1]
-	}
+    var raw string
+    if len(rawData) > 0 {
+        raw = rawData[len(rawData)-1]
+    }
 
-	// Required: false
-	// AllowEmptyValue: false
+    // Required: false
+    // AllowEmptyValue: false
 
-	if raw == "" { // empty values pass all other validations
-		return nil
-	}
-	o.FilterSecretTemplateIdsCombined = &raw
+    if raw == "" { // empty values pass all other validations
+        return nil
+    }
+    o.FilterSecretTemplateIdsCombined = &raw
 
-	return nil
+    return nil
 }
 
 // bindFilterSiteID binds and validates parameter FilterSiteID from query.
 func (o *SecretsServiceSearchV2Params) bindFilterSiteID(rawData []string, hasKey bool, formats strfmt.Registry) error {
-	var raw string
-	if len(rawData) > 0 {
-		raw = rawData[len(rawData)-1]
-	}
+    var raw string
+    if len(rawData) > 0 {
+        raw = rawData[len(rawData)-1]
+    }
 
-	// Required: false
-	// AllowEmptyValue: false
+    // Required: false
+    // AllowEmptyValue: false
 
-	if raw == "" { // empty values pass all other validations
-		return nil
-	}
+    if raw == "" { // empty values pass all other validations
+        return nil
+    }
 
-	value, err := swag.ConvertInt32(raw)
-	if err != nil {
-		return errors.InvalidType("filter.siteId", "query", "int32", raw)
-	}
-	o.FilterSiteID = &value
+    value, err := swag.ConvertInt32(raw)
+    if err != nil {
+        return errors.InvalidType("filter.siteId", "query", "int32", raw)
+    }
+    o.FilterSiteID = &value
 
-	return nil
+    return nil
 }
 
 // bindSkip binds and validates parameter Skip from query.
 func (o *SecretsServiceSearchV2Params) bindSkip(rawData []string, hasKey bool, formats strfmt.Registry) error {
-	var raw string
-	if len(rawData) > 0 {
-		raw = rawData[len(rawData)-1]
-	}
+    var raw string
+    if len(rawData) > 0 {
+        raw = rawData[len(rawData)-1]
+    }
 
-	// Required: false
-	// AllowEmptyValue: false
+    // Required: false
+    // AllowEmptyValue: false
 
-	if raw == "" { // empty values pass all other validations
-		return nil
-	}
+    if raw == "" { // empty values pass all other validations
+        return nil
+    }
 
-	value, err := swag.ConvertInt32(raw)
-	if err != nil {
-		return errors.InvalidType("skip", "query", "int32", raw)
-	}
-	o.Skip = &value
+    value, err := swag.ConvertInt32(raw)
+    if err != nil {
+        return errors.InvalidType("skip", "query", "int32", raw)
+    }
+    o.Skip = &value
 
-	return nil
+    return nil
 }
 
 // bindSortBy0Direction binds and validates parameter SortBy0Direction from query.
 func (o *SecretsServiceSearchV2Params) bindSortBy0Direction(rawData []string, hasKey bool, formats strfmt.Registry) error {
-	var raw string
-	if len(rawData) > 0 {
-		raw = rawData[len(rawData)-1]
-	}
+    var raw string
+    if len(rawData) > 0 {
+        raw = rawData[len(rawData)-1]
+    }
 
-	// Required: false
-	// AllowEmptyValue: false
+    // Required: false
+    // AllowEmptyValue: false
 
-	if raw == "" { // empty values pass all other validations
-		return nil
-	}
-	o.SortBy0Direction = &raw
+    if raw == "" { // empty values pass all other validations
+        return nil
+    }
+    o.SortBy0Direction = &raw
 
-	return nil
+    return nil
 }
 
 // bindSortBy0Name binds and validates parameter SortBy0Name from query.
 func (o *SecretsServiceSearchV2Params) bindSortBy0Name(rawData []string, hasKey bool, formats strfmt.Registry) error {
-	var raw string
-	if len(rawData) > 0 {
-		raw = rawData[len(rawData)-1]
-	}
+    var raw string
+    if len(rawData) > 0 {
+        raw = rawData[len(rawData)-1]
+    }
 
-	// Required: false
-	// AllowEmptyValue: false
+    // Required: false
+    // AllowEmptyValue: false
 
-	if raw == "" { // empty values pass all other validations
-		return nil
-	}
-	o.SortBy0Name = &raw
+    if raw == "" { // empty values pass all other validations
+        return nil
+    }
+    o.SortBy0Name = &raw
 
-	return nil
+    return nil
 }
 
 // bindSortBy0Priority binds and validates parameter SortBy0Priority from query.
 func (o *SecretsServiceSearchV2Params) bindSortBy0Priority(rawData []string, hasKey bool, formats strfmt.Registry) error {
-	var raw string
-	if len(rawData) > 0 {
-		raw = rawData[len(rawData)-1]
-	}
+    var raw string
+    if len(rawData) > 0 {
+        raw = rawData[len(rawData)-1]
+    }
 
-	// Required: false
-	// AllowEmptyValue: false
+    // Required: false
+    // AllowEmptyValue: false
 
-	if raw == "" { // empty values pass all other validations
-		return nil
-	}
+    if raw == "" { // empty values pass all other validations
+        return nil
+    }
 
-	value, err := swag.ConvertInt32(raw)
-	if err != nil {
-		return errors.InvalidType("sortBy[0].priority", "query", "int32", raw)
-	}
-	o.SortBy0Priority = &value
+    value, err := swag.ConvertInt32(raw)
+    if err != nil {
+        return errors.InvalidType("sortBy[0].priority", "query", "int32", raw)
+    }
+    o.SortBy0Priority = &value
 
-	return nil
+    return nil
 }
 
 // bindTake binds and validates parameter Take from query.
 func (o *SecretsServiceSearchV2Params) bindTake(rawData []string, hasKey bool, formats strfmt.Registry) error {
-	var raw string
-	if len(rawData) > 0 {
-		raw = rawData[len(rawData)-1]
-	}
+    var raw string
+    if len(rawData) > 0 {
+        raw = rawData[len(rawData)-1]
+    }
 
-	// Required: false
-	// AllowEmptyValue: false
+    // Required: false
+    // AllowEmptyValue: false
 
-	if raw == "" { // empty values pass all other validations
-		return nil
-	}
+    if raw == "" { // empty values pass all other validations
+        return nil
+    }
 
-	value, err := swag.ConvertInt32(raw)
-	if err != nil {
-		return errors.InvalidType("take", "query", "int32", raw)
-	}
-	o.Take = &value
+    value, err := swag.ConvertInt32(raw)
+    if err != nil {
+        return errors.InvalidType("take", "query", "int32", raw)
+    }
+    o.Take = &value
 
-	return nil
+    return nil
 }

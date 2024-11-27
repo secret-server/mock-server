@@ -6,11 +6,11 @@ package secrets
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"net/http"
+    "net/http"
 
-	"github.com/go-openapi/runtime"
+    "github.com/go-openapi/runtime"
 
-	"github.com/secret-server/mock-server/models"
+    "github.com/secret-server/mock-server/models"
 )
 
 // SecretsServiceGetListFieldOKCode is the HTTP code returned for type SecretsServiceGetListFieldOK
@@ -23,39 +23,39 @@ swagger:response secretsServiceGetListFieldOK
 */
 type SecretsServiceGetListFieldOK struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.CategorizedListItemValueResult `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.CategorizedListItemValueResult `json:"body,omitempty"`
 }
 
 // NewSecretsServiceGetListFieldOK creates SecretsServiceGetListFieldOK with default headers values
 func NewSecretsServiceGetListFieldOK() *SecretsServiceGetListFieldOK {
 
-	return &SecretsServiceGetListFieldOK{}
+    return &SecretsServiceGetListFieldOK{}
 }
 
 // WithPayload adds the payload to the secrets service get list field o k response
 func (o *SecretsServiceGetListFieldOK) WithPayload(payload *models.CategorizedListItemValueResult) *SecretsServiceGetListFieldOK {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the secrets service get list field o k response
 func (o *SecretsServiceGetListFieldOK) SetPayload(payload *models.CategorizedListItemValueResult) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *SecretsServiceGetListFieldOK) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(200)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(200)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }
 
 // SecretsServiceGetListFieldBadRequestCode is the HTTP code returned for type SecretsServiceGetListFieldBadRequest
@@ -68,39 +68,39 @@ swagger:response secretsServiceGetListFieldBadRequest
 */
 type SecretsServiceGetListFieldBadRequest struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.BadRequestResponse `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.BadRequestResponse `json:"body,omitempty"`
 }
 
 // NewSecretsServiceGetListFieldBadRequest creates SecretsServiceGetListFieldBadRequest with default headers values
 func NewSecretsServiceGetListFieldBadRequest() *SecretsServiceGetListFieldBadRequest {
 
-	return &SecretsServiceGetListFieldBadRequest{}
+    return &SecretsServiceGetListFieldBadRequest{}
 }
 
 // WithPayload adds the payload to the secrets service get list field bad request response
 func (o *SecretsServiceGetListFieldBadRequest) WithPayload(payload *models.BadRequestResponse) *SecretsServiceGetListFieldBadRequest {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the secrets service get list field bad request response
 func (o *SecretsServiceGetListFieldBadRequest) SetPayload(payload *models.BadRequestResponse) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *SecretsServiceGetListFieldBadRequest) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(400)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(400)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }
 
 // SecretsServiceGetListFieldForbiddenCode is the HTTP code returned for type SecretsServiceGetListFieldForbidden
@@ -113,39 +113,39 @@ swagger:response secretsServiceGetListFieldForbidden
 */
 type SecretsServiceGetListFieldForbidden struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.AuthenticationFailedResponse `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.AuthenticationFailedResponse `json:"body,omitempty"`
 }
 
 // NewSecretsServiceGetListFieldForbidden creates SecretsServiceGetListFieldForbidden with default headers values
 func NewSecretsServiceGetListFieldForbidden() *SecretsServiceGetListFieldForbidden {
 
-	return &SecretsServiceGetListFieldForbidden{}
+    return &SecretsServiceGetListFieldForbidden{}
 }
 
 // WithPayload adds the payload to the secrets service get list field forbidden response
 func (o *SecretsServiceGetListFieldForbidden) WithPayload(payload *models.AuthenticationFailedResponse) *SecretsServiceGetListFieldForbidden {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the secrets service get list field forbidden response
 func (o *SecretsServiceGetListFieldForbidden) SetPayload(payload *models.AuthenticationFailedResponse) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *SecretsServiceGetListFieldForbidden) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(403)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(403)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }
 
 // SecretsServiceGetListFieldInternalServerErrorCode is the HTTP code returned for type SecretsServiceGetListFieldInternalServerError
@@ -158,37 +158,37 @@ swagger:response secretsServiceGetListFieldInternalServerError
 */
 type SecretsServiceGetListFieldInternalServerError struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.InternalServerErrorResponse `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.InternalServerErrorResponse `json:"body,omitempty"`
 }
 
 // NewSecretsServiceGetListFieldInternalServerError creates SecretsServiceGetListFieldInternalServerError with default headers values
 func NewSecretsServiceGetListFieldInternalServerError() *SecretsServiceGetListFieldInternalServerError {
 
-	return &SecretsServiceGetListFieldInternalServerError{}
+    return &SecretsServiceGetListFieldInternalServerError{}
 }
 
 // WithPayload adds the payload to the secrets service get list field internal server error response
 func (o *SecretsServiceGetListFieldInternalServerError) WithPayload(payload *models.InternalServerErrorResponse) *SecretsServiceGetListFieldInternalServerError {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the secrets service get list field internal server error response
 func (o *SecretsServiceGetListFieldInternalServerError) SetPayload(payload *models.InternalServerErrorResponse) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *SecretsServiceGetListFieldInternalServerError) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(500)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(500)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }

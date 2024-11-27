@@ -6,16 +6,16 @@ package users
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"net/http"
+    "net/http"
 
-	"github.com/go-openapi/errors"
-	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/runtime/middleware"
-	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
+    "github.com/go-openapi/errors"
+    "github.com/go-openapi/runtime"
+    "github.com/go-openapi/runtime/middleware"
+    "github.com/go-openapi/strfmt"
+    "github.com/go-openapi/swag"
+    "github.com/go-openapi/validate"
 
-	"github.com/secret-server/mock-server/models"
+    "github.com/secret-server/mock-server/models"
 )
 
 // NewUsersServiceUpdateUserRolesParams creates a new UsersServiceUpdateUserRolesParams object
@@ -23,7 +23,7 @@ import (
 // There are no default values defined in the spec.
 func NewUsersServiceUpdateUserRolesParams() UsersServiceUpdateUserRolesParams {
 
-	return UsersServiceUpdateUserRolesParams{}
+    return UsersServiceUpdateUserRolesParams{}
 }
 
 // UsersServiceUpdateUserRolesParams contains all the bound params for the users service update user roles operation
@@ -32,18 +32,18 @@ func NewUsersServiceUpdateUserRolesParams() UsersServiceUpdateUserRolesParams {
 // swagger:parameters UsersService_UpdateUserRoles
 type UsersServiceUpdateUserRolesParams struct {
 
-	// HTTP Request Object
-	HTTPRequest *http.Request `json:"-"`
+    // HTTP Request Object
+    HTTPRequest *http.Request `json:"-"`
 
-	/*args
-	  In: body
-	*/
-	Args *models.RoleAssignments
-	/*id
-	  Required: true
-	  In: path
-	*/
-	ID int32
+    /*args
+      In: body
+    */
+    Args *models.RoleAssignments
+    /*id
+      Required: true
+      In: path
+    */
+    ID int32
 }
 
 // BindRequest both binds and validates a request, it assumes that complex things implement a Validatable(strfmt.Registry) error interface
@@ -51,57 +51,57 @@ type UsersServiceUpdateUserRolesParams struct {
 //
 // To ensure default values, the struct must have been initialized with NewUsersServiceUpdateUserRolesParams() beforehand.
 func (o *UsersServiceUpdateUserRolesParams) BindRequest(r *http.Request, route *middleware.MatchedRoute) error {
-	var res []error
+    var res []error
 
-	o.HTTPRequest = r
+    o.HTTPRequest = r
 
-	if runtime.HasBody(r) {
-		defer r.Body.Close()
-		var body models.RoleAssignments
-		if err := route.Consumer.Consume(r.Body, &body); err != nil {
-			res = append(res, errors.NewParseError("args", "body", "", err))
-		} else {
-			// validate body object
-			if err := body.Validate(route.Formats); err != nil {
-				res = append(res, err)
-			}
+    if runtime.HasBody(r) {
+        defer r.Body.Close()
+        var body models.RoleAssignments
+        if err := route.Consumer.Consume(r.Body, &body); err != nil {
+            res = append(res, errors.NewParseError("args", "body", "", err))
+        } else {
+            // validate body object
+            if err := body.Validate(route.Formats); err != nil {
+                res = append(res, err)
+            }
 
-			ctx := validate.WithOperationRequest(r.Context())
-			if err := body.ContextValidate(ctx, route.Formats); err != nil {
-				res = append(res, err)
-			}
+            ctx := validate.WithOperationRequest(r.Context())
+            if err := body.ContextValidate(ctx, route.Formats); err != nil {
+                res = append(res, err)
+            }
 
-			if len(res) == 0 {
-				o.Args = &body
-			}
-		}
-	}
+            if len(res) == 0 {
+                o.Args = &body
+            }
+        }
+    }
 
-	rID, rhkID, _ := route.Params.GetOK("id")
-	if err := o.bindID(rID, rhkID, route.Formats); err != nil {
-		res = append(res, err)
-	}
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
+    rID, rhkID, _ := route.Params.GetOK("id")
+    if err := o.bindID(rID, rhkID, route.Formats); err != nil {
+        res = append(res, err)
+    }
+    if len(res) > 0 {
+        return errors.CompositeValidationError(res...)
+    }
+    return nil
 }
 
 // bindID binds and validates parameter ID from path.
 func (o *UsersServiceUpdateUserRolesParams) bindID(rawData []string, hasKey bool, formats strfmt.Registry) error {
-	var raw string
-	if len(rawData) > 0 {
-		raw = rawData[len(rawData)-1]
-	}
+    var raw string
+    if len(rawData) > 0 {
+        raw = rawData[len(rawData)-1]
+    }
 
-	// Required: true
-	// Parameter is provided by construction from the route
+    // Required: true
+    // Parameter is provided by construction from the route
 
-	value, err := swag.ConvertInt32(raw)
-	if err != nil {
-		return errors.InvalidType("id", "path", "int32", raw)
-	}
-	o.ID = value
+    value, err := swag.ConvertInt32(raw)
+    if err != nil {
+        return errors.InvalidType("id", "path", "int32", raw)
+    }
+    o.ID = value
 
-	return nil
+    return nil
 }

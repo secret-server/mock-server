@@ -6,11 +6,11 @@ package secrets
 // Editing this file might prove futile when you re-run the generate command
 
 import (
-	"net/http"
+    "net/http"
 
-	"github.com/go-openapi/runtime/middleware"
+    "github.com/go-openapi/runtime/middleware"
 
-	"github.com/golang-jwt/jwt"
+    "github.com/golang-jwt/jwt"
 )
 
 // SecretsServiceGetFieldHandlerFunc turns a function with the right signature into a secrets service get field handler
@@ -18,56 +18,56 @@ type SecretsServiceGetFieldHandlerFunc func(SecretsServiceGetFieldParams, *jwt.M
 
 // Handle executing the request and returning a response
 func (fn SecretsServiceGetFieldHandlerFunc) Handle(params SecretsServiceGetFieldParams, principal *jwt.MapClaims) middleware.Responder {
-	return fn(params, principal)
+    return fn(params, principal)
 }
 
 // SecretsServiceGetFieldHandler interface for that can handle valid secrets service get field params
 type SecretsServiceGetFieldHandler interface {
-	Handle(SecretsServiceGetFieldParams, *jwt.MapClaims) middleware.Responder
+    Handle(SecretsServiceGetFieldParams, *jwt.MapClaims) middleware.Responder
 }
 
 // NewSecretsServiceGetField creates a new http.Handler for the secrets service get field operation
 func NewSecretsServiceGetField(ctx *middleware.Context, handler SecretsServiceGetFieldHandler) *SecretsServiceGetField {
-	return &SecretsServiceGetField{Context: ctx, Handler: handler}
+    return &SecretsServiceGetField{Context: ctx, Handler: handler}
 }
 
 /*
-	SecretsServiceGetField swagger:route GET /api/v1/secrets/{id}/fields/{slug} Secrets secretsServiceGetField
+    SecretsServiceGetField swagger:route GET /api/v1/secrets/{id}/fields/{slug} Secrets secretsServiceGetField
 
 # Get Secret Field
 
 Get a secret data field
 */
 type SecretsServiceGetField struct {
-	Context *middleware.Context
-	Handler SecretsServiceGetFieldHandler
+    Context *middleware.Context
+    Handler SecretsServiceGetFieldHandler
 }
 
 func (o *SecretsServiceGetField) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
-	route, rCtx, _ := o.Context.RouteInfo(r)
-	if rCtx != nil {
-		*r = *rCtx
-	}
-	var Params = NewSecretsServiceGetFieldParams()
-	uprinc, aCtx, err := o.Context.Authorize(r, route)
-	if err != nil {
-		o.Context.Respond(rw, r, route.Produces, route, err)
-		return
-	}
-	if aCtx != nil {
-		*r = *aCtx
-	}
-	var principal *jwt.MapClaims
-	if uprinc != nil {
-		principal = uprinc.(*jwt.MapClaims) // this is really a jwt.MapClaims, I promise
-	}
+    route, rCtx, _ := o.Context.RouteInfo(r)
+    if rCtx != nil {
+        *r = *rCtx
+    }
+    var Params = NewSecretsServiceGetFieldParams()
+    uprinc, aCtx, err := o.Context.Authorize(r, route)
+    if err != nil {
+        o.Context.Respond(rw, r, route.Produces, route, err)
+        return
+    }
+    if aCtx != nil {
+        *r = *aCtx
+    }
+    var principal *jwt.MapClaims
+    if uprinc != nil {
+        principal = uprinc.(*jwt.MapClaims) // this is really a jwt.MapClaims, I promise
+    }
 
-	if err := o.Context.BindValidRequest(r, route, &Params); err != nil { // bind params
-		o.Context.Respond(rw, r, route.Produces, route, err)
-		return
-	}
+    if err := o.Context.BindValidRequest(r, route, &Params); err != nil { // bind params
+        o.Context.Respond(rw, r, route.Produces, route, err)
+        return
+    }
 
-	res := o.Handler.Handle(Params, principal) // actually handle the request
-	o.Context.Respond(rw, r, route.Produces, route, res)
+    res := o.Handler.Handle(Params, principal) // actually handle the request
+    o.Context.Respond(rw, r, route.Produces, route, res)
 
 }

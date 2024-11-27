@@ -6,163 +6,163 @@ package roles
 // Editing this file might prove futile when you re-run the generate command
 
 import (
-	"errors"
-	"net/url"
-	golangswaggerpaths "path"
+    "errors"
+    "net/url"
+    golangswaggerpaths "path"
 
-	"github.com/go-openapi/swag"
+    "github.com/go-openapi/swag"
 )
 
 // RolesServiceGetAllURL generates an URL for the roles service get all operation
 type RolesServiceGetAllURL struct {
-	FilterGroupID         *int32
-	FilterIncludeInactive *bool
-	FilterUserID          *int32
-	Skip                  *int32
-	SortBy0Direction      *string
-	SortBy0Name           *string
-	SortBy0Priority       *int32
-	Take                  *int32
+    FilterGroupID         *int32
+    FilterIncludeInactive *bool
+    FilterUserID          *int32
+    Skip                  *int32
+    SortBy0Direction      *string
+    SortBy0Name           *string
+    SortBy0Priority       *int32
+    Take                  *int32
 
-	_basePath string
-	// avoid unkeyed usage
-	_ struct{}
+    _basePath string
+    // avoid unkeyed usage
+    _ struct{}
 }
 
 // WithBasePath sets the base path for this url builder, only required when it's different from the
 // base path specified in the swagger spec.
 // When the value of the base path is an empty string
 func (o *RolesServiceGetAllURL) WithBasePath(bp string) *RolesServiceGetAllURL {
-	o.SetBasePath(bp)
-	return o
+    o.SetBasePath(bp)
+    return o
 }
 
 // SetBasePath sets the base path for this url builder, only required when it's different from the
 // base path specified in the swagger spec.
 // When the value of the base path is an empty string
 func (o *RolesServiceGetAllURL) SetBasePath(bp string) {
-	o._basePath = bp
+    o._basePath = bp
 }
 
 // Build a url path and query string
 func (o *RolesServiceGetAllURL) Build() (*url.URL, error) {
-	var _result url.URL
+    var _result url.URL
 
-	var _path = "/api/v1/roles"
+    var _path = "/api/v1/roles"
 
-	_basePath := o._basePath
-	if _basePath == "" {
-		_basePath = "/SecretServer"
-	}
-	_result.Path = golangswaggerpaths.Join(_basePath, _path)
+    _basePath := o._basePath
+    if _basePath == "" {
+        _basePath = "/SecretServer"
+    }
+    _result.Path = golangswaggerpaths.Join(_basePath, _path)
 
-	qs := make(url.Values)
+    qs := make(url.Values)
 
-	var filterGroupIDQ string
-	if o.FilterGroupID != nil {
-		filterGroupIDQ = swag.FormatInt32(*o.FilterGroupID)
-	}
-	if filterGroupIDQ != "" {
-		qs.Set("filter.groupId", filterGroupIDQ)
-	}
+    var filterGroupIDQ string
+    if o.FilterGroupID != nil {
+        filterGroupIDQ = swag.FormatInt32(*o.FilterGroupID)
+    }
+    if filterGroupIDQ != "" {
+        qs.Set("filter.groupId", filterGroupIDQ)
+    }
 
-	var filterIncludeInactiveQ string
-	if o.FilterIncludeInactive != nil {
-		filterIncludeInactiveQ = swag.FormatBool(*o.FilterIncludeInactive)
-	}
-	if filterIncludeInactiveQ != "" {
-		qs.Set("filter.includeInactive", filterIncludeInactiveQ)
-	}
+    var filterIncludeInactiveQ string
+    if o.FilterIncludeInactive != nil {
+        filterIncludeInactiveQ = swag.FormatBool(*o.FilterIncludeInactive)
+    }
+    if filterIncludeInactiveQ != "" {
+        qs.Set("filter.includeInactive", filterIncludeInactiveQ)
+    }
 
-	var filterUserIDQ string
-	if o.FilterUserID != nil {
-		filterUserIDQ = swag.FormatInt32(*o.FilterUserID)
-	}
-	if filterUserIDQ != "" {
-		qs.Set("filter.userId", filterUserIDQ)
-	}
+    var filterUserIDQ string
+    if o.FilterUserID != nil {
+        filterUserIDQ = swag.FormatInt32(*o.FilterUserID)
+    }
+    if filterUserIDQ != "" {
+        qs.Set("filter.userId", filterUserIDQ)
+    }
 
-	var skipQ string
-	if o.Skip != nil {
-		skipQ = swag.FormatInt32(*o.Skip)
-	}
-	if skipQ != "" {
-		qs.Set("skip", skipQ)
-	}
+    var skipQ string
+    if o.Skip != nil {
+        skipQ = swag.FormatInt32(*o.Skip)
+    }
+    if skipQ != "" {
+        qs.Set("skip", skipQ)
+    }
 
-	var sortBy0DirectionQ string
-	if o.SortBy0Direction != nil {
-		sortBy0DirectionQ = *o.SortBy0Direction
-	}
-	if sortBy0DirectionQ != "" {
-		qs.Set("sortBy[0].direction", sortBy0DirectionQ)
-	}
+    var sortBy0DirectionQ string
+    if o.SortBy0Direction != nil {
+        sortBy0DirectionQ = *o.SortBy0Direction
+    }
+    if sortBy0DirectionQ != "" {
+        qs.Set("sortBy[0].direction", sortBy0DirectionQ)
+    }
 
-	var sortBy0NameQ string
-	if o.SortBy0Name != nil {
-		sortBy0NameQ = *o.SortBy0Name
-	}
-	if sortBy0NameQ != "" {
-		qs.Set("sortBy[0].name", sortBy0NameQ)
-	}
+    var sortBy0NameQ string
+    if o.SortBy0Name != nil {
+        sortBy0NameQ = *o.SortBy0Name
+    }
+    if sortBy0NameQ != "" {
+        qs.Set("sortBy[0].name", sortBy0NameQ)
+    }
 
-	var sortBy0PriorityQ string
-	if o.SortBy0Priority != nil {
-		sortBy0PriorityQ = swag.FormatInt32(*o.SortBy0Priority)
-	}
-	if sortBy0PriorityQ != "" {
-		qs.Set("sortBy[0].priority", sortBy0PriorityQ)
-	}
+    var sortBy0PriorityQ string
+    if o.SortBy0Priority != nil {
+        sortBy0PriorityQ = swag.FormatInt32(*o.SortBy0Priority)
+    }
+    if sortBy0PriorityQ != "" {
+        qs.Set("sortBy[0].priority", sortBy0PriorityQ)
+    }
 
-	var takeQ string
-	if o.Take != nil {
-		takeQ = swag.FormatInt32(*o.Take)
-	}
-	if takeQ != "" {
-		qs.Set("take", takeQ)
-	}
+    var takeQ string
+    if o.Take != nil {
+        takeQ = swag.FormatInt32(*o.Take)
+    }
+    if takeQ != "" {
+        qs.Set("take", takeQ)
+    }
 
-	_result.RawQuery = qs.Encode()
+    _result.RawQuery = qs.Encode()
 
-	return &_result, nil
+    return &_result, nil
 }
 
 // Must is a helper function to panic when the url builder returns an error
 func (o *RolesServiceGetAllURL) Must(u *url.URL, err error) *url.URL {
-	if err != nil {
-		panic(err)
-	}
-	if u == nil {
-		panic("url can't be nil")
-	}
-	return u
+    if err != nil {
+        panic(err)
+    }
+    if u == nil {
+        panic("url can't be nil")
+    }
+    return u
 }
 
 // String returns the string representation of the path with query string
 func (o *RolesServiceGetAllURL) String() string {
-	return o.Must(o.Build()).String()
+    return o.Must(o.Build()).String()
 }
 
 // BuildFull builds a full url with scheme, host, path and query string
 func (o *RolesServiceGetAllURL) BuildFull(scheme, host string) (*url.URL, error) {
-	if scheme == "" {
-		return nil, errors.New("scheme is required for a full url on RolesServiceGetAllURL")
-	}
-	if host == "" {
-		return nil, errors.New("host is required for a full url on RolesServiceGetAllURL")
-	}
+    if scheme == "" {
+        return nil, errors.New("scheme is required for a full url on RolesServiceGetAllURL")
+    }
+    if host == "" {
+        return nil, errors.New("host is required for a full url on RolesServiceGetAllURL")
+    }
 
-	base, err := o.Build()
-	if err != nil {
-		return nil, err
-	}
+    base, err := o.Build()
+    if err != nil {
+        return nil, err
+    }
 
-	base.Scheme = scheme
-	base.Host = host
-	return base, nil
+    base.Scheme = scheme
+    base.Host = host
+    return base, nil
 }
 
 // StringFull returns the string representation of a complete url
 func (o *RolesServiceGetAllURL) StringFull(scheme, host string) string {
-	return o.Must(o.BuildFull(scheme, host)).String()
+    return o.Must(o.BuildFull(scheme, host)).String()
 }

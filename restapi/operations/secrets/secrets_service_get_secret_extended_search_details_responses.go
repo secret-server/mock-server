@@ -6,11 +6,11 @@ package secrets
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"net/http"
+    "net/http"
 
-	"github.com/go-openapi/runtime"
+    "github.com/go-openapi/runtime"
 
-	"github.com/secret-server/mock-server/models"
+    "github.com/secret-server/mock-server/models"
 )
 
 // SecretsServiceGetSecretExtendedSearchDetailsOKCode is the HTTP code returned for type SecretsServiceGetSecretExtendedSearchDetailsOK
@@ -23,42 +23,42 @@ swagger:response secretsServiceGetSecretExtendedSearchDetailsOK
 */
 type SecretsServiceGetSecretExtendedSearchDetailsOK struct {
 
-	/*Secret search extended details
-	  In: Body
-	*/
-	Payload []*models.SecretSearchExtendedSummary `json:"body,omitempty"`
+    /*Secret search extended details
+      In: Body
+    */
+    Payload []*models.SecretSearchExtendedSummary `json:"body,omitempty"`
 }
 
 // NewSecretsServiceGetSecretExtendedSearchDetailsOK creates SecretsServiceGetSecretExtendedSearchDetailsOK with default headers values
 func NewSecretsServiceGetSecretExtendedSearchDetailsOK() *SecretsServiceGetSecretExtendedSearchDetailsOK {
 
-	return &SecretsServiceGetSecretExtendedSearchDetailsOK{}
+    return &SecretsServiceGetSecretExtendedSearchDetailsOK{}
 }
 
 // WithPayload adds the payload to the secrets service get secret extended search details o k response
 func (o *SecretsServiceGetSecretExtendedSearchDetailsOK) WithPayload(payload []*models.SecretSearchExtendedSummary) *SecretsServiceGetSecretExtendedSearchDetailsOK {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the secrets service get secret extended search details o k response
 func (o *SecretsServiceGetSecretExtendedSearchDetailsOK) SetPayload(payload []*models.SecretSearchExtendedSummary) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *SecretsServiceGetSecretExtendedSearchDetailsOK) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(200)
-	payload := o.Payload
-	if payload == nil {
-		// return empty array
-		payload = make([]*models.SecretSearchExtendedSummary, 0, 50)
-	}
+    rw.WriteHeader(200)
+    payload := o.Payload
+    if payload == nil {
+        // return empty array
+        payload = make([]*models.SecretSearchExtendedSummary, 0, 50)
+    }
 
-	if err := producer.Produce(rw, payload); err != nil {
-		panic(err) // let the recovery middleware deal with this
-	}
+    if err := producer.Produce(rw, payload); err != nil {
+        panic(err) // let the recovery middleware deal with this
+    }
 }
 
 // SecretsServiceGetSecretExtendedSearchDetailsBadRequestCode is the HTTP code returned for type SecretsServiceGetSecretExtendedSearchDetailsBadRequest
@@ -71,39 +71,39 @@ swagger:response secretsServiceGetSecretExtendedSearchDetailsBadRequest
 */
 type SecretsServiceGetSecretExtendedSearchDetailsBadRequest struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.BadRequestResponse `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.BadRequestResponse `json:"body,omitempty"`
 }
 
 // NewSecretsServiceGetSecretExtendedSearchDetailsBadRequest creates SecretsServiceGetSecretExtendedSearchDetailsBadRequest with default headers values
 func NewSecretsServiceGetSecretExtendedSearchDetailsBadRequest() *SecretsServiceGetSecretExtendedSearchDetailsBadRequest {
 
-	return &SecretsServiceGetSecretExtendedSearchDetailsBadRequest{}
+    return &SecretsServiceGetSecretExtendedSearchDetailsBadRequest{}
 }
 
 // WithPayload adds the payload to the secrets service get secret extended search details bad request response
 func (o *SecretsServiceGetSecretExtendedSearchDetailsBadRequest) WithPayload(payload *models.BadRequestResponse) *SecretsServiceGetSecretExtendedSearchDetailsBadRequest {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the secrets service get secret extended search details bad request response
 func (o *SecretsServiceGetSecretExtendedSearchDetailsBadRequest) SetPayload(payload *models.BadRequestResponse) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *SecretsServiceGetSecretExtendedSearchDetailsBadRequest) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(400)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(400)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }
 
 // SecretsServiceGetSecretExtendedSearchDetailsForbiddenCode is the HTTP code returned for type SecretsServiceGetSecretExtendedSearchDetailsForbidden
@@ -116,39 +116,39 @@ swagger:response secretsServiceGetSecretExtendedSearchDetailsForbidden
 */
 type SecretsServiceGetSecretExtendedSearchDetailsForbidden struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.AuthenticationFailedResponse `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.AuthenticationFailedResponse `json:"body,omitempty"`
 }
 
 // NewSecretsServiceGetSecretExtendedSearchDetailsForbidden creates SecretsServiceGetSecretExtendedSearchDetailsForbidden with default headers values
 func NewSecretsServiceGetSecretExtendedSearchDetailsForbidden() *SecretsServiceGetSecretExtendedSearchDetailsForbidden {
 
-	return &SecretsServiceGetSecretExtendedSearchDetailsForbidden{}
+    return &SecretsServiceGetSecretExtendedSearchDetailsForbidden{}
 }
 
 // WithPayload adds the payload to the secrets service get secret extended search details forbidden response
 func (o *SecretsServiceGetSecretExtendedSearchDetailsForbidden) WithPayload(payload *models.AuthenticationFailedResponse) *SecretsServiceGetSecretExtendedSearchDetailsForbidden {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the secrets service get secret extended search details forbidden response
 func (o *SecretsServiceGetSecretExtendedSearchDetailsForbidden) SetPayload(payload *models.AuthenticationFailedResponse) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *SecretsServiceGetSecretExtendedSearchDetailsForbidden) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(403)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(403)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }
 
 // SecretsServiceGetSecretExtendedSearchDetailsInternalServerErrorCode is the HTTP code returned for type SecretsServiceGetSecretExtendedSearchDetailsInternalServerError
@@ -161,37 +161,37 @@ swagger:response secretsServiceGetSecretExtendedSearchDetailsInternalServerError
 */
 type SecretsServiceGetSecretExtendedSearchDetailsInternalServerError struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.InternalServerErrorResponse `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.InternalServerErrorResponse `json:"body,omitempty"`
 }
 
 // NewSecretsServiceGetSecretExtendedSearchDetailsInternalServerError creates SecretsServiceGetSecretExtendedSearchDetailsInternalServerError with default headers values
 func NewSecretsServiceGetSecretExtendedSearchDetailsInternalServerError() *SecretsServiceGetSecretExtendedSearchDetailsInternalServerError {
 
-	return &SecretsServiceGetSecretExtendedSearchDetailsInternalServerError{}
+    return &SecretsServiceGetSecretExtendedSearchDetailsInternalServerError{}
 }
 
 // WithPayload adds the payload to the secrets service get secret extended search details internal server error response
 func (o *SecretsServiceGetSecretExtendedSearchDetailsInternalServerError) WithPayload(payload *models.InternalServerErrorResponse) *SecretsServiceGetSecretExtendedSearchDetailsInternalServerError {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the secrets service get secret extended search details internal server error response
 func (o *SecretsServiceGetSecretExtendedSearchDetailsInternalServerError) SetPayload(payload *models.InternalServerErrorResponse) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *SecretsServiceGetSecretExtendedSearchDetailsInternalServerError) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(500)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(500)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }

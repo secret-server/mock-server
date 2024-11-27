@@ -159,3 +159,25 @@
 {"level":"info","timestamp":"2024-10-23T10:54:24.375-0500","msg":"Configuration ","FileFolder":"C:/dev/secret.server/mock-datastore","RequiredAccessRole":"Admin","Timeout":3600}
 {"level":"info","timestamp":"2024-10-23T10:55:29.837-0500","msg":"Authenticate","GrantType":"password","Username":"kevin.kelche@example.com","Password":"*************","RefreshToken":""}
 {"level":"info","timestamp":"2024-10-23T10:55:29.837-0500","msg":"Login verified"}
+{"level":"info","timestamp":"2024-11-24T18:05:45.187-0600","msg":"Token cache created"}
+{"level":"info","timestamp":"2024-11-24T18:05:45.187-0600","msg":"Configuration ","FileFolder":"C:/dev/secret.server/mock-datastore","RequiredAccessRole":"Admin","Timeout":3600}
+{"level":"info","timestamp":"2024-11-24T20:32:31.169-0600","msg":"Token cache created"}
+{"level":"info","timestamp":"2024-11-24T20:32:31.169-0600","msg":"Configuration ","FileFolder":"C:/dev/secret.server/mock-datastore","RequiredAccessRole":"Admin","Timeout":3600}
+{"level":"info","timestamp":"2024-11-24T20:34:32.194-0600","msg":"Authenticate","GrantType":"password","Username":"KevinKelche","Password":"*************","RefreshToken":""}
+{"level":"info","timestamp":"2024-11-24T20:34:32.194-0600","msg":"Login verified"}
+{"level":"info","timestamp":"2024-11-24T20:58:49.993-0600","msg":"Authenticate","GrantType":"password","Username":"KevinKelche","Password":"*************","RefreshToken":""}
+{"level":"info","timestamp":"2024-11-24T20:58:49.993-0600","msg":"Login verified"}
+{"level":"info","timestamp":"2024-11-24T20:59:30.165-0600","msg":"Authenticate","GrantType":"password","Username":"KevinKelche","Password":"*************","RefreshToken":""}
+{"level":"info","timestamp":"2024-11-24T20:59:30.165-0600","msg":"Login verified"}
+{"level":"info","timestamp":"2024-11-24T21:00:06.493-0600","msg":"Authenticate","GrantType":"password","Username":"KevinKelche","Password":"*************","RefreshToken":""}
+{"level":"info","timestamp":"2024-11-24T21:00:06.493-0600","msg":"Login verified"}
+{"level":"info","timestamp":"2024-11-24T21:02:07.893-0600","msg":"Token cache created"}
+{"level":"info","timestamp":"2024-11-24T21:02:07.895-0600","msg":"Configuration ","FileFolder":"C:/dev/secret.server/mock-datastore","RequiredAccessRole":"Admin","Timeout":3600}
+{"level":"info","timestamp":"2024-11-24T22:35:14.531-0600","msg":"Authenticate","GrantType":"password","Username":"KevinKelche","Password":"*************","RefreshToken":""}
+{"level":"info","timestamp":"2024-11-24T22:35:14.533-0600","msg":"Login verified"}
+{"level":"info","timestamp":"2024-11-25T15:49:50.972-0600","msg":"Token cache created"}
+{"level":"info","timestamp":"2024-11-25T15:49:50.973-0600","msg":"Configuration ","FileFolder":"C:/dev/secret.server/mock-datastore","RequiredAccessRole":"Admin","Timeout":3600}
+{"level":"info","timestamp":"2024-11-25T15:50:27.577-0600","msg":"Authenticate","GrantType":"password","Username":"KevinKelche","Password":"*************","RefreshToken":""}
+{"level":"info","timestamp":"2024-11-25T15:50:27.577-0600","msg":"Login verified"}
+{"level":"info","timestamp":"2024-11-25T17:06:21.159-0600","msg":"Authenticate","GrantType":"password","Username":"KevinKelche","Password":"*************","RefreshToken":""}
+{"level":"info","timestamp":"2024-11-25T17:06:21.160-0600","msg":"Login verified"}

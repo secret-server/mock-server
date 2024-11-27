@@ -6,110 +6,110 @@ package users
 // Editing this file might prove futile when you re-run the generate command
 
 import (
-	"errors"
-	"net/url"
-	golangswaggerpaths "path"
-	"strings"
+    "errors"
+    "net/url"
+    golangswaggerpaths "path"
+    "strings"
 
-	"github.com/go-openapi/swag"
+    "github.com/go-openapi/swag"
 )
 
 // UsersServiceGetURL generates an URL for the users service get operation
 type UsersServiceGetURL struct {
-	ID int32
+    ID int32
 
-	IncludeInactive *bool
+    IncludeInactive *bool
 
-	_basePath string
-	// avoid unkeyed usage
-	_ struct{}
+    _basePath string
+    // avoid unkeyed usage
+    _ struct{}
 }
 
 // WithBasePath sets the base path for this url builder, only required when it's different from the
 // base path specified in the swagger spec.
 // When the value of the base path is an empty string
 func (o *UsersServiceGetURL) WithBasePath(bp string) *UsersServiceGetURL {
-	o.SetBasePath(bp)
-	return o
+    o.SetBasePath(bp)
+    return o
 }
 
 // SetBasePath sets the base path for this url builder, only required when it's different from the
 // base path specified in the swagger spec.
 // When the value of the base path is an empty string
 func (o *UsersServiceGetURL) SetBasePath(bp string) {
-	o._basePath = bp
+    o._basePath = bp
 }
 
 // Build a url path and query string
 func (o *UsersServiceGetURL) Build() (*url.URL, error) {
-	var _result url.URL
+    var _result url.URL
 
-	var _path = "/api/v1/users/{id}"
+    var _path = "/api/v1/users/{id}"
 
-	id := swag.FormatInt32(o.ID)
-	if id != "" {
-		_path = strings.Replace(_path, "{id}", id, -1)
-	} else {
-		return nil, errors.New("id is required on UsersServiceGetURL")
-	}
+    id := swag.FormatInt32(o.ID)
+    if id != "" {
+        _path = strings.Replace(_path, "{id}", id, -1)
+    } else {
+        return nil, errors.New("id is required on UsersServiceGetURL")
+    }
 
-	_basePath := o._basePath
-	if _basePath == "" {
-		_basePath = "/SecretServer"
-	}
-	_result.Path = golangswaggerpaths.Join(_basePath, _path)
+    _basePath := o._basePath
+    if _basePath == "" {
+        _basePath = "/SecretServer"
+    }
+    _result.Path = golangswaggerpaths.Join(_basePath, _path)
 
-	qs := make(url.Values)
+    qs := make(url.Values)
 
-	var includeInactiveQ string
-	if o.IncludeInactive != nil {
-		includeInactiveQ = swag.FormatBool(*o.IncludeInactive)
-	}
-	if includeInactiveQ != "" {
-		qs.Set("includeInactive", includeInactiveQ)
-	}
+    var includeInactiveQ string
+    if o.IncludeInactive != nil {
+        includeInactiveQ = swag.FormatBool(*o.IncludeInactive)
+    }
+    if includeInactiveQ != "" {
+        qs.Set("includeInactive", includeInactiveQ)
+    }
 
-	_result.RawQuery = qs.Encode()
+    _result.RawQuery = qs.Encode()
 
-	return &_result, nil
+    return &_result, nil
 }
 
 // Must is a helper function to panic when the url builder returns an error
 func (o *UsersServiceGetURL) Must(u *url.URL, err error) *url.URL {
-	if err != nil {
-		panic(err)
-	}
-	if u == nil {
-		panic("url can't be nil")
-	}
-	return u
+    if err != nil {
+        panic(err)
+    }
+    if u == nil {
+        panic("url can't be nil")
+    }
+    return u
 }
 
 // String returns the string representation of the path with query string
 func (o *UsersServiceGetURL) String() string {
-	return o.Must(o.Build()).String()
+    return o.Must(o.Build()).String()
 }
 
 // BuildFull builds a full url with scheme, host, path and query string
 func (o *UsersServiceGetURL) BuildFull(scheme, host string) (*url.URL, error) {
-	if scheme == "" {
-		return nil, errors.New("scheme is required for a full url on UsersServiceGetURL")
-	}
-	if host == "" {
-		return nil, errors.New("host is required for a full url on UsersServiceGetURL")
-	}
+    if scheme == "" {
+        return nil, errors.New("scheme is required for a full url on UsersServiceGetURL")
+    }
+    if host == "" {
+        return nil, errors.New("host is required for a full url on UsersServiceGetURL")
+    }
 
-	base, err := o.Build()
-	if err != nil {
-		return nil, err
-	}
+    base, err := o.Build()
+    if err != nil {
+        return nil, err
+    }
 
-	base.Scheme = scheme
-	base.Host = host
-	return base, nil
+    base.Scheme = scheme
+    base.Host = host
+    return base, nil
 }
 
 // StringFull returns the string representation of a complete url
 func (o *UsersServiceGetURL) StringFull(scheme, host string) string {
-	return o.Must(o.BuildFull(scheme, host)).String()
+    return o.Must(o.BuildFull(scheme, host)).String()
 }

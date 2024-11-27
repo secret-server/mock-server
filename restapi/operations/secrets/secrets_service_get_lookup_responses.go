@@ -6,11 +6,11 @@ package secrets
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"net/http"
+    "net/http"
 
-	"github.com/go-openapi/runtime"
+    "github.com/go-openapi/runtime"
 
-	"github.com/secret-server/mock-server/models"
+    "github.com/secret-server/mock-server/models"
 )
 
 // SecretsServiceGetLookupOKCode is the HTTP code returned for type SecretsServiceGetLookupOK
@@ -23,39 +23,39 @@ swagger:response secretsServiceGetLookupOK
 */
 type SecretsServiceGetLookupOK struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.SecretLookup `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.SecretLookup `json:"body,omitempty"`
 }
 
 // NewSecretsServiceGetLookupOK creates SecretsServiceGetLookupOK with default headers values
 func NewSecretsServiceGetLookupOK() *SecretsServiceGetLookupOK {
 
-	return &SecretsServiceGetLookupOK{}
+    return &SecretsServiceGetLookupOK{}
 }
 
 // WithPayload adds the payload to the secrets service get lookup o k response
 func (o *SecretsServiceGetLookupOK) WithPayload(payload *models.SecretLookup) *SecretsServiceGetLookupOK {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the secrets service get lookup o k response
 func (o *SecretsServiceGetLookupOK) SetPayload(payload *models.SecretLookup) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *SecretsServiceGetLookupOK) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(200)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(200)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }
 
 // SecretsServiceGetLookupBadRequestCode is the HTTP code returned for type SecretsServiceGetLookupBadRequest
@@ -68,39 +68,39 @@ swagger:response secretsServiceGetLookupBadRequest
 */
 type SecretsServiceGetLookupBadRequest struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.BadRequestResponse `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.BadRequestResponse `json:"body,omitempty"`
 }
 
 // NewSecretsServiceGetLookupBadRequest creates SecretsServiceGetLookupBadRequest with default headers values
 func NewSecretsServiceGetLookupBadRequest() *SecretsServiceGetLookupBadRequest {
 
-	return &SecretsServiceGetLookupBadRequest{}
+    return &SecretsServiceGetLookupBadRequest{}
 }
 
 // WithPayload adds the payload to the secrets service get lookup bad request response
 func (o *SecretsServiceGetLookupBadRequest) WithPayload(payload *models.BadRequestResponse) *SecretsServiceGetLookupBadRequest {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the secrets service get lookup bad request response
 func (o *SecretsServiceGetLookupBadRequest) SetPayload(payload *models.BadRequestResponse) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *SecretsServiceGetLookupBadRequest) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(400)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(400)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }
 
 // SecretsServiceGetLookupForbiddenCode is the HTTP code returned for type SecretsServiceGetLookupForbidden
@@ -113,39 +113,39 @@ swagger:response secretsServiceGetLookupForbidden
 */
 type SecretsServiceGetLookupForbidden struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.AuthenticationFailedResponse `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.AuthenticationFailedResponse `json:"body,omitempty"`
 }
 
 // NewSecretsServiceGetLookupForbidden creates SecretsServiceGetLookupForbidden with default headers values
 func NewSecretsServiceGetLookupForbidden() *SecretsServiceGetLookupForbidden {
 
-	return &SecretsServiceGetLookupForbidden{}
+    return &SecretsServiceGetLookupForbidden{}
 }
 
 // WithPayload adds the payload to the secrets service get lookup forbidden response
 func (o *SecretsServiceGetLookupForbidden) WithPayload(payload *models.AuthenticationFailedResponse) *SecretsServiceGetLookupForbidden {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the secrets service get lookup forbidden response
 func (o *SecretsServiceGetLookupForbidden) SetPayload(payload *models.AuthenticationFailedResponse) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *SecretsServiceGetLookupForbidden) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(403)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(403)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }
 
 // SecretsServiceGetLookupInternalServerErrorCode is the HTTP code returned for type SecretsServiceGetLookupInternalServerError
@@ -158,37 +158,37 @@ swagger:response secretsServiceGetLookupInternalServerError
 */
 type SecretsServiceGetLookupInternalServerError struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.InternalServerErrorResponse `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.InternalServerErrorResponse `json:"body,omitempty"`
 }
 
 // NewSecretsServiceGetLookupInternalServerError creates SecretsServiceGetLookupInternalServerError with default headers values
 func NewSecretsServiceGetLookupInternalServerError() *SecretsServiceGetLookupInternalServerError {
 
-	return &SecretsServiceGetLookupInternalServerError{}
+    return &SecretsServiceGetLookupInternalServerError{}
 }
 
 // WithPayload adds the payload to the secrets service get lookup internal server error response
 func (o *SecretsServiceGetLookupInternalServerError) WithPayload(payload *models.InternalServerErrorResponse) *SecretsServiceGetLookupInternalServerError {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the secrets service get lookup internal server error response
 func (o *SecretsServiceGetLookupInternalServerError) SetPayload(payload *models.InternalServerErrorResponse) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *SecretsServiceGetLookupInternalServerError) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(500)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(500)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }

@@ -6,11 +6,11 @@ package secrets
 // Editing this file might prove futile when you re-run the generate command
 
 import (
-	"net/http"
+    "net/http"
 
-	"github.com/go-openapi/runtime/middleware"
+    "github.com/go-openapi/runtime/middleware"
 
-	"github.com/golang-jwt/jwt"
+    "github.com/golang-jwt/jwt"
 )
 
 // SecretsServiceSearchHandlerFunc turns a function with the right signature into a secrets service search handler
@@ -18,56 +18,56 @@ type SecretsServiceSearchHandlerFunc func(SecretsServiceSearchParams, *jwt.MapCl
 
 // Handle executing the request and returning a response
 func (fn SecretsServiceSearchHandlerFunc) Handle(params SecretsServiceSearchParams, principal *jwt.MapClaims) middleware.Responder {
-	return fn(params, principal)
+    return fn(params, principal)
 }
 
 // SecretsServiceSearchHandler interface for that can handle valid secrets service search params
 type SecretsServiceSearchHandler interface {
-	Handle(SecretsServiceSearchParams, *jwt.MapClaims) middleware.Responder
+    Handle(SecretsServiceSearchParams, *jwt.MapClaims) middleware.Responder
 }
 
 // NewSecretsServiceSearch creates a new http.Handler for the secrets service search operation
 func NewSecretsServiceSearch(ctx *middleware.Context, handler SecretsServiceSearchHandler) *SecretsServiceSearch {
-	return &SecretsServiceSearch{Context: ctx, Handler: handler}
+    return &SecretsServiceSearch{Context: ctx, Handler: handler}
 }
 
 /*
-	SecretsServiceSearch swagger:route GET /api/v1/secrets Secrets secretsServiceSearch
+    SecretsServiceSearch swagger:route GET /api/v1/secrets Secrets secretsServiceSearch
 
 # Search Secrets
 
 Search, filter, sort, and page secrets (removed from 11.3.3, but exposed for completeness)
 */
 type SecretsServiceSearch struct {
-	Context *middleware.Context
-	Handler SecretsServiceSearchHandler
+    Context *middleware.Context
+    Handler SecretsServiceSearchHandler
 }
 
 func (o *SecretsServiceSearch) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
-	route, rCtx, _ := o.Context.RouteInfo(r)
-	if rCtx != nil {
-		*r = *rCtx
-	}
-	var Params = NewSecretsServiceSearchParams()
-	uprinc, aCtx, err := o.Context.Authorize(r, route)
-	if err != nil {
-		o.Context.Respond(rw, r, route.Produces, route, err)
-		return
-	}
-	if aCtx != nil {
-		*r = *aCtx
-	}
-	var principal *jwt.MapClaims
-	if uprinc != nil {
-		principal = uprinc.(*jwt.MapClaims) // this is really a jwt.MapClaims, I promise
-	}
+    route, rCtx, _ := o.Context.RouteInfo(r)
+    if rCtx != nil {
+        *r = *rCtx
+    }
+    var Params = NewSecretsServiceSearchParams()
+    uprinc, aCtx, err := o.Context.Authorize(r, route)
+    if err != nil {
+        o.Context.Respond(rw, r, route.Produces, route, err)
+        return
+    }
+    if aCtx != nil {
+        *r = *aCtx
+    }
+    var principal *jwt.MapClaims
+    if uprinc != nil {
+        principal = uprinc.(*jwt.MapClaims) // this is really a jwt.MapClaims, I promise
+    }
 
-	if err := o.Context.BindValidRequest(r, route, &Params); err != nil { // bind params
-		o.Context.Respond(rw, r, route.Produces, route, err)
-		return
-	}
+    if err := o.Context.BindValidRequest(r, route, &Params); err != nil { // bind params
+        o.Context.Respond(rw, r, route.Produces, route, err)
+        return
+    }
 
-	res := o.Handler.Handle(Params, principal) // actually handle the request
-	o.Context.Respond(rw, r, route.Produces, route, res)
+    res := o.Handler.Handle(Params, principal) // actually handle the request
+    o.Context.Respond(rw, r, route.Produces, route, res)
 
 }

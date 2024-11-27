@@ -6,11 +6,11 @@ package users
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"net/http"
+    "net/http"
 
-	"github.com/go-openapi/runtime"
+    "github.com/go-openapi/runtime"
 
-	"github.com/secret-server/mock-server/models"
+    "github.com/secret-server/mock-server/models"
 )
 
 // UsersServiceCreateUserRolesOKCode is the HTTP code returned for type UsersServiceCreateUserRolesOK
@@ -23,39 +23,39 @@ swagger:response usersServiceCreateUserRolesOK
 */
 type UsersServiceCreateUserRolesOK struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.RoleChangeStatusModel `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.RoleChangeStatusModel `json:"body,omitempty"`
 }
 
 // NewUsersServiceCreateUserRolesOK creates UsersServiceCreateUserRolesOK with default headers values
 func NewUsersServiceCreateUserRolesOK() *UsersServiceCreateUserRolesOK {
 
-	return &UsersServiceCreateUserRolesOK{}
+    return &UsersServiceCreateUserRolesOK{}
 }
 
 // WithPayload adds the payload to the users service create user roles o k response
 func (o *UsersServiceCreateUserRolesOK) WithPayload(payload *models.RoleChangeStatusModel) *UsersServiceCreateUserRolesOK {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the users service create user roles o k response
 func (o *UsersServiceCreateUserRolesOK) SetPayload(payload *models.RoleChangeStatusModel) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *UsersServiceCreateUserRolesOK) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(200)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(200)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }
 
 // UsersServiceCreateUserRolesBadRequestCode is the HTTP code returned for type UsersServiceCreateUserRolesBadRequest
@@ -68,39 +68,39 @@ swagger:response usersServiceCreateUserRolesBadRequest
 */
 type UsersServiceCreateUserRolesBadRequest struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.BadRequestResponse `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.BadRequestResponse `json:"body,omitempty"`
 }
 
 // NewUsersServiceCreateUserRolesBadRequest creates UsersServiceCreateUserRolesBadRequest with default headers values
 func NewUsersServiceCreateUserRolesBadRequest() *UsersServiceCreateUserRolesBadRequest {
 
-	return &UsersServiceCreateUserRolesBadRequest{}
+    return &UsersServiceCreateUserRolesBadRequest{}
 }
 
 // WithPayload adds the payload to the users service create user roles bad request response
 func (o *UsersServiceCreateUserRolesBadRequest) WithPayload(payload *models.BadRequestResponse) *UsersServiceCreateUserRolesBadRequest {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the users service create user roles bad request response
 func (o *UsersServiceCreateUserRolesBadRequest) SetPayload(payload *models.BadRequestResponse) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *UsersServiceCreateUserRolesBadRequest) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(400)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(400)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }
 
 // UsersServiceCreateUserRolesForbiddenCode is the HTTP code returned for type UsersServiceCreateUserRolesForbidden
@@ -113,39 +113,39 @@ swagger:response usersServiceCreateUserRolesForbidden
 */
 type UsersServiceCreateUserRolesForbidden struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.AuthenticationFailedResponse `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.AuthenticationFailedResponse `json:"body,omitempty"`
 }
 
 // NewUsersServiceCreateUserRolesForbidden creates UsersServiceCreateUserRolesForbidden with default headers values
 func NewUsersServiceCreateUserRolesForbidden() *UsersServiceCreateUserRolesForbidden {
 
-	return &UsersServiceCreateUserRolesForbidden{}
+    return &UsersServiceCreateUserRolesForbidden{}
 }
 
 // WithPayload adds the payload to the users service create user roles forbidden response
 func (o *UsersServiceCreateUserRolesForbidden) WithPayload(payload *models.AuthenticationFailedResponse) *UsersServiceCreateUserRolesForbidden {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the users service create user roles forbidden response
 func (o *UsersServiceCreateUserRolesForbidden) SetPayload(payload *models.AuthenticationFailedResponse) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *UsersServiceCreateUserRolesForbidden) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(403)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(403)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }
 
 // UsersServiceCreateUserRolesInternalServerErrorCode is the HTTP code returned for type UsersServiceCreateUserRolesInternalServerError
@@ -158,37 +158,37 @@ swagger:response usersServiceCreateUserRolesInternalServerError
 */
 type UsersServiceCreateUserRolesInternalServerError struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.InternalServerErrorResponse `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.InternalServerErrorResponse `json:"body,omitempty"`
 }
 
 // NewUsersServiceCreateUserRolesInternalServerError creates UsersServiceCreateUserRolesInternalServerError with default headers values
 func NewUsersServiceCreateUserRolesInternalServerError() *UsersServiceCreateUserRolesInternalServerError {
 
-	return &UsersServiceCreateUserRolesInternalServerError{}
+    return &UsersServiceCreateUserRolesInternalServerError{}
 }
 
 // WithPayload adds the payload to the users service create user roles internal server error response
 func (o *UsersServiceCreateUserRolesInternalServerError) WithPayload(payload *models.InternalServerErrorResponse) *UsersServiceCreateUserRolesInternalServerError {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the users service create user roles internal server error response
 func (o *UsersServiceCreateUserRolesInternalServerError) SetPayload(payload *models.InternalServerErrorResponse) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *UsersServiceCreateUserRolesInternalServerError) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(500)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(500)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }

@@ -6,11 +6,11 @@ package secrets
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"net/http"
+    "net/http"
 
-	"github.com/go-openapi/runtime"
+    "github.com/go-openapi/runtime"
 
-	"github.com/secret-server/mock-server/models"
+    "github.com/secret-server/mock-server/models"
 )
 
 // SecretsServiceDeleteListFieldListDefinitionsOKCode is the HTTP code returned for type SecretsServiceDeleteListFieldListDefinitionsOK
@@ -23,39 +23,39 @@ swagger:response secretsServiceDeleteListFieldListDefinitionsOK
 */
 type SecretsServiceDeleteListFieldListDefinitionsOK struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.PagingOfCategorizedListSummary `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.PagingOfCategorizedListSummary `json:"body,omitempty"`
 }
 
 // NewSecretsServiceDeleteListFieldListDefinitionsOK creates SecretsServiceDeleteListFieldListDefinitionsOK with default headers values
 func NewSecretsServiceDeleteListFieldListDefinitionsOK() *SecretsServiceDeleteListFieldListDefinitionsOK {
 
-	return &SecretsServiceDeleteListFieldListDefinitionsOK{}
+    return &SecretsServiceDeleteListFieldListDefinitionsOK{}
 }
 
 // WithPayload adds the payload to the secrets service delete list field list definitions o k response
 func (o *SecretsServiceDeleteListFieldListDefinitionsOK) WithPayload(payload *models.PagingOfCategorizedListSummary) *SecretsServiceDeleteListFieldListDefinitionsOK {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the secrets service delete list field list definitions o k response
 func (o *SecretsServiceDeleteListFieldListDefinitionsOK) SetPayload(payload *models.PagingOfCategorizedListSummary) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *SecretsServiceDeleteListFieldListDefinitionsOK) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(200)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(200)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }
 
 // SecretsServiceDeleteListFieldListDefinitionsBadRequestCode is the HTTP code returned for type SecretsServiceDeleteListFieldListDefinitionsBadRequest
@@ -68,39 +68,39 @@ swagger:response secretsServiceDeleteListFieldListDefinitionsBadRequest
 */
 type SecretsServiceDeleteListFieldListDefinitionsBadRequest struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.BadRequestResponse `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.BadRequestResponse `json:"body,omitempty"`
 }
 
 // NewSecretsServiceDeleteListFieldListDefinitionsBadRequest creates SecretsServiceDeleteListFieldListDefinitionsBadRequest with default headers values
 func NewSecretsServiceDeleteListFieldListDefinitionsBadRequest() *SecretsServiceDeleteListFieldListDefinitionsBadRequest {
 
-	return &SecretsServiceDeleteListFieldListDefinitionsBadRequest{}
+    return &SecretsServiceDeleteListFieldListDefinitionsBadRequest{}
 }
 
 // WithPayload adds the payload to the secrets service delete list field list definitions bad request response
 func (o *SecretsServiceDeleteListFieldListDefinitionsBadRequest) WithPayload(payload *models.BadRequestResponse) *SecretsServiceDeleteListFieldListDefinitionsBadRequest {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the secrets service delete list field list definitions bad request response
 func (o *SecretsServiceDeleteListFieldListDefinitionsBadRequest) SetPayload(payload *models.BadRequestResponse) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *SecretsServiceDeleteListFieldListDefinitionsBadRequest) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(400)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(400)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }
 
 // SecretsServiceDeleteListFieldListDefinitionsForbiddenCode is the HTTP code returned for type SecretsServiceDeleteListFieldListDefinitionsForbidden
@@ -113,39 +113,39 @@ swagger:response secretsServiceDeleteListFieldListDefinitionsForbidden
 */
 type SecretsServiceDeleteListFieldListDefinitionsForbidden struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.AuthenticationFailedResponse `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.AuthenticationFailedResponse `json:"body,omitempty"`
 }
 
 // NewSecretsServiceDeleteListFieldListDefinitionsForbidden creates SecretsServiceDeleteListFieldListDefinitionsForbidden with default headers values
 func NewSecretsServiceDeleteListFieldListDefinitionsForbidden() *SecretsServiceDeleteListFieldListDefinitionsForbidden {
 
-	return &SecretsServiceDeleteListFieldListDefinitionsForbidden{}
+    return &SecretsServiceDeleteListFieldListDefinitionsForbidden{}
 }
 
 // WithPayload adds the payload to the secrets service delete list field list definitions forbidden response
 func (o *SecretsServiceDeleteListFieldListDefinitionsForbidden) WithPayload(payload *models.AuthenticationFailedResponse) *SecretsServiceDeleteListFieldListDefinitionsForbidden {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the secrets service delete list field list definitions forbidden response
 func (o *SecretsServiceDeleteListFieldListDefinitionsForbidden) SetPayload(payload *models.AuthenticationFailedResponse) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *SecretsServiceDeleteListFieldListDefinitionsForbidden) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(403)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(403)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }
 
 // SecretsServiceDeleteListFieldListDefinitionsInternalServerErrorCode is the HTTP code returned for type SecretsServiceDeleteListFieldListDefinitionsInternalServerError
@@ -158,37 +158,37 @@ swagger:response secretsServiceDeleteListFieldListDefinitionsInternalServerError
 */
 type SecretsServiceDeleteListFieldListDefinitionsInternalServerError struct {
 
-	/*
-	  In: Body
-	*/
-	Payload *models.InternalServerErrorResponse `json:"body,omitempty"`
+    /*
+      In: Body
+    */
+    Payload *models.InternalServerErrorResponse `json:"body,omitempty"`
 }
 
 // NewSecretsServiceDeleteListFieldListDefinitionsInternalServerError creates SecretsServiceDeleteListFieldListDefinitionsInternalServerError with default headers values
 func NewSecretsServiceDeleteListFieldListDefinitionsInternalServerError() *SecretsServiceDeleteListFieldListDefinitionsInternalServerError {
 
-	return &SecretsServiceDeleteListFieldListDefinitionsInternalServerError{}
+    return &SecretsServiceDeleteListFieldListDefinitionsInternalServerError{}
 }
 
 // WithPayload adds the payload to the secrets service delete list field list definitions internal server error response
 func (o *SecretsServiceDeleteListFieldListDefinitionsInternalServerError) WithPayload(payload *models.InternalServerErrorResponse) *SecretsServiceDeleteListFieldListDefinitionsInternalServerError {
-	o.Payload = payload
-	return o
+    o.Payload = payload
+    return o
 }
 
 // SetPayload sets the payload to the secrets service delete list field list definitions internal server error response
 func (o *SecretsServiceDeleteListFieldListDefinitionsInternalServerError) SetPayload(payload *models.InternalServerErrorResponse) {
-	o.Payload = payload
+    o.Payload = payload
 }
 
 // WriteResponse to the client
 func (o *SecretsServiceDeleteListFieldListDefinitionsInternalServerError) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(500)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
-	}
+    rw.WriteHeader(500)
+    if o.Payload != nil {
+        payload := o.Payload
+        if err := producer.Produce(rw, payload); err != nil {
+            panic(err) // let the recovery middleware deal with this
+        }
+    }
 }
